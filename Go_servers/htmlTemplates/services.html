@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="static/styles/output.css" />
+    <!-- <link rel="stylesheet" href="/index.css" /> -->
+  </head>
+  <body class="h-screen element bg-yellow-50">
+    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50">
+      <h1 class="text-2xl text-blue-100">Jorge Adrian</h1>
+      <nav>
+        <ul class="list-none p-0 flex space-x-4">
+          <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
+          <li><a href="/about" class="text-blue-100 hover:text-amber-600">About</a></li>
+          <li><a href="/services" class="text-amber-600">Services</a></li>
+          <li>
+            <a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main
+      class="flex flex-col items-center justify-center flex-grow w-screen min-h-full overflow-y-scroll bg-primary element"
+    >
+      <!-- GALLERY SECTION-->
+      <section class="py-6 dark:bg-gray-800 dark:text-gray-900 justify-center">
+        <!-- images outer container -->
+        <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 flex justify-center">
+          <!-- images inner container -->
+          <div class="-m-1 flex flex-wrap md:-m-2 justify-center">
+            <!-- Image container 1 -->
+            <div class="flex w-1/3 flex-wrap pb-10 object-center">
+              <!-- Image Inner Container 1 -->
+              <div class="w-full p-1 md:p-2">
+                <img
+                  alt="gallery"
+                  class="block h-full w-full rounded-lg object-cover object-center"
+                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/622895d2-0820-493c-9147-e1db92a7082c_carw_3x4x640.jpg?h=a32ca391a68bcb24f50772e8fd991c0c"
+                />
+              </div>
+              <h2 class="text-gray-600 w-full text-center mt-2 bg-slate-900 hover:text-amber-600">WATERFALLS</h2>
+            </div>
+
+            <!-- Image container 2 -->
+            <div class="flex w-1/3 flex-wrap pb-10 object-center">
+              <!-- Image Inner Container 2 -->
+              <div class="w-full p-1 md:p-2">
+                <img
+                  alt="gallery"
+                  class="block h-full w-full rounded-lg object-cover object-center"
+                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/193fb1f8-f821-4343-82c8-171b3ab42644_rw_1920.jpg?h=1acaf021be05c50ad9420acb95ef3af1"
+                />
+              </div>
+              <h2 class="text-gray-600 w-full text-center mt-2 bg-slate-900 hover:text-amber-600">BEACHES</h2>
+            </div>
+
+            <!-- Image container 3 -->
+            <div class="flex w-1/3 flex-wrap pb-10 object-center">
+              <!-- Image Inner Container 3 -->
+              <div class="w-full p-1 md:p-2">
+                <img
+                  alt="gallery"
+                  class="block h-full w-full rounded-lg object-cover object-center"
+                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/2a932e62-b19d-42f9-8856-cb7b78ee7c11_rw_1200.jpg?h=cb4c1bce78a3b72d4a131030ffa32500"
+                />
+              </div>
+              <h2 class="text-gray-600 w-full text-center mt-2 bg-slate-900 hover:text-amber-600">FORESTS</h2>
+            </div>
+
+            <!-- Add more images here as needed -->
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- /GALLERY -->
+    <footer class="px-4 py-8 dark:bg-gray-100 dark:text-gray-600">
+      <div
+        class="container flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0"
+      >
+        <div class="flex flex-row pr-3 space-x-4 sm:space-x-8">
+          <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full dark:bg-cyan-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 32 32"
+              fill="currentColor"
+              class="w-5 h-5 rounded-full text-orange-700"
+            >
+              <path
+                d="M18.266 26.068l7.839-7.854 4.469 4.479c1.859 1.859 1.859 4.875 0 6.734l-1.104 1.104c-1.859 1.865-4.875 1.865-6.734 0zM30.563 2.531l-1.109-1.104c-1.859-1.859-4.875-1.859-6.734 0l-6.719 6.734-6.734-6.734c-1.859-1.859-4.875-1.859-6.734 0l-1.104 1.104c-1.859 1.859-1.859 4.875 0 6.734l6.734 6.734-6.734 6.734c-1.859 1.859-1.859 4.875 0 6.734l1.104 1.104c1.859 1.859 4.875 1.859 6.734 0l21.307-21.307c1.859-1.859 1.859-4.875 0-6.734z"
+              ></path>
+            </svg>
+          </div>
+          <ul class="flex flex-wrap items-center space-x-4 sm:space-x-8">
+            <li>
+              <a class="text-blue-900" rel="noopener noreferrer" href="#">Terms of Use</a>
+            </li>
+            <li>
+              <a class="text-blue-900" rel="noopener noreferrer" href="#">Privacy</a>
+            </li>
+          </ul>
+        </div>
+        <ul class="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
+          <li>
+            <a class="text-blue-900" rel="noopener noreferrer" href="#">Instagram</a>
+          </li>
+          <li>
+            <a class="text-blue-900" rel="noopener noreferrer" href="#">Facebook</a>
+          </li>
+          <li>
+            <a class="text-blue-900" rel="noopener noreferrer" href="#">Twitter</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
