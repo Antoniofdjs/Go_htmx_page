@@ -4,30 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="../static/styles/output.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <!-- <link rel="stylesheet" href="../static/styles/output.css" /> -->
     <!-- <link rel="stylesheet" href="/index.css" /> -->
   </head>
+  <style>
+    /* Custom Scrollbar Styles */
+    .element::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    .element {
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  </style>
   <body class="h-screen element bg-yellow-50">
-    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50 overflow-hidden">
-      <nav>
-        <ul class="list-none p-0 flex space-x-4">
-          <!-- logo image -->
-          <div class="flex items-center justify-center p-2 md:p-4 lg:p-6 w-10 h-10">
-            <img
-              src="../static/images/jorgeadrianes logotype orange.png"
-              alt="Description of image"
-              class="rounded-full text-orange-700 transform scale-200"
-            />
-          </div>
-          <!-- /logo image -->
+    <header
+      class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4"
+    >
+      <nav class="flex items-center h-full w-full">
+        <ul class="list-none p-0 flex items-center space-x-4 h-full w-full">
           <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
           <li><a href="/about" class="text-amber-600 hover:text-amber-600">About</a></li>
           <li><a href="/work" class="text-blue-100 hover:text-amber-600">Work</a></li>
           <li><a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a></li>
+          <li class="h-16 w-40 flex flex-col items-center justify-center m-auto">
+            <img
+              src="../static/images/jorgeadrianes logotype orange.png"
+              alt="Description"
+              class="h-full w-full object-cover"
+            />
+          </li>
         </ul>
       </nav>
     </header>
+
     <main
       class="flex flex-col items-center flex-grow w-screen min-h-full overflow-y-scroll bg-primary element justify-start pb-2"
     >

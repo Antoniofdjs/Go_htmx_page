@@ -22,6 +22,7 @@ func ContactPostHand(w http.ResponseWriter, r *http.Request) {
 		   http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		   return
 	   }
+
 	tmpl:= template.Must(template.ParseFiles("./htmlTemplates/contact_sent.html"))
 	   // Access the form values
 	   name := r.FormValue("name")

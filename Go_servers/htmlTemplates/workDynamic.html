@@ -48,43 +48,20 @@
         <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12 flex flex-col items-center justify-center h-full">
           <!-- images inner container -->
           <div class="-m-1 flex flex-wrap md:-m-2 flex-col items-center justify-center" id="gallery">
-            <!-- Image container 1 -->
+            <!-- IMAGES HERE BELOW: -->
+
+            {{ range .Pictures }}
             <div class="flex w-full h-full flex-wrap pb-10 object-center">
               <div class="w-full p-1 md:p-2">
                 <img
                   alt="gallery"
                   class="block h-full w-full rounded-lg object-cover object-center"
-                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/622895d2-0820-493c-9147-e1db92a7082c_carw_3x4x640.jpg?h=a32ca391a68bcb24f50772e8fd991c0c"
+                  src="{{ .Path }}"
                 />
               </div>
-              <h2 class="text-gray-600 w-full text-center mt-2 hover:text-amber-600 font-serif text-xl">WATERFALLS</h2>
+              <h2 class="text-gray-600 w-full text-center mt-2 hover:text-amber-600 font-serif text-xl">{{.Title}}</h2>
             </div>
-
-            <!-- Image container 2 -->
-            <div class="flex w-full h-full flex-wrap pb-10 object-center">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/193fb1f8-f821-4343-82c8-171b3ab42644_rw_1920.jpg?h=1acaf021be05c50ad9420acb95ef3af1"
-                />
-              </div>
-              <h2 class="text-gray-600 w-full text-center mt-2 hover:text-amber-600 font-serif text-xl">BEACHES</h2>
-            </div>
-
-            <!-- Image Container 2 -->
-            <div class="flex w-full h-full flex-wrap pb-10 object-center">
-              <div class="w-full p-1 md:p-2">
-                <img
-                  alt="gallery"
-                  class="block h-full w-full rounded-lg object-cover object-center"
-                  src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/2a932e62-b19d-42f9-8856-cb7b78ee7c11_rw_1200.jpg?h=cb4c1bce78a3b72d4a131030ffa32500"
-                />
-              </div>
-              <h2 class="text-gray-600 w-full text-center mt-2 hover:text-amber-600 font-serif text-xl">FORESTS</h2>
-            </div>
-
-            <!-- Add more images here as needed -->
+            {{ end }}
           </div>
         </div>
       </section>
