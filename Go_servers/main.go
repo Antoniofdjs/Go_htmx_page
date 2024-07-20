@@ -18,20 +18,28 @@ func main() {
 	}
 
 	// Handlers
-	servicesHandler := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("htmlTemplates/services.html"))
-		tmpl.Execute(w, nil)}
+	workHand := func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFiles("htmlTemplates/work.html"))
+		tmpl.Execute(w, nil)
+	}
 
+	aboutHand := func(w http.ResponseWriter, r *http.Request){
+		tmpl := template.Must(template.ParseFiles("htmlTemplates/about.html"))
+		tmpl.Execute(w, nil)
+	}
+	
 	// Serve output.css
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// Routes
-	http.HandleFunc("GET /contact", contacts.ContactGetHand)
 	http.HandleFunc("/", landingHandler)
 	
-	http.HandleFunc("GET /services", servicesHandler)
+	http.HandleFunc("GET /about", aboutHand)
 	
+	http.HandleFunc("GET /work", workHand)
+	
+	http.HandleFunc("GET /contact", contacts.ContactGetHand)
 	http.HandleFunc("POST /contact", contacts.ContactPostHand)
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))

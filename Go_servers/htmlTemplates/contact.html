@@ -5,27 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="static/styles/output.css" />
+    <link rel="stylesheet" href="../static/styles/output.css" />
     <!-- <link rel="stylesheet" href="/index.css" /> -->
     <script src="https://unpkg.com/htmx.org@1.8.2"></script>
 
   </head>
   <body class="h-screen element bg-yellow-50">
-    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50">
-      <h1 class="text-2xl text-blue-100">Jorge Adrian</h1>
+    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50 overflow-hidden">
       <nav>
         <ul class="list-none p-0 flex space-x-4">
+          <!-- logo image -->
+          <div class="flex items-center justify-center p-2 md:p-4 lg:p-6 w-10 h-10">
+            <img
+            src="../static/images/jorgeadrianes logotype orange.png" 
+            alt="Description of image" 
+            class="rounded-full text-orange-700 transform scale-200" 
+          />
+        </div>
+        <!-- /logo image -->
           <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
           <li><a href="/about" class="text-blue-100 hover:text-amber-600">About</a></li>
-          <li><a href="/services" class="text-blue-100 hover:text-amber-600">Services</a></li>
-          <li><a href="/contact" class="text-amber-600">Contact</a></li>
+          <li><a href="/work" class="text-blue-100 hover:text-amber-600">Work</a></li>
+          <li><a href="/contact" class="text-amber-600 hover:text-amber-600">Contact</a></li>
         </ul>
       </nav>
     </header>
     <main
       class="flex flex-col items-center justify-center flex-grow w-screen min-h-full overflow-y-scroll bg-primary element"
     >
-      <section class="py-6 dark:bg-gray-800 dark:text-gray-900">
+      <section class="py-6 dark:bg-gray-800 dark:text-gray-900"
+      id="contact-info">
         <div class="grid max-w-6xl grid-cols-1 px-6 mx-auto lg:px-8 md:grid-cols-2 md:divide-x">
           <div class="py-6 md:py-0 md:px-6">
             <h1 class="text-4xl font-bold">Get in touch</h1>
@@ -75,7 +84,8 @@
           </div>
           <form
     class="flex flex-col py-6 space-y-6 md:py-0 md:px-6"
-    hx-post="http://localhost:8000/contact" hx-trigger="submit"
+    hx-post="http://localhost:8000/contact" hx-trigger="submit" hx-target="#contact-info" hx-swapp="outerHTML"
+    id="contact-form"
 >
     <label class="block">
         <span class="mb-1">Full name</span>

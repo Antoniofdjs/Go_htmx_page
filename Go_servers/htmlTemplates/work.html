@@ -5,20 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="static/styles/output.css" />
+    <link rel="stylesheet" href="../static/styles/output.css" />
     <!-- <link rel="stylesheet" href="/index.css" /> -->
   </head>
   <body class="h-screen element bg-yellow-50">
-    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50">
-      <h1 class="text-2xl text-blue-100">Jorge Adrian</h1>
+    <header class="bg-gray-800 p-3 text-white sticky top-0 z-50 overflow-hidden">
       <nav>
         <ul class="list-none p-0 flex space-x-4">
+          <!-- logo image -->
+          <div class="flex items-center justify-center p-2 md:p-4 lg:p-6 w-10 h-10">
+            <img
+              src="../static/images/jorgeadrianes logotype orange.png"
+              alt="Description of image"
+              class="rounded-full text-orange-700 transform scale-200"
+            />
+          </div>
+          <!-- /logo image -->
           <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
           <li><a href="/about" class="text-blue-100 hover:text-amber-600">About</a></li>
-          <li><a href="/services" class="text-amber-600">Services</a></li>
-          <li>
-            <a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a>
-          </li>
+          <li><a href="/work" class="text-amber-600 hover:text-amber-600">Work</a></li>
+          <li><a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a></li>
         </ul>
       </nav>
     </header>

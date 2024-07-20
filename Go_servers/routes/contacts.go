@@ -22,7 +22,7 @@ func ContactPostHand(w http.ResponseWriter, r *http.Request) {
 		   http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		   return
 	   }
-
+	tmpl:= template.Must(template.ParseFiles("./htmlTemplates/contact_sent.html"))
 	   // Access the form values
 	   name := r.FormValue("name")
 	   email := r.FormValue("email")
@@ -32,8 +32,9 @@ func ContactPostHand(w http.ResponseWriter, r *http.Request) {
 	   fmt.Printf("Name: %s\nEmail: %s\nMessage: %s\n", name, email, message)
    
 	   // Set the redirect header for HTMX
-	   w.Header().Set("HX-Redirect", "/")
+	   tmpl.Execute(w, nil)
+	//    w.Header().Set("HX-Redirect", "/")
    
 	   // Respond to the client
-	   w.Write([]byte("Form submitted successfully!"))
+	//    w.Write([]byte("Form submitted successfully!"))
 }
