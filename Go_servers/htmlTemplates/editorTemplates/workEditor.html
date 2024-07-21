@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <!-- <link rel="stylesheet" href="../static/styles/output.css" /> -->
+    <!-- <link rel="stylesheet" href="/index.css" /> -->
+  </head>
+  <style>
+    /* Custom Scrollbar Styles */
+    .element::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    .element {
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  </style>
+  <body class="h-screen element bg-yellow-50">
+    <header
+      class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4"
+    >
+      <nav class="flex items-center h-full w-full">
+        <ul class="list-none p-0 flex items-center space-x-4 h-full w-full">
+          <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
+          <li><a href="/about/editor" class="text-blue-100 hover:text-amber-600">About</a></li>
+          <li><a href="/work/editor" class="text-amber-600 hover:text-amber-600">Work</a></li>
+          <li><a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a></li>
+          <li class="h-16 w-40 flex flex-col items-center justify-center m-auto">
+            <img
+              src="../static/images/jorgeadrianes logotype orange.png"
+              alt="Description"
+              class="h-full w-full object-cover"
+            />
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main
+      class="flex flex-col items-center flex-grow w-screen min-h-full overflow-y-scroll bg-primary element justify-start pb-2"
+    >
+      <!-- GALLERY SECTION-->
+      <section class="py-6 px-0 dark:bg-gray-800 dark:text-gray-900 justify-center w-screen" id="gallery-section">
+        <!-- images outer container -->
+        <div class="container mx-auto px-0 py-2 lg:pt-12 flex flex-col items-center justify-center w-screen">
+          <div class="-m-1 flex flex-wrap md:-m-2 flex-col items-center justify-center w-screen" id="gallery">
+            <!-- IMAGES HERE BELOW: -->
+
+            {{ range .Pictures }}
+            <div class="flex w-full h-1/4 flex-wrap pb-10 object-center">
+              <div class="w-full h-1/4">
+                <img alt="gallery" class="block w-full object-cover object-center h-96" src="{{ .Path }}" />
+              </div>
+              <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Edit Pic
+              </button>
+              <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Edit Title
+              </button>
+              <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">Delete</button>
+              <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Insert Work Above
+              </button>
+              <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">
+                Insert Work Below
+              </button>
+              <h2 class="text-gray-600 w-full text-center mt-2 hover:text-amber-600 font-serif text-xl">{{.Title}}</h2>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- /GALLERY -->
+
+    <footer class="px-4 py-8 dark:bg-gray-100 dark:text-gray-600 items-left justify-center flex">
+      <!-- EXAMPLE FORM TO SUBMIT DATA -->
+      <!-- <form
+        hx-post="http://localhost:8000/work"
+        hx-target="#gallery"
+        hx-swap="beforeend"
+        enctype="multipart/form-data"
+        class="flex flex-col items-center"
+      >
+        <input type="file" name="picture" class="mb-2" required />
+        <input type="text" name="title" placeholder="Title" class="mb-2 p-2 border rounded" required />
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Add Picture
+        </button>
+      </form> -->
+    </footer>
+  </body>
+</html>
