@@ -1,7 +1,7 @@
 package main
 
 import (
-	contacts "Go_servers/routes"
+	contacts "Go_servers/handlers/contact"
 	"fmt"
 	"html/template"
 	"io"
@@ -37,6 +37,31 @@ func main() {
 		pictures:= map[string][]Picture{
 			"Pictures": {
 				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
+				{Title:"FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg"},
+				{Title:"ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg"},
+				{Title:"FOOD", Path: "../static/images/userWorks/food.jpg"},
+				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
+				{Title:"FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg"},
+				{Title:"ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg"},
+				{Title:"FOOD", Path: "../static/images/userWorks/food.jpg"},
+				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
+				{Title:"FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg"},
+				{Title:"ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg"},
+				{Title:"FOOD", Path: "../static/images/userWorks/food.jpg"},
+			},
+		}
+		tmpl.Execute(w, pictures)
+	}
+
+	workHandEditor := func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFiles("htmlTemplates/editorTemplates/workEditor.html"))
+		pictures:= map[string][]Picture{
+			"Pictures": {
+				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
+				{Title:"FOREST", Path: "../static/images/userWorks/forest.jpg"},
+				{Title:"ICELAND", Path: "../static/images/userWorks/iceland.jpg"},
+				{Title:"FOOD", Path: "../static/images/userWorks/food.jpg"},
+				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
 				{Title:"FOREST", Path: "../static/images/userWorks/forest.jpg"},
 				{Title:"ICELAND", Path: "../static/images/userWorks/iceland.jpg"},
 				{Title:"FOOD", Path: "../static/images/userWorks/food.jpg"},
@@ -44,6 +69,7 @@ func main() {
 		}
 		tmpl.Execute(w, pictures)
 	}
+	
 
 	workPostHand := func(w http.ResponseWriter, r *http.Request) {
 		var data PictureData
@@ -118,6 +144,7 @@ func main() {
 	
 	
 	http.HandleFunc("GET /work", workHand)
+	http.HandleFunc("GET /work/editor", workHandEditor)
 	http.HandleFunc("POST /work", workPostHand)
 	
 	http.HandleFunc("GET /contact", contacts.ContactGetHand)
