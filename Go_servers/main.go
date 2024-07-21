@@ -32,8 +32,8 @@ func main() {
 
 	// Handlers ----------------------------------------------------------------------------
 	// work
-	workHand := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("htmlTemplates/workDynamic.html"))
+	workGetHand := func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFiles("htmlTemplates/work.html"))
 		pictures:= map[string][]Picture{
 			"Pictures": {
 				{Title:"BEACH", Path: "../static/images/userWorks/beach.jpg"},
@@ -142,13 +142,15 @@ func main() {
 	
 	http.HandleFunc("GET /about", aboutHand)
 	
-	
-	http.HandleFunc("GET /work", workHand)
+
+	http.HandleFunc("GET /work", workGetHand)
 	http.HandleFunc("GET /work/editor", workHandEditor)
 	http.HandleFunc("POST /work", workPostHand)
 	
 	http.HandleFunc("GET /contact", contacts.ContactGetHand)
 	http.HandleFunc("POST /contact", contacts.ContactPostHand)
+	
+	// Playa -> /playa {contentHTML}
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
