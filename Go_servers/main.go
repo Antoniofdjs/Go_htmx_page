@@ -38,7 +38,9 @@ func main() {
 
 	http.HandleFunc("GET /work", work.GetHand)
 	http.HandleFunc("GET /work/editor", work.GetHandEditor)
+	http.HandleFunc("POST /work/editor", work.PostHandEditor)
 	http.HandleFunc("POST /work", work.PostHand)
+	http.HandleFunc("POST /work/component", work.FectchComponent)
 
 	http.HandleFunc("GET /contact", contacts.GetHand)
 	http.HandleFunc("POST /contact", contacts.PostHand)
