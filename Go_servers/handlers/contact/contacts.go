@@ -8,12 +8,12 @@ import (
 
 // Define a struct to hold the JSON data
 
-func ContactGetHand(w http.ResponseWriter, r *http.Request) {
+func GetHand(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./htmlTemplates/contact.html"))
 	tmpl.Execute(w, nil)
 }
 
-func ContactPostHand(w http.ResponseWriter, r *http.Request) {
+func PostHand(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
