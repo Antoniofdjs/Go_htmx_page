@@ -43,104 +43,106 @@
     <main
       class="flex flex-col items-center flex-grow w-screen min-h-full overflow-y-scroll bg-primary element justify-start pb-2"
     >
-      <!-- Component1 -->
-      <div class="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-100 dark:text-gray-800">
-        <div class="flex flex-col max-w-3xl mx-auto overflow-hidden rounded-lg">
-          <img
-            src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/6d7c60cc-9315-4853-8310-b82835563e30_rw_3840.jpg?h=7c30dbc9cbc667b1d587050b2cdb48e3"
-            alt=""
-            class="w-full h-60 sm:h-96 dark:bg-gray-500 aspect-video rounded-md object-cover"
-          />
-          <div
-            class="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md dark:bg-gray-50 bg-gray-800"
-          >
-            <!-- Title and Content container  -->
-            <div class="space-y-2 w-full flex flex-col">
-              <a rel="noopener noreferrer" href="#" class="inline-block text-2xl font-bold sm:text-3xl text-yellow-50"
-                >What is my vision</a
-              >
-            </div>
-            <div class="dark:text-gray- text-white w-full flex flex-col overflow-hidden">
-              <p>Insert small content Blah blah or pics</p>
-              <p>Place Holder</p>
-              <p>Place Holder</p>
-            </div>
-          </div>
-          <!-- / Title and content Container -->
-        </div>
-      </div>
-      <!-- /component1 -->
-      <!--component 2  -->
-      <article class="max-w-2xl px-6 py-24 mx-auto space-y-12 dark:bg-gray-100 dark:text-gray-900">
-        <!-- Slogan and content container -->
-        <div class="w-full mx-auto space-y-4 text-center">
-          <p class="text-xs font-semibold tracking-wider uppercase">#slogan</p>
-          <h1 class="text-4xl font-bold leading-tight md:text-5xl">What is the purpose? Fill this text here.</h1>
-        </div>
-        <div class="dark:text-gray-800">
-          <p>
-            The purpose of my services, what I intend to acomplish, plache holder info here. Fill this data with your
-            description. More text here, testing the field. For me its about making a story that captures the essence of
-            the moment and make it last forever.
-          </p>
-        </div>
-        <!-- /Slogan and content container -->
-        <div class="pt-12 border-t dark:border-gray-300">
-          <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
+      <div class="h-full w-full flex flex-col">
+        <!-- Component1 -->
+        <div class="p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-100 dark:text-gray-800">
+          <div class="flex flex-col max-w-3xl mx-auto overflow-hidden rounded-lg">
             <img
-              src="data:image/jpeg;base64,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"
+              src="https://cdn.myportfolio.com/0f52d63b-04a8-4a62-9ea4-fcbb6a2944db/6d7c60cc-9315-4853-8310-b82835563e30_rw_3840.jpg?h=7c30dbc9cbc667b1d587050b2cdb48e3"
               alt=""
-              class="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-300"
+              class="w-full h-60 sm:h-96 dark:bg-gray-500 aspect-video rounded-md object-cover"
             />
-            <div class="flex flex-col">
-              <h4 class="text-lg font-semibold">@jorgeadrianes</h4>
-              <p class="dark:text-gray-600">
-                Hi! I'm Jorge Adrián and I want to show you the places I visit, the people I meet and the experiences I
-                live.
-              </p>
+            <div
+              class="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md dark:bg-gray-50 bg-gray-800"
+            >
+              <!-- Title and Content container  -->
+              <div class="space-y-2 w-full flex flex-col">
+                <a rel="noopener noreferrer" href="#" class="inline-block text-2xl font-bold sm:text-3xl text-yellow-50"
+                  >What is my vision</a
+                >
+              </div>
+              <div class="dark:text-gray- text-white w-full flex flex-col overflow-hidden">
+                <p>Insert small content Blah blah or pics</p>
+                <p>Place Holder</p>
+                <p>Place Holder</p>
+              </div>
             </div>
-          </div>
-          <div class="flex justify-center pt-4 space-x-4 align-center">
-            <a
-              rel="noopener noreferrer"
-              href="https://www.youtube.com/@jorgeadrianes/featured"
-              aria-label="YouTube"
-              class="p-2 rounded-md text-gray-950 hover:text-red-700"
-            >
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
-                <path
-                  d="M23.498 6.186a2.92 2.92 0 00-2.057-2.066C19.71 3.602 12 3.602 12 3.602s-7.71 0-9.442.518A2.92 2.92 0 00.501 6.186c-.518 1.73-.518 5.334-.518 5.334s0 3.604.518 5.334a2.92 2.92 0 002.057 2.066c1.732.518 9.442.518 9.442.518s7.71 0 9.442-.518a2.92 2.92 0 002.057-2.066c.518-1.73.518-5.334.518-5.334s0-3.604-.518-5.334zM9.545 15.568V8.646l6.182 3.461-6.182 3.461z"
-                ></path>
-              </svg>
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="https://www.instagram.com/jorgeadrianes/"
-              aria-label="Instagram"
-              class="p-2 rounded-md text-gray-950 hover:text-purple-800"
-            >
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
-                <path
-                  d="M12 0c-3.318 0-3.75.013-5.056.073-1.306.061-2.203.276-2.986.591a6.006 6.006 0 00-2.19 1.422A6.006 6.006 0 00.591 4.73c-.315.784-.53 1.68-.591 2.986C0 8.02 0 8.452 0 12s.013 3.75.073 5.056c.061 1.306.276 2.203.591 2.986a6.006 6.006 0 001.422 2.19 6.006 6.006 0 002.19 1.422c.784.315 1.68.53 2.986.591C8.02 24 8.452 24 12 24s3.75-.013 5.056-.073c1.306-.061 2.203-.276 2.986-.591a6.006 6.006 0 002.19-1.422 6.006 6.006 0 001.422-2.19c.315-.784.53-1.68.591-2.986.06-1.306.073-1.738.073-5.056s-.013-3.75-.073-5.056c-.061-1.306-.276-2.203-.591-2.986a6.006 6.006 0 00-1.422-2.19A6.006 6.006 0 0020.043.664c-.784-.315-1.68-.53-2.986-.591C15.75.013 15.318 0 12 0zm0 2.163c3.277 0 3.675.012 4.965.071 1.2.055 1.847.251 2.28.417.57.22.975.482 1.402.91.428.428.691.832.91 1.402.166.433.362 1.08.417 2.28.059 1.29.071 1.688.071 4.965s-.012 3.675-.071 4.965c-.055 1.2-.251 1.847-.417 2.28-.22.57-.482.975-.91 1.402a4.414 4.414 0 01-1.402.91c-.433.166-1.08.362-2.28.417-1.29.059-1.688.071-4.965.071s-3.675-.012-4.965-.071c-1.2-.055-1.847-.251-2.28-.417a4.414 4.414 0 01-1.402-.91 4.414 4.414 0 01-.91-1.402c-.166-.433-.362-1.08-.417-2.28-.059-1.29-.071-1.688-.071-4.965s.012-3.675.071-4.965c.055-1.2.251-1.847.417-2.28.22-.57.482-.975.91-1.402a4.414 4.414 0 011.402-.91c.433-.166 1.08-.362 2.28-.417 1.29-.059 1.688-.071 4.965-.071zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 2.162a3.998 3.998 0 110 7.996 3.998 3.998 0 010-7.996zm6.406-.324a1.44 1.44 0 10-2.88 0 1.44 1.44 0 002.88 0z"
-                ></path>
-              </svg>
-            </a>
-            <a
-              rel="noopener noreferrer"
-              href="#"
-              aria-label="Facebook"
-              class="p-2 rounded-md text-gray-950 hover:text-blue-800"
-            >
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
-                <path
-                  d="M22.675 0H1.325C.593 0 0 .593 0 1.325v22.351C0 23.407.593 24 1.325 24h11.494v-9.294H9.691v-3.622h3.128V8.413c0-3.1 1.892-4.788 4.656-4.788 1.324 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.764v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.324V1.325C24 .593 23.407 0 22.675 0z"
-                ></path>
-              </svg>
-            </a>
+            <!-- / Title and content Container -->
           </div>
         </div>
-      </article>
-      <!-- /component2 -->
+        <!-- /component1 -->
+        <!--component 2  -->
+        <article class="max-w-2xl px-6 py-24 mx-auto space-y-12 dark:bg-gray-100 dark:text-gray-900">
+          <!-- Slogan and content container -->
+          <div class="w-full mx-auto space-y-4 text-center">
+            <p class="text-xs font-semibold tracking-wider uppercase">#slogan</p>
+            <h1 class="text-4xl font-bold leading-tight md:text-5xl">What is the purpose? Fill this text here.</h1>
+          </div>
+          <div class="dark:text-gray-800">
+            <p>
+              The purpose of my services, what I intend to acomplish, plache holder info here. Fill this data with your
+              description. More text here, testing the field. For me its about making a story that captures the essence
+              of the moment and make it last forever.
+            </p>
+          </div>
+          <!-- /Slogan and content container -->
+          <div class="pt-12 border-t dark:border-gray-300">
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
+              <img
+                src="data:image/jpeg;base64,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"
+                alt=""
+                class="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-300"
+              />
+              <div class="flex flex-col">
+                <h4 class="text-lg font-semibold">@jorgeadrianes</h4>
+                <p class="dark:text-gray-600">
+                  Hi! I'm Jorge Adrián and I want to show you the places I visit, the people I meet and the experiences
+                  I live.
+                </p>
+              </div>
+            </div>
+            <div class="flex justify-center pt-4 space-x-4 align-center">
+              <a
+                rel="noopener noreferrer"
+                href="https://www.youtube.com/@jorgeadrianes/featured"
+                aria-label="YouTube"
+                class="p-2 rounded-md text-gray-950 hover:text-red-700"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
+                  <path
+                    d="M23.498 6.186a2.92 2.92 0 00-2.057-2.066C19.71 3.602 12 3.602 12 3.602s-7.71 0-9.442.518A2.92 2.92 0 00.501 6.186c-.518 1.73-.518 5.334-.518 5.334s0 3.604.518 5.334a2.92 2.92 0 002.057 2.066c1.732.518 9.442.518 9.442.518s7.71 0 9.442-.518a2.92 2.92 0 002.057-2.066c.518-1.73.518-5.334.518-5.334s0-3.604-.518-5.334zM9.545 15.568V8.646l6.182 3.461-6.182 3.461z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href="https://www.instagram.com/jorgeadrianes/"
+                aria-label="Instagram"
+                class="p-2 rounded-md text-gray-950 hover:text-purple-800"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
+                  <path
+                    d="M12 0c-3.318 0-3.75.013-5.056.073-1.306.061-2.203.276-2.986.591a6.006 6.006 0 00-2.19 1.422A6.006 6.006 0 00.591 4.73c-.315.784-.53 1.68-.591 2.986C0 8.02 0 8.452 0 12s.013 3.75.073 5.056c.061 1.306.276 2.203.591 2.986a6.006 6.006 0 001.422 2.19 6.006 6.006 0 002.19 1.422c.784.315 1.68.53 2.986.591C8.02 24 8.452 24 12 24s3.75-.013 5.056-.073c1.306-.061 2.203-.276 2.986-.591a6.006 6.006 0 002.19-1.422 6.006 6.006 0 001.422-2.19c.315-.784.53-1.68.591-2.986.06-1.306.073-1.738.073-5.056s-.013-3.75-.073-5.056c-.061-1.306-.276-2.203-.591-2.986a6.006 6.006 0 00-1.422-2.19A6.006 6.006 0 0020.043.664c-.784-.315-1.68-.53-2.986-.591C15.75.013 15.318 0 12 0zm0 2.163c3.277 0 3.675.012 4.965.071 1.2.055 1.847.251 2.28.417.57.22.975.482 1.402.91.428.428.691.832.91 1.402.166.433.362 1.08.417 2.28.059 1.29.071 1.688.071 4.965s-.012 3.675-.071 4.965c-.055 1.2-.251 1.847-.417 2.28-.22.57-.482.975-.91 1.402a4.414 4.414 0 01-1.402.91c-.433.166-1.08.362-2.28.417-1.29.059-1.688.071-4.965.071s-3.675-.012-4.965-.071c-1.2-.055-1.847-.251-2.28-.417a4.414 4.414 0 01-1.402-.91 4.414 4.414 0 01-.91-1.402c-.166-.433-.362-1.08-.417-2.28-.059-1.29-.071-1.688-.071-4.965s.012-3.675.071-4.965c.055-1.2.251-1.847.417-2.28.22-.57.482-.975.91-1.402a4.414 4.414 0 011.402-.91c.433-.166 1.08-.362 2.28-.417 1.29-.059 1.688-.071 4.965-.071zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 2.162a3.998 3.998 0 110 7.996 3.998 3.998 0 010-7.996zm6.406-.324a1.44 1.44 0 10-2.88 0 1.44 1.44 0 002.88 0z"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href="#"
+                aria-label="Facebook"
+                class="p-2 rounded-md text-gray-950 hover:text-blue-800"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
+                  <path
+                    d="M22.675 0H1.325C.593 0 0 .593 0 1.325v22.351C0 23.407.593 24 1.325 24h11.494v-9.294H9.691v-3.622h3.128V8.413c0-3.1 1.892-4.788 4.656-4.788 1.324 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.764v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.324V1.325C24 .593 23.407 0 22.675 0z"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+        <!-- /component2 -->
+      </div>
     </main>
   </body>
 </html>
