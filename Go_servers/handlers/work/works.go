@@ -3,6 +3,7 @@ package work
 //  WORKING WAAAAY BELOWW GO CHECK
 
 import (
+	"Go_servers/handlers/editors"
 	"fmt"
 	"io"
 	"net/http"
@@ -13,7 +14,7 @@ import (
 // Structs for json request
 type RequestData struct {
     PicID      string `json:"PicID"`
-    EditTitle  string `json:"EditTitle"`
+    Option  string `json:"Option"`
 	Component string `json:"Component"`
 }
 
@@ -111,26 +112,43 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, pictures)
 }
 
+// Working here i need to know what component was activated edit title, delete pic, etc
 func PostHandEditor(w http.ResponseWriter, r *http.Request){
 	fmt.Println("Fetching EditorTitle component")
-	// Parse URL-encoded form data
+
+	// Extract values from request
 	err := r.ParseForm()
 	if err != nil {
-		http.Error(w, "Unable to parse form", http.StatusInternalServerError)
+		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-	// Extract form values
+
 	Data := RequestData{
 		PicID:   r.FormValue("PicID"),
-		EditTitle: r.FormValue("EditPic"),
+		Option: r.FormValue("Option"),
 	}
-	fmt.Println("My Pic Id is:", Data.PicID)
-	fmt.Println("My Pic Id is:", Data.EditTitle)
-    
 
-    // Load and execute the HTML template
-    tmpl := template.Must(template.ParseFiles("htmlTemplates/components/workTitleForm.html"))
-    tmpl.Execute(w, Data)
+	// Check if option is in map of Editor
+	tmplFunc, exists := editors.Handlers[Data.Option]
+	if !exists {
+		fmt.Println("\n\nOption not found", Data.Option)
+		http.Error(w, "Invalid option", http.StatusBadRequest)
+		return
+	}
+
+	// Get the template
+	tmpl := tmplFunc(Data.PicID)
+	if tmpl == nil {
+		http.Error(w, "Template error", http.StatusInternalServerError)
+		return
+	}
+	fmt.Println("\n\nFound template")
+
+	// Execute the template, this will get the component
+	err = tmpl.Execute(w, Data)
+	if err != nil {
+		http.Error(w, "Unable to render template", http.StatusInternalServerError)
+	}
 }
 
 //  WORKING HEREEE
