@@ -1,0 +1,41 @@
+<!-- EDITOR  TITLE COMPONENT -->
+<div
+  class="flex flex-col h-1/3 w-full md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 items-start text-left"
+  id="title-edit-component-{{ .PicID }}"
+>
+  <h2 class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
+    <!-- The button is for closing this component and retreiving the previous one -->
+    <button
+      type="button"
+      class="flex w-6 h-6 p-1 bg-transparent border-none outline-none cursor-pointer hover:bg-gray-200 justify-center items-center text-center"
+      aria-label="Close"
+      hx-headers='{"Content-Type": "application/json"}'
+      hx-post="http://localhost:8000/work/component"
+      hx-vals='{"PicID":"{{ .PicID }}", "Component": "buttonsEditor"}'
+      hx-target="#title-edit-component-{{ .PicID }}"
+      hx-swap="outerHTML"
+    >
+      <!-- Add button text or icon here if needed -->
+      <span class="text-red-700 hover:text-red-600">X</span>
+      <!-- You can style this text as needed -->
+    </button>
+    Delete current work: #{{ .PicID }}
+  </h2>
+  <div class="flex flex-col justify-start gap-3 mt-6 sm:flex-row items-center w-full text-left">
+    <form
+      class="flex flex-row justify-start gap-3 mt-6 items-center w-full h-full text-left"
+      hx-target="#image-container-{{ .PicID }}"
+      hx-post="http://localhost:8000/work/component"
+      hx-vals='{"PicID":"{{ .PicID }}", "Component": "imageContainer"}'
+    >
+      <p class="px-6 py-2 rounded-md md:w-1/2 w-full text-center">----------WARNING----------</p>
+      <button
+        type="submit"
+        class="py-1 rounded-md md:w-1/6 w-1/4 bg-red-700 text-center hover:bg-red-800 border border-red-900"
+      >
+        DELETE
+      </button>
+    </form>
+  </div>
+</div>
+<!-- EDITOR TITLE COMPONENT -->
