@@ -1,15 +1,50 @@
-<div class="w-1/3 md:w-2/12 flex flex-col gap-y-1 bg-blue-500" id="buttons-container">
+<!-- #buttons-container COMPONENT -->
+<div class="w-1/3 md:w-2/12 flex flex-col gap-y-1 bg-blue-500" id="buttons-container-{{ .PicID }}">
   <button
     type="submit"
     class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4"
     hx-post="http://localhost:8000/work/editor"
-    hx-target="#buttons-container"
+    hx-target="#buttons-container-{{ .PicID }}"
     hx-swap="outerHTML"
+    hx-values="{'PicID': '{{ .PicID }}', 'EditPic':'true'}"
   >
     Edit Pic
   </button>
-  <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">Edit Title</button>
-  <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">Delete</button>
-  <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">Insert Work Above</button>
-  <button type="submit" class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4">Insert Work Below</button>
+  <button
+    type="submit"
+    class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4"
+    hx-post="http://localhost:8000/work/editor"
+    hx-target="#buttons-container-{{ .PicID }}"
+    hx-swap="outerHTML"
+    hx-values="{'PicID': '{{ .PicID }}', 'EditTitle':'true'}"
+  >
+    Edit Title
+  </button>
+  <button
+    type="submit"
+    class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4"
+    hx-post="http://localhost:8000/work/editor"
+    hx-target="#buttons-container-{{ .PicID }}"
+    hx-values="{'PicID': '{{ .PicID }}', 'Delete':'true'}"
+  >
+    Delete
+  </button>
+  <button
+    type="submit"
+    class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4"
+    hx-post="http://localhost:8000/work/editor"
+    hx-target="#buttons-container-{{ .PicID }}"
+    hx-values="{'PicID': '{{ .PicID }}', 'InsertAbove':'true'}"
+  >
+    Insert Work Above
+  </button>
+  <button
+    type="submit"
+    class="bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4"
+    hx-post="http://localhost:8000/work/editor"
+    hx-target="#buttons-container-{{ .PicID }}"
+    hx-values="{'PicID': '{{ .PicID }}', 'InsertBelow':'true'}"
+  >
+    Insert Work Below
+  </button>
 </div>
