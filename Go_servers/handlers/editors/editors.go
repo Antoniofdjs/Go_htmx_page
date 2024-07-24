@@ -9,7 +9,10 @@ import (
 var Handlers = map[string]func(picId string) *template.Template{
 	"EditTitle":   EditTitle,
 	"Delete": DeleteWork,
-	}
+	"ChangePic": ChangePic,
+	"InsertAbove": InsertAbove,
+	"InsertBelow": InsertBelow,
+}
 
 
 /*
@@ -20,7 +23,7 @@ func EditTitle(picID string) *template.Template {
 
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workTitleForm.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/editTitleWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -32,6 +35,45 @@ func EditTitle(picID string) *template.Template {
 /*
 	Renders the html template for the buttom 'Delete' in the 'buttons-container'.
 */ 
+func InsertAbove(picID string) *template.Template{
+	fmt.Println("My Pic Id is:", picID)
+	// Parse the template file and handle errors gracefully
+	fmt.Println("Parsing Template: ")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/insertAboveWork.html")
+	if err != nil {
+		// Log the error and return nil to indicate failure
+		log.Printf("Error parsing template: %v", err)
+		return nil
+	}
+	return tmpl
+}
+
+func InsertBelow(picID string) *template.Template{
+	fmt.Println("My Pic Id is:", picID)
+	// Parse the template file and handle errors gracefully
+	fmt.Println("Parsing Template: ")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/insertBelowWork.html")
+	if err != nil {
+		// Log the error and return nil to indicate failure
+		log.Printf("Error parsing template: %v", err)
+		return nil
+	}
+	return tmpl
+}
+
+func ChangePic(picID string) *template.Template{
+	fmt.Println("My Pic Id is:", picID)
+	// Parse the template file and handle errors gracefully
+	fmt.Println("Parsing Template: ")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/changePictureWork.html")
+	if err != nil {
+		// Log the error and return nil to indicate failure
+		log.Printf("Error parsing template: %v", err)
+		return nil
+	}
+	return tmpl
+}
+
 func DeleteWork(picID string) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
