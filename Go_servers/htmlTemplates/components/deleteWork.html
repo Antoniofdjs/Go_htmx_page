@@ -1,6 +1,6 @@
 <!-- EDITOR  TITLE COMPONENT -->
 <div
-  class="flex flex-col h-1/3 w-full md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 items-start text-left"
+  class="flex flex-col h-1/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 md:items-start text-left justify-center"
   id="title-edit-component-{{ .PicID }}"
 >
   <h2 class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
@@ -16,7 +16,7 @@
       hx-swap="outerHTML"
     >
       <!-- Add button text or icon here if needed -->
-      <span class="text-red-700 hover:text-red-600">X</span>
+      <span class="text-red-500 hover:text-red-600">X</span>
       <!-- You can style this text as needed -->
     </button>
     Delete current work: #{{ .PicID }}
@@ -28,10 +28,10 @@
       hx-post="http://localhost:8000/work/component"
       hx-vals='{"PicID":"{{ .PicID }}", "Component": "imageContainer"}'
     >
-      <p class="px-6 py-2 rounded-md md:w-1/2 w-full text-center">----------WARNING----------</p>
+      <p class="px-6 py-2 rounded-md md:w-1/2 w-full text-center">---WARNING---</p>
       <button
         type="submit"
-        class="py-1 rounded-md md:w-1/6 w-1/4 bg-red-700 text-center hover:bg-red-800 border border-red-900"
+        class="py-1 rounded-md md:w-1/6 w-1/4 bg-red-500 text-center hover:bg-red-800 border border-red-900"
       >
         DELETE
       </button>
