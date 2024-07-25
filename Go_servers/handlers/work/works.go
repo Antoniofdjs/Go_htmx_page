@@ -180,6 +180,9 @@ func FectchComponent(w http.ResponseWriter, r *http.Request){
 
 func PutHandEditor(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("PUT EDITOR")
+	// time.Sleep(2 * time.Second)
+	
+	
 	err:= r.ParseForm()
 	if err!= nil{
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
