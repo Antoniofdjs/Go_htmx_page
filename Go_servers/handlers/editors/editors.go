@@ -18,8 +18,8 @@ var Handlers = map[string]func(picId string) *template.Template{
 /*
 	Renders the html template for the buttom 'Edit Title' in the 'buttons-container'.
 */
-func EditTitle(picID string) *template.Template {
-	fmt.Println("My Pic Id is:", picID)
+func EditTitle(workID string) *template.Template {
+	fmt.Println("My Pic Id is:", workID)
 
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
