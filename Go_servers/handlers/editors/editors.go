@@ -23,7 +23,7 @@ func EditTitle(workID string) *template.Template {
 
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/editTitleWork.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/editTitleWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -39,7 +39,7 @@ func InsertAbove(picID string) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/insertAboveWork.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/insertAboveWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -52,7 +52,7 @@ func InsertBelow(picID string) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/insertBelowWork.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/insertBelowWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -65,7 +65,7 @@ func ChangePic(picID string) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/changePictureWork.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/changePictureWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -78,7 +78,7 @@ func DeleteWork(picID string) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/deleteWork.html")
+	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/deleteWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)

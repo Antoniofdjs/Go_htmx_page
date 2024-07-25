@@ -87,13 +87,13 @@ func FectchComponent(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	Data := RequestData{
-		WorkID:   r.FormValue("PicID"),
+		WorkID:   r.FormValue("WorkID"),
 		Component: r.FormValue("Component"),
 	}
 	fmt.Println("Accesing values")
 	fmt.Println(Data.WorkID)
 	fmt.Println(Data.Component)
 
-	tmpl := template.Must(template.ParseFiles("htmlTemplates/components/buttonsEditor.html"))
+	tmpl := template.Must(template.ParseFiles("htmlTemplates/components/workEditor/buttonsEditor.html"))
 	tmpl.Execute(w, Data)
 }
