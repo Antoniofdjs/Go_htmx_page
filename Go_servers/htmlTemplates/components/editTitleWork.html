@@ -24,15 +24,16 @@
   <div class="flex flex-col justify-start gap-3 mt-6 sm:flex-row items-center w-full text-left">
     <form
       class="flex flex-row justify-start gap-3 mt-6 items-center w-full h-full text-left"
-      hx-target="#image-container-{{ .PicID }}"
-      hx-post="http://localhost:8000/work/component"
-      hx-vals='{"PicID":"{{ .PicID }}", "Component": "imageContainer"}'
+      hx-put="http://localhost:8000/work/editor"
+      hx-vals='{"PicID":"{{ .PicID }}", "Title": "EDITTEST"}'
+      hx-on="htmx:afterRequest:window.location.href='/work/editor'"
     >
       <input
         class="px-6 py-2 rounded-md md:w-1/2 w-full text-center border border-gray-700 bg-blue-50 text-black"
         placeholder="Do not exceed 30 characters"
         name="inputField"
       />
+      <input type="hidden" name="PicID" value="{{ .PicID }}" />
       <button
         type="submit"
         class="py-1 rounded-md md:w-1/6 w-1/4 bg-green-500 text-center hover:bg-green-900 border border-green-950"
