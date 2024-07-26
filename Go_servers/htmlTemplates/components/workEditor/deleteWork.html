@@ -28,7 +28,8 @@
       type="submit"
       class="py-1 rounded-md md:w-1/6 w-1/4 bg-red-500 text-center hover:bg-red-800 border border-red-900"
       hx-post="/work/del"
-      hx-on="htmx:afterSwap:window.location.href = '/work/editor';"
+      hx-target="#works-section"
+      hx-swap="outerHTML"
       hx-vals='{"WorkID":"{{ .WorkID }}", "Option": "EditTitle"}'
     >
       DELETE
