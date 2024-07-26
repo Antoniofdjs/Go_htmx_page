@@ -12,10 +12,9 @@ import (
 	"time"
 )
 
-
 func GetHandEditor(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("htmlTemplates/editorTemplates/workEditor.html"))
-	pictures := db.PicturesDB()
+	pictures := db.WorksDB()
 	tmpl.Execute(w, *pictures)
 }
 
@@ -109,4 +108,34 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Println("No data sent")
 	}
+}
+
+func DelHandEditor(w http.ResponseWriter, r *http.Request){
+	fmt.Println("Delete Activated")
+	// body, err := io.ReadAll(r.Body)
+	// if err != nil {
+	// 	http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+	// 	return
+	// }
+	// defer r.Body.Close()
+	// fmt.Println("READ BODY")
+	// fmt.Println(string(body))
+
+	// err= r.ParseForm()
+	// if err != nil{
+	// 	http.Error(w, "Unable to parse form", http.StatusBadRequest)
+	// 	return
+	// }
+	option := r.FormValue("Component")
+	fmt.Println("option component",option )
+	workID := r.FormValue("WorkID")
+	fmt.Println("workId in before delete",workID )
+	id,_:= strconv.Atoi(workID)
+
+	err := db.DeleteWork(id)
+	if err!=nil{
+		http.Error(w, "Unable to delete work", http.StatusBadRequest)
+		return
+	}
+	http.Redirect(w, r, "/work/editor", http.StatusSeeOther)
 }

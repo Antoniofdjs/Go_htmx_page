@@ -31,7 +31,7 @@ type PictureData struct {
 
 func GetHand(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("htmlTemplates/work.html"))
-	pictures := db.PicturesDB()
+	pictures := db.WorksDB()
 
 	tmpl.Execute(w, *pictures)
 }

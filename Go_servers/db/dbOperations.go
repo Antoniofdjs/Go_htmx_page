@@ -5,6 +5,7 @@ package db
 
 import (
 	"errors"
+	"fmt"
 )
 
 type work struct {
@@ -34,13 +35,13 @@ var worksMap = map[string][]work{
 /*
 Returns a pointer to the map of the works. Acting as database table.
 */
-func PicturesDB() *map[string][]work {
+func WorksDB() *map[string][]work {
 	return &worksMap
 }
 
 
 func EditTitle(workID int, title string) (bool,error){
-	works_map := PicturesDB()
+	works_map := WorksDB()
 
 	if len((*works_map)["works"]) < workID || workID < 0{
 		return false, errors.New("WorkID does not exist")
@@ -49,4 +50,22 @@ func EditTitle(workID int, title string) (bool,error){
 	workIndex := workID - 1
 	(*works_map)["works"][workIndex].Title = title
 	return true, nil
+}
+
+func DeleteWork(workID int) error{
+	works_map:= WorksDB()
+	if len((*works_map)["works"]) < workID || workID < 0{
+		return errors.New("WorkID does not exist")
+	}
+	works:= (*works_map)["works"]
+	fmt.Println("Works length idexes ", len(works))
+	workIndex := workID - 1
+	fmt.Println("work idx: ", workIndex)
+	(*works_map)["works"] = append(works[:workIndex], works[workIndex + 1:]...)
+	for i := range (*works_map)["works"] {
+		(*works_map)["works"][i].WorkID = i + 1
+	}
+
+	fmt.Println("My mapp: ", *works_map)
+	return nil
 }

@@ -10,7 +10,7 @@
       class="flex w-6 h-6 p-1 bg-transparent border-none outline-none cursor-pointer hover:bg-gray-200 justify-center items-center text-center"
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
-      hx-post="http://localhost:8000/work/component"
+      hx-post="/work/component"
       hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "buttonsEditor"}'
       hx-target="#edit-title-component-{{ .WorkID }}"
       hx-swap="outerHTML"
@@ -24,9 +24,9 @@
   <div class="flex flex-col justify-start gap-3 mt-6 sm:flex-row items-center w-full text-left">
     <form
       class="flex flex-row justify-start gap-3 mt-6 items-center w-full h-full text-left"
-      hx-put="http://localhost:8000/work/editor"
+      hx-put="/work/editor"
       hx-include="[name='inputTitle'], [name='WorkID']"
-      hx-on="htmx:afterRequest:window.location.href='/work/editor'"
+      hx-on="htmx:afterSwap:window.location.href = '/work/editor';"
       hx-indicator="#spinner"
     >
       <input
