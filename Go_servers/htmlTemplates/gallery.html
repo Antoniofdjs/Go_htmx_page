@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <!-- <link rel="stylesheet" href="../static/styles/output.css" /> -->
+    <!-- <link rel="stylesheet" href="/index.css" /> -->
+  </head>
+  <style>
+    /* Custom Scrollbar Styles */
+    .element::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    .element {
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  </style>
+  <body class="bg-yellow-50 h-screen element">
+    <header
+      class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4"
+    >
+      <nav class="flex items-center h-full w-full">
+        <ul class="list-none p-0 flex items-center space-x-4 h-full w-full">
+          <li><a href="/" class="text-blue-100 hover:text-amber-600">Home</a></li>
+          <li><a href="/about" class="text-blue-100 hover:text-amber-600">About</a></li>
+          <li><a href="/work" class="text-amber-600 hover:text-amber-600">Work</a></li>
+          <li><a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a></li>
+          <li class="h-16 w-40 flex flex-col items-center justify-center m-auto">
+            <img
+              src="../static/images/jorgeadrianes logotype orange.png"
+              alt="Description"
+              class="h-full w-full object-cover"
+            />
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Works Section -->
+    <section
+      class="px-0 dark:bg-gray-800 dark:text-gray-900 justify-center w-screen items-center flex flex-col"
+      id="works-section"
+    >
+      <!-- Top pic -->
+      <div class="flex flex-col p-6 dark:bg-gray-50 dark:text-gray-800 h-5/6 justify-center items-center w-full">
+        <img
+          src="../static/images/userWorks/iceland.jpg"
+          alt=""
+          class="object-cover h-full w-full rounded-sm sm:h-96 dark:bg-gray-500 aspect-video"
+        />
+        <!-- Work description -->
+        <div class="w-full h-5/6 justify-center items-center flex flex-col">
+          <h2 class="text-xl font-semibold">ICELAND-BLACK-SANDS</h2>
+          <span class="block pb-2 text-sm dark:text-gray-600">07/26/2024</span>
+          <p class="md:w-4/5 w-full">
+            Iceland's black sand beaches are a photographer's playground, a stark and dramatic canvas painted by the raw
+            forces of nature. The jet-black sands, a result of volcanic eruptions, create an otherworldly atmosphere
+            that is both mesmerizing and challenging. The constant interplay of light and shadow on this unique terrain
+            offers endless possibilities for capturing breathtaking images.  
+          </p>
+        </div>
+      </div>
+      <!-- top pic -->
+      <!-- GALLERY SECTION-->
+      <section
+        class="px-0 dark:bg-gray-800 dark:text-gray-900 justify-center w-screen h-screen items-center flex flex-grow"
+        id="gallery"
+      >
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-center items-center h-5/6 w-5/6">
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg"
+              alt=""
+            />
+          </div>
+          <div>
+            <img
+              class="h-auto max-w-full rounded-lg"
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+      </section>
+      <!-- /GALLERY -->
+    </section>
+    <!-- works-section -->
+  </body>
+</html>

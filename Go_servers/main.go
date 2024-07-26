@@ -3,7 +3,7 @@ package main
 /*
 Main server
 	^Routes are kept here
-	^Handlers are short named = <mehtod>Hand
+	^Handlers are short named = <method>Hand
 		example work.GetHand ====> work package, GET Method Handler
 	^Html is being served from the htmlTemplates
 
@@ -12,10 +12,13 @@ Main server
 import (
 	"Go_servers/handlers/about"
 	contacts "Go_servers/handlers/contact"
+	"Go_servers/handlers/galleries"
 	"Go_servers/handlers/work"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -29,27 +32,24 @@ func main() {
 	
 	// Serve output.css
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	
+	// Use the router to serve static files
+	r := mux.NewRouter()
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+
 	// Routes
-	http.HandleFunc("/", landingHandler)
-	
-	http.HandleFunc("GET /about", about.GetHand)
-
-	http.HandleFunc("GET /work", work.GetHand)
-	http.HandleFunc("POST /work", work.PostHand)
-
-	http.HandleFunc("PUT /work/editor", work.PutHandEditor)
-	http.HandleFunc("GET /work/editor", work.GetHandEditor)
-	http.HandleFunc("POST /work/editor", work.PostHandEditor)
-	http.HandleFunc("POST /work/del", work.DelHandEditor)
-
-	http.HandleFunc("POST /work/component", work.FectchComponent)
-
-	http.HandleFunc("GET /contact", contacts.GetHand)
-	http.HandleFunc("POST /contact", contacts.PostHand)
-	
+	r.HandleFunc("/", landingHandler).Methods("GET")
+	r.HandleFunc("/about", about.GetHand).Methods("GET")
+	r.HandleFunc("/work", work.GetHand).Methods("GET")
+	r.HandleFunc("/work", work.PostHand).Methods("POST")
+	r.HandleFunc("/work/editor", work.PutHandEditor).Methods("PUT")
+	r.HandleFunc("/work/editor", work.GetHandEditor).Methods("GET")
+	r.HandleFunc("/work/editor", work.PostHandEditor).Methods("POST")
+	r.HandleFunc("/work/del", work.DelHandEditor).Methods("POST")
+	r.HandleFunc("/work/component", work.FectchComponent).Methods("POST")
+	r.HandleFunc("/contact", contacts.GetHand).Methods("GET")
+	r.HandleFunc("/contact", contacts.PostHand).Methods("POST")
+	r.HandleFunc("/gallery/{title}", galleries.Gallery).Methods("GET")
 
 	// Start server
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":8000", r))
 }
