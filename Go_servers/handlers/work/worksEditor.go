@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"text/template"
@@ -102,7 +103,13 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Error updating title", http.StatusBadRequest)
 			return
 		}
-		http.Redirect(w, r, "/work/editor", http.StatusSeeOther)
+		
+		tmpl, err := template.ParseFiles("htmlTemplates/reloads/worksSectionSucces.html")
+		if err != nil {
+			log.Printf("Error parsing template: %v", err)
+			return
+		}
+		tmpl.Execute(w, *db.WorksDB())
 	} else if PicBytes != nil && title == "" {
 		fmt.Println("Change Picture")
 	} else {
@@ -137,5 +144,11 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request){
 		http.Error(w, "Unable to delete work", http.StatusBadRequest)
 		return
 	}
-	http.Redirect(w, r, "/work/editor", http.StatusSeeOther)
+	// Render template:
+	tmpl, err := template.ParseFiles("htmlTemplates/reloads/worksSectionSucces.html")
+	if err != nil {
+		log.Printf("Error parsing template: %v", err)
+		return
+	}
+	tmpl.Execute(w, *db.WorksDB())
 }
