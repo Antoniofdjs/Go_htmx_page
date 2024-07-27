@@ -3,7 +3,7 @@ package main
 /*
 Main server
 	^Routes are kept here
-	^Handlers are short named = <method>Hand
+	^Handlers are short named = <mehtod>Hand
 		example work.GetHand ====> work package, GET Method Handler
 	^Html is being served from the htmlTemplates
 
@@ -17,39 +17,41 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 func main() {
 	
 	landingHandler := func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "GET" {
-			tmpl := template.Must(template.ParseFiles("htmlTemplates/index.html"))
-			tmpl.Execute(w, nil)
-		}
-	}
+		tmpl := template.Must(template.ParseFiles("htmlTemplates/index.html"))
+		tmpl.Execute(w, nil)
+}
 	
 	// Serve output.css
 	fs := http.FileServer(http.Dir("static"))
-	// Use the router to serve static files
-	r := mux.NewRouter()
-	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
-
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	
 	// Routes
-	r.HandleFunc("/", landingHandler).Methods("GET")
-	r.HandleFunc("/about", about.GetHand).Methods("GET")
-	r.HandleFunc("/work", work.GetHand).Methods("GET")
-	r.HandleFunc("/work", work.PostHand).Methods("POST")
-	r.HandleFunc("/work/editor", work.PutHandEditor).Methods("PUT")
-	r.HandleFunc("/work/editor", work.GetHandEditor).Methods("GET")
-	r.HandleFunc("/work/editor", work.PostHandEditor).Methods("POST")
-	r.HandleFunc("/work/del", work.DelHandEditor).Methods("POST")
-	r.HandleFunc("/work/component", work.FectchComponent).Methods("POST")
-	r.HandleFunc("/contact", contacts.GetHand).Methods("GET")
-	r.HandleFunc("/contact", contacts.PostHand).Methods("POST")
-	r.HandleFunc("/gallery/{title}", galleries.Gallery).Methods("GET")
+	http.HandleFunc("GET /{$}", landingHandler) // Match only exactly '/' thanks to {$}
+
+	http.HandleFunc("GET /about", about.GetHand)
+
+	http.HandleFunc("GET /contact", contacts.GetHand)
+	http.HandleFunc("POST /contact", contacts.PostHand)
+
+	http.HandleFunc("GET /work", work.GetHand)
+	http.HandleFunc("POST /work", work.PostHand)
+	http.HandleFunc("GET /work/{title}", galleries.Gallery)
+
+	http.HandleFunc("PUT /editor", work.PutHandEditor)
+	http.HandleFunc("GET /editor", work.GetHandEditor)
+	http.HandleFunc("POST /editor", work.PostHandEditor)
+	http.HandleFunc("POST /editor/del", work.DelHandEditor)
+
+	http.HandleFunc("POST /editor/component", work.FectchComponent)
+
+
+	
 
 	// Start server
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", nil))
 }

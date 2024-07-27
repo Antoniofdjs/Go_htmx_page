@@ -10,7 +10,7 @@
       class="flex w-6 h-6 p-1 bg-transparent border-none outline-none cursor-pointer hover:bg-gray-200 justify-center items-center text-center"
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
-      hx-post="/work/component"
+      hx-post="/editor/component"
       hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "buttonsEditor"}'
       hx-target="#delete-work-component-{{ .WorkID }}"
       hx-swap="outerHTML"
@@ -27,7 +27,7 @@
       id="delete-button"
       type="submit"
       class="py-1 rounded-md md:w-1/6 w-1/4 bg-red-500 text-center hover:bg-red-800 border border-red-900"
-      hx-post="/work/del"
+      hx-post="/editor/del"
       hx-target="#works-section"
       hx-swap="outerHTML"
       hx-vals='{"WorkID":"{{ .WorkID }}", "Option": "EditTitle"}'
