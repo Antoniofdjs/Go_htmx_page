@@ -4,10 +4,9 @@ package work
 
 import (
 	"Go_servers/db"
+	"embed"
 	"fmt"
-	"io"
 	"net/http"
-	"os"
 	"text/template"
 )
 
@@ -29,56 +28,16 @@ type PictureData struct {
 }
 
 
-func GetHand(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("htmlTemplates/work.html"))
+func GetHand(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
+	tmpl := template.Must(template.ParseFS(fileEmbed,"htmlTemplates/work.html"))
 	pictures := db.WorksDB()
 
 	tmpl.Execute(w, *pictures)
 }
-func PostHand(w http.ResponseWriter, r *http.Request) {
-	var data PictureData
-	
-	fmt.Println("POST ACTIVATED")
-	err := r.ParseMultipartForm(10 << 20) // 10 MB limit
-	if err != nil {
-		http.Error(w, "Failed to parse form", http.StatusInternalServerError)
-		return
-	}
-	fmt.Println("AFTER PARSE")
-	data.Title =  r.FormValue("title")
-	fmt.Printf("Tile: %v",data.Title)
-	
-	//  Check file of picture
-	PicBytes, headers, err := r.FormFile("picture")
-	if err != nil {
-		http.Error(w, "Failed to get file", http.StatusBadRequest)
-		return
-	}
-	defer PicBytes.Close() //Like a file close in python, prevent leaks
-
-	picName := headers.Filename
-	path := fmt.Sprintf("static/images/userWorks/%s", picName)
-	fmt.Printf("\nPic name: %v", path)
-
-	//  Create path for picture, picFile is destination for the picture
-	picFile, err := os.Create(path)
-	if err != nil {
-		http.Error(w, "Failed to create file", http.StatusInternalServerError)
-		return
-	}
-
-	 // Send the pic bytes the 'picFile'
-	 _, err = io.Copy(picFile, PicBytes)
-	 if err != nil {
-		http.Error(w, "Failed to save file", http.StatusInternalServerError)
-		return
-	 }
-
-}
 
 //  WORKING HEREEE
-func FectchComponent(w http.ResponseWriter, r *http.Request){
-	
+func FectchComponent(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
+
 	fmt.Println("Fecthing back buttonsEditor")
 
 	err := r.ParseForm()
@@ -94,6 +53,6 @@ func FectchComponent(w http.ResponseWriter, r *http.Request){
 	fmt.Println(Data.WorkID)
 	fmt.Println(Data.Component)
 
-	tmpl := template.Must(template.ParseFiles("htmlTemplates/components/workEditor/buttonsEditor.html"))
+	tmpl := template.Must(template.ParseFS(templateFs,"htmlTemplates/workEditor/buttonsEditor.html"))
 	tmpl.Execute(w, Data)
 }

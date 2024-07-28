@@ -1,57 +1,73 @@
 package main
 
-/*
-Main server
-	^Routes are kept here
-	^Handlers are short named = <mehtod>Hand
-		example work.GetHand ====> work package, GET Method Handler
-	^Html is being served from the htmlTemplates
-
-*/
-
 import (
+	"embed"
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+
 	"Go_servers/handlers/about"
 	contacts "Go_servers/handlers/contact"
 	"Go_servers/handlers/galleries"
 	"Go_servers/handlers/work"
-	"html/template"
-	"log"
-	"net/http"
 )
 
-func main() {
-	
-	landingHandler := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("htmlTemplates/index.html"))
-		tmpl.Execute(w, nil)
+// Embed all HTML files
+//go:embed htmlTemplates
+var templatesFS embed.FS
+
+// Embed all files in the static directory
+//// go:embed static/*
+// var staticFS embed.FS
+
+type Work struct {
+        ID      int    `json:"id"`
+        Title   string `json:"title"`
+        PicPath string `json:"picPath"`
 }
-	
+// type Work Sumafunct(x int, y string){}  Work.Suma
+
+func main() {
+        
+	fmt.Println("SERVER LISTENING:")
+
+	landingHandler := func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFS(templatesFS,"htmlTemplates/index.html"))
+	tmpl.Execute(w, nil)
+	}
+
 	// Serve output.css
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	
 	// Routes
 	http.HandleFunc("GET /{$}", landingHandler) // Match only exactly '/' thanks to {$}
+        
+	http.HandleFunc("GET /about",func(w http.ResponseWriter, r *http.Request){about.GetHand(w, r, templatesFS)})
+        
+	http.HandleFunc("GET /contact", func(w http.ResponseWriter, r *http.Request) {contacts.GetHand(w, r, templatesFS)})
+	http.HandleFunc("POST /contact", func(w http.ResponseWriter, r *http.Request) {contacts.PostHand(w, r, templatesFS)})
 
-	http.HandleFunc("GET /about", about.GetHand)
-
-	http.HandleFunc("GET /contact", contacts.GetHand)
-	http.HandleFunc("POST /contact", contacts.PostHand)
-
-	http.HandleFunc("GET /work", work.GetHand)
-	http.HandleFunc("POST /work", work.PostHand)
-	http.HandleFunc("GET /work/{title}", galleries.Gallery)
-
-	http.HandleFunc("PUT /editor", work.PutHandEditor)
-	http.HandleFunc("GET /editor", work.GetHandEditor)
-	http.HandleFunc("POST /editor", work.PostHandEditor)
-	http.HandleFunc("POST /editor/del", work.DelHandEditor)
-
-	http.HandleFunc("POST /editor/component", work.FectchComponent)
-
-
+	http.HandleFunc("GET /work", func(w http.ResponseWriter, r *http.Request){work.GetHand(w, r, templatesFS)})
+	http.HandleFunc("GET /work/{title}", func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r, templatesFS)})
 	
+	http.HandleFunc("GET /editor", func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)})
+	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)})
+	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
+	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
+	
+	http.HandleFunc("POST /editor/component", func(w http.ResponseWriter, r *http.Request){work.FectchComponent(w, r, templatesFS)})
 
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
+
+//  supa = initDB(supaKey, supaUrl, supaPWd)
+//  supa.DB.from("works").insert(work)
+//  supa.Storage.from("bucketName").insert(name, []bytes)
+
+
+/* type work struct{
+	Title string `json:"title"`
+*/

@@ -1,12 +1,13 @@
 package editors
 
 import (
+	"embed"
 	"fmt"
 	"html/template"
 	"log"
 )
 
-var Handlers = map[string]func(picId string) *template.Template{
+var Handlers = map[string]func(picId string, templateFs embed.FS) *template.Template{
 	"EditTitle":   EditTitle,
 	"Delete": DeleteWork,
 	"ChangePic": ChangePic,
@@ -18,12 +19,12 @@ var Handlers = map[string]func(picId string) *template.Template{
 /*
 	Renders the html template for the buttom 'Edit Title' in the 'buttons-container'.
 */
-func EditTitle(workID string) *template.Template {
+func EditTitle(workID string, templateFS embed.FS) *template.Template {
 	fmt.Println("My Pic Id is:", workID)
 
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/editTitleWork.html")
+	tmpl, err := template.ParseFS(templateFS, "htmlTemplates/workEditor/editTitleWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -35,11 +36,11 @@ func EditTitle(workID string) *template.Template {
 /*
 	Renders the html template for the buttom 'Delete' in the 'buttons-container'.
 */ 
-func InsertAbove(picID string) *template.Template{
+func InsertAbove(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/insertAboveWork.html")
+	tmpl, err := template.ParseFS(templateFs,"htmlTemplates/workEditor/insertAboveWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -48,11 +49,11 @@ func InsertAbove(picID string) *template.Template{
 	return tmpl
 }
 
-func InsertBelow(picID string) *template.Template{
+func InsertBelow(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/insertBelowWork.html")
+	tmpl, err := template.ParseFS(templateFs,"htmlTemplates/workEditor/insertBelowWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -61,11 +62,11 @@ func InsertBelow(picID string) *template.Template{
 	return tmpl
 }
 
-func ChangePic(picID string) *template.Template{
+func ChangePic(picID string, templateFS embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/changePictureWork.html")
+	tmpl, err := template.ParseFS(templateFS,"htmlTemplates/workEditor/changePictureWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)
@@ -74,11 +75,11 @@ func ChangePic(picID string) *template.Template{
 	return tmpl
 }
 
-func DeleteWork(picID string) *template.Template{
+func DeleteWork(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
 	fmt.Println("Parsing Template: ")
-	tmpl, err := template.ParseFiles("htmlTemplates/components/workEditor/deleteWork.html")
+	tmpl, err := template.ParseFS(templateFs,"htmlTemplates/workEditor/deleteWork.html")
 	if err != nil {
 		// Log the error and return nil to indicate failure
 		log.Printf("Error parsing template: %v", err)

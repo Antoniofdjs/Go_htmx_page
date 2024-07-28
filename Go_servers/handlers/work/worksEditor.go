@@ -4,22 +4,23 @@ import (
 	"Go_servers/db"
 	"Go_servers/handlers/editors"
 	"bytes"
+	"embed"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"strconv"
 	"text/template"
-	"time"
+	// "time"
 )
 
-func GetHandEditor(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("htmlTemplates/editorTemplates/workEditor.html"))
+func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
+	tmpl := template.Must(template.ParseFS(editorFs,"htmlTemplates/editorTemplates/workEditor.html"))
 	pictures := db.WorksDB()
 	tmpl.Execute(w, *pictures)
 }
 
-func PostHandEditor(w http.ResponseWriter, r *http.Request){
+func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Fetching EditorTitle component")
 	// Read the body of the request
 	body, err := io.ReadAll(r.Body)
@@ -55,7 +56,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request){
 	}
 
 	// Get the template
-	tmpl := tmplFunc(Data.WorkID)
+	tmpl := tmplFunc(Data.WorkID, templateFs)
 	if tmpl == nil {
 		http.Error(w, "Template error", http.StatusInternalServerError)
 		return
@@ -70,9 +71,9 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request){
 }
 
 
-func PutHandEditor(w http.ResponseWriter, r *http.Request) {
+func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) {
 	fmt.Println("PUT EDITOR")
-	time.Sleep(2 * time.Second)
+	// time.Sleep(2 * time.Second)
 
 	err := r.ParseForm()
 	if err != nil {
@@ -104,7 +105,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		
-		tmpl, err := template.ParseFiles("htmlTemplates/reloads/worksSectionSucces.html")
+		tmpl, err := template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
 		if err != nil {
 			log.Printf("Error parsing template: %v", err)
 			return
@@ -117,7 +118,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func DelHandEditor(w http.ResponseWriter, r *http.Request){
+func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Delete Activated")
 	// body, err := io.ReadAll(r.Body)
 	// if err != nil {
@@ -145,7 +146,7 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	// Render template:
-	tmpl, err := template.ParseFiles("htmlTemplates/reloads/worksSectionSucces.html")
+	tmpl, err := template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
 	if err != nil {
 		log.Printf("Error parsing template: %v", err)
 		return

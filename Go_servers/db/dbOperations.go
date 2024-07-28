@@ -6,6 +6,9 @@ package db
 import (
 	"errors"
 	"fmt"
+	"log"
+
+	"github.com/nedpals/supabase-go"
 )
 
 type work struct {
@@ -68,4 +71,29 @@ func DeleteWork(workID int) error{
 
 	fmt.Println("My mapp: ", *works_map)
 	return nil
+}
+
+
+// Create a variable to hold the result
+var result interface{}
+
+func InsertWork(supa *supabase.Client) {
+	newWork := struct {
+		Title   string `json:"title"`
+		PicPath string `json:"picPath"`
+	}{
+		Title:   "New Title",
+		PicPath: "/path/to/picture",
+	}
+
+	// Build the query
+	query := supa.DB.From("works").Insert(newWork)
+	err := query.Execute(&result)
+	if err != nil {
+		log.Printf("Error inserting work: %v", err)
+		return
+	}
+
+	// Handle the successful insertion
+	log.Println("Inserted work:", result)
 }
