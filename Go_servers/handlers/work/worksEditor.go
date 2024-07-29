@@ -14,10 +14,13 @@ import (
 	// "time"
 )
 
+/*
+	Get all works and buttons for the editor route '/editor'
+*/ 
 func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	tmpl := template.Must(template.ParseFS(editorFs,"htmlTemplates/editorTemplates/workEditor.html"))
-	pictures := db.WorksDB()
-	tmpl.Execute(w, *pictures)
+	works := db.AllWorks()
+	tmpl.Execute(w, works)
 }
 
 func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
@@ -70,7 +73,10 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	}
 }
 
-
+/*
+Handle any edits for the "works" table.
+Will call the database to order db operations related to PUT.
+*/
 func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) {
 	fmt.Println("PUT EDITOR")
 	// time.Sleep(2 * time.Second)

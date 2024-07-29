@@ -21,16 +21,10 @@ var templatesFS embed.FS
 //// go:embed static/*
 // var staticFS embed.FS
 
-type Work struct {
-        ID      int    `json:"id"`
-        Title   string `json:"title"`
-        PicPath string `json:"picPath"`
-}
-// type Work Sumafunct(x int, y string){}  Work.Suma
-
 func main() {
         
 	fmt.Println("SERVER LISTENING:")
+	// db.AllWorks() // Testing db storage and buucker from supabase here
 
 	landingHandler := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFS(templatesFS,"htmlTemplates/index.html"))
@@ -53,7 +47,7 @@ func main() {
 	http.HandleFunc("GET /work/{title}", func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r, templatesFS)})
 	
 	http.HandleFunc("GET /editor", func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)})
-	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)})
+	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)}) // work here
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
 	
@@ -62,12 +56,3 @@ func main() {
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))
 }
-
-//  supa = initDB(supaKey, supaUrl, supaPWd)
-//  supa.DB.from("works").insert(work)
-//  supa.Storage.from("bucketName").insert(name, []bytes)
-
-
-/* type work struct{
-	Title string `json:"title"`
-*/

@@ -1,3 +1,6 @@
+/*
+'/work related stuff...
+*/
 package work
 
 //  WORKING WAAAAY BELOWW GO CHECK
@@ -10,6 +13,7 @@ import (
 	"text/template"
 )
 
+//  Currently being used for the json data received from the fecth of '/editor/component'
 type RequestData struct {
     WorkID      string `json:"PicID"`
     Option  string `json:"Option"`
@@ -27,17 +31,20 @@ type PictureData struct {
     Picture []byte `json:"picture"`
 }
 
-
+/*
+	Get all works for the /work route
+*/
 func GetHand(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 	tmpl := template.Must(template.ParseFS(fileEmbed,"htmlTemplates/work.html"))
-	pictures := db.WorksDB()
+	works:= db.AllWorks()
 
-	tmpl.Execute(w, *pictures)
+	tmpl.Execute(w, works)
 }
 
-//  WORKING HEREEE
+/*
+	Currently being used to fetch the buttons editor component of /editor.
+*/ 
 func FectchComponent(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-
 	fmt.Println("Fecthing back buttonsEditor")
 
 	err := r.ParseForm()
@@ -45,10 +52,12 @@ func FectchComponent(w http.ResponseWriter, r *http.Request, templateFs embed.FS
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
+
 	Data := RequestData{
 		WorkID:   r.FormValue("WorkID"),
 		Component: r.FormValue("Component"),
 	}
+
 	fmt.Println("Accesing values")
 	fmt.Println(Data.WorkID)
 	fmt.Println(Data.Component)
