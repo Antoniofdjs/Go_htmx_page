@@ -8,7 +8,6 @@ package work
 import (
 	"Go_servers/db"
 	"embed"
-	"fmt"
 	"net/http"
 	"text/template"
 )
@@ -39,29 +38,4 @@ func GetHand(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 	works:= db.AllWorks()
 
 	tmpl.Execute(w, works)
-}
-
-/*
-	Currently being used to fetch the buttons editor component of /editor.
-*/ 
-func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-	fmt.Println("Fecthing back buttonsEditor")
-
-	err := r.ParseForm()
-	if err != nil {
-		http.Error(w, "Unable to parse form", http.StatusBadRequest)
-		return
-	}
-
-	Data := RequestData{
-		WorkID:   r.FormValue("WorkID"),
-		Component: r.FormValue("Component"),
-	}
-
-	fmt.Println("Accesing values")
-	fmt.Println(Data.WorkID)
-	fmt.Println(Data.Component)
-
-	tmpl := template.Must(template.ParseFS(templateFs,"htmlTemplates/workEditor/buttonsEditor.html"))
-	tmpl.Execute(w, Data)
 }
