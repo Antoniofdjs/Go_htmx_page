@@ -9,7 +9,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"strconv"
 	"text/template"
 	// "time"
 )
@@ -73,6 +72,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	}
 }
 
+
 /*
 Handle any edits for the "works" table.
 Will call the database to order db operations related to PUT.
@@ -93,7 +93,6 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 		return
 	}
 	fmt.Println("EDIT my work id is: ",WorkID)
-	workID, _ := strconv.Atoi(WorkID)
 	title := r.FormValue("inputTitle")
 
 	PicBytes, _, err := r.FormFile("picture")
@@ -104,19 +103,20 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 
 	if PicBytes == nil && title != "" {
-		updated, err:= db.EditTitle(workID, title)
+		updated, err:= db.EditTitle(WorkID, title)
 		if !updated{
 			fmt.Println(err)
 			http.Error(w, "Error updating title", http.StatusBadRequest)
 			return
 		}
-		
+
 		tmpl, err := template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
 		if err != nil {
 			log.Printf("Error parsing template: %v", err)
 			return
 		}
-		tmpl.Execute(w, *db.WorksDB())
+		works:= db.AllWorks()
+		tmpl.Execute(w, works)
 	} else if PicBytes != nil && title == "" {
 		fmt.Println("Change Picture")
 	} else {
@@ -126,29 +126,15 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 
 func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Delete Activated")
-	// body, err := io.ReadAll(r.Body)
-	// if err != nil {
-	// 	http.Error(w, "Failed to read request body", http.StatusInternalServerError)
-	// 	return
-	// }
-	// defer r.Body.Close()
-	// fmt.Println("READ BODY")
-	// fmt.Println(string(body))
-
-	// err= r.ParseForm()
-	// if err != nil{
-	// 	http.Error(w, "Unable to parse form", http.StatusBadRequest)
-	// 	return
-	// }
 	option := r.FormValue("Component")
 	fmt.Println("option component",option )
 	workID := r.FormValue("WorkID")
 	fmt.Println("workId in before delete",workID )
-	id,_:= strconv.Atoi(workID)
 
-	err := db.DeleteWork(id)
+	err := db.DeleteWork(workID)
 	if err!=nil{
 		http.Error(w, "Unable to delete work", http.StatusBadRequest)
+		fmt.Printf("Error: %v\n", err)
 		return
 	}
 	// Render template:
@@ -157,5 +143,6 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 		log.Printf("Error parsing template: %v", err)
 		return
 	}
-	tmpl.Execute(w, *db.WorksDB())
+	works:= db.AllWorks()
+	tmpl.Execute(w, works)
 }
