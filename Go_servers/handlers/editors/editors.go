@@ -34,7 +34,7 @@ func EditTitle(workID string, templateFS embed.FS) *template.Template {
 }
 
 /*
-	Renders the html template for the buttom 'Delete' in the 'buttons-container'.
+	Renders the html template for the buttom 'Insert Above' in the 'buttons-container'.
 */ 
 func InsertAbove(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
