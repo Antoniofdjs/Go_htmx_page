@@ -10,8 +10,8 @@
       class="flex w-6 h-6 p-1 bg-transparent border-none outline-none cursor-pointer hover:bg-gray-200 justify-center items-center text-center"
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
-      hx-get="/editor/component"
-      hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "buttonsEditor"}'
+      hx-get="/editor/components"
+      hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "ButtonsEditor"}'
       hx-target="#edit-title-component-{{ .WorkID }}"
       hx-swap="outerHTML"
     >

@@ -5,50 +5,50 @@
   <button
     type="button"
     class="bg-amber-200 hover:bg-amber-500 text-gray-700 font-bold py-2 px-4"
-    hx-post="/editor"
+    hx-get="/editor/components"
     hx-target="#buttons-container-{{ .WorkID }}"
     hx-swap="outerHTML"
-    hx-vals='{"WorkID": "{{ .WorkID }}", "Option": "ChangePic"}'
+    hx-vals='{"WorkID": "{{ .WorkID }}", "Component": "ChangePic"}'
   >
     Change Picture
   </button>
   <button
     type="button"
     class="bg-amber-200 hover:bg-amber-500 text-gray-700 font-bold py-2 px-4"
-    hx-post="/editor"
+    hx-get="/editor/components"
     hx-target="#buttons-container-{{ .WorkID }}"
     hx-swap="outerHTML"
-    hx-vals='{"WorkID": "{{ .WorkID }}", "Option": "EditTitle"}'
+    hx-vals='{"WorkID": "{{ .WorkID }}", "Component": "EditTitle"}'
   >
     Edit Title
   </button>
   <button
     type="button"
     class="bg-amber-200 hover:bg-amber-500 text-gray-700 font-bold py-2 px-4"
-    hx-post="/editor"
+    hx-get="/editor/components"
     hx-target="#buttons-container-{{ .WorkID }}"
     hx-swap="outerHTML"
-    hx-vals='{"WorkID": "{{ .WorkID }}", "Option": "Delete"}'
+    hx-vals='{"WorkID": "{{ .WorkID }}", "Component": "Delete"}'
   >
     Delete
   </button>
   <button
     type="button"
     class="bg-amber-200 hover:bg-amber-500 text-gray-700 font-bold py-2 px-4"
-    hx-post="/editor"
+    hx-get="/editor/components"
     hx-target="#buttons-container-{{ .WorkID }}"
     hx-swap="outerHTML"
-    hx-vals='{"WorkID": "{{ .WorkID }}", "Option": "InsertAbove"}'
+    hx-vals='{"WorkID": "{{ .WorkID }}", "Component": "InsertAbove"}'
   >
     Insert Work Above
   </button>
   <button
     type="button"
     class="bg-amber-200 hover:bg-amber-500 text-gray-700 font-bold py-2 px-4"
-    hx-post="/editor"
+    hx-get="/editor/components"
     hx-target="#buttons-container-{{ .WorkID }}"
     hx-swap="outerHTML"
-    hx-vals='{"WorkID": "{{ .WorkID }}", "Option": "InsertBelow"}'
+    hx-vals='{"WorkID": "{{ .WorkID }}", "Component": "InsertBelow"}'
   >
     Insert Work Below
   </button>
