@@ -14,7 +14,7 @@ import (
 )
 
 /*
-	Get all works and buttons for the editor route '/editor'
+	Get html template for the '/editor' view
 */ 
 func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	tmpl := template.Must(template.ParseFS(editorFs,"htmlTemplates/editorTemplates/workEditor.html"))
@@ -22,8 +22,10 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	tmpl.Execute(w, works)
 }
 
-func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-	fmt.Println("Fetching EditorTitle component")
+/*
+	Get components for the editor, this includes the views of the buttons clicked and 'Buttons Editor Component'
+*/ 
+func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	// Read the body of the request
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -43,30 +45,27 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-
-	Data := RequestData{
+	data := RequestData{
 		WorkID:   r.FormValue("WorkID"),
-		Option: r.FormValue("Option"),
+		Component: r.FormValue("Component"),
 	}
 
-	// Check if option is in map of Editor
-	tmplFunc, exists := editors.Handlers[Data.Option]
+	// Search for the component and call handler
+	tmplFunc, exists := editors.ComponentsHandlers[data.Component]
 	if !exists {
-		fmt.Println("\n\nOption not found", Data.Option)
+		fmt.Println("\n\nOption not found", data.Option)
 		http.Error(w, "Invalid option", http.StatusBadRequest)
 		return
 	}
 
-	// Get the template
-	tmpl := tmplFunc(Data.WorkID, templateFs)
+	// Get the template and render it
+	tmpl := tmplFunc(data.WorkID, templateFs)
 	if tmpl == nil {
 		http.Error(w, "Template error", http.StatusInternalServerError)
 		return
 	}
 	fmt.Println("\n\nFound template")
-
-	// Execute the template, this will get the component
-	err = tmpl.Execute(w, Data)
+	err = tmpl.Execute(w, data)
 	if err != nil {
 		http.Error(w, "Unable to render template", http.StatusInternalServerError)
 	}
