@@ -1,7 +1,7 @@
 /*
-Fecth all components for the editor
+Components for the editor view, handlers, maps, etc...
 */
-package editors
+package editorComponents
 
 import (
 	"embed"
