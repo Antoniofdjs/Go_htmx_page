@@ -2,7 +2,7 @@ package work
 
 import (
 	"Go_servers/db"
-	"Go_servers/handlers/editors"
+	editorComponents "Go_servers/handlers/editors"
 	"bytes"
 	"embed"
 	"fmt"
@@ -51,7 +51,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	}
 
 	// Search for the component and call handler
-	tmplFunc, exists := editors.ComponentsHandlers[data.Component]
+	tmplFunc, exists := editorComponents.ComponentsHandlers[data.Component]
 	if !exists {
 		fmt.Println("\n\nOption not found", data.Option)
 		http.Error(w, "Invalid option", http.StatusBadRequest)
