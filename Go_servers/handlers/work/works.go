@@ -44,7 +44,7 @@ func GetHand(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 /*
 	Currently being used to fetch the buttons editor component of /editor.
 */ 
-func FectchComponent(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
+func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Fecthing back buttonsEditor")
 
 	err := r.ParseForm()
