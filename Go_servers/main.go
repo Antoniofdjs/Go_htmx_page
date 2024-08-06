@@ -51,7 +51,7 @@ func main() {
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
 	
-	http.HandleFunc("POST /editor/component", func(w http.ResponseWriter, r *http.Request){work.FectchComponent(w, r, templatesFS)})
+	http.HandleFunc("GET /editor/component", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
 
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))
