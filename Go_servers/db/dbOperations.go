@@ -5,10 +5,10 @@ package db
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/joho/godotenv"
 	"github.com/supabase-community/postgrest-go"
@@ -48,6 +48,24 @@ var worksMap = map[string][]Work{
 	},
 }
 
+func InitDB() *supabase.Client {
+	fmt.Println("Initializing DATABASE:")
+	// Load environment variables
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+	dbURL := os.Getenv("DB_URL")
+	dbKey := os.Getenv("DB_KEY")
+
+	// Initialize Supabase client
+	supaClient, err := supabase.NewClient(dbURL, dbKey, nil)
+	if err != nil {
+		log.Fatalf("Error creating Supabase client: %v", err)
+	}
+
+	return supaClient
+}
+
 /*
 Returns a pointer to the map of the works. Acting as database table.
 */
@@ -56,36 +74,76 @@ func WorksDB() *map[string][]Work {
 }
 
 
-func EditTitle(workID int, title string) (bool,error){
-	works_map := WorksDB()
+func EditTitle(workID string, newTitle string) (bool, error) {
+    supaClient := InitDB()
+	fmt.Println("EDITING WITH DB")
+    // Perform the update directly
+    _, _, err := supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,}, "", "").Eq("WorkID", workID).Execute()
+    if err != nil {
+        return false, fmt.Errorf("error updating record: %w", err)
+    }
 
-	if len((*works_map)["works"]) < workID || workID < 0{
-		return false, errors.New("WorkID does not exist")
-	}
-	// Modifiying directly the work title
-	workIndex := workID - 1
-	(*works_map)["works"][workIndex].Title = title
-	return true, nil
+    return true, nil
 }
 
-func DeleteWork(workID int) error{
-	works_map:= WorksDB()
-	if len((*works_map)["works"]) < workID || workID < 0{
-		return errors.New("WorkID does not exist")
-	}
-	works:= (*works_map)["works"]
-	fmt.Println("Works length idexes ", len(works))
-	workIndex := workID - 1
-	fmt.Println("work idx: ", workIndex)
-	(*works_map)["works"] = append(works[:workIndex], works[workIndex + 1:]...)
-	for i := range (*works_map)["works"] {
-		(*works_map)["works"][i].WorkID = i + 1
-	}
+func DeleteWork(workID string) error {
+    supaClient := InitDB()
+    fmt.Println("DELETING FROM DB")
+	var works []WorkQuery
+	var updatedWorkList []WorkQuery
+	var err error = nil
 
-	fmt.Println("My mapp: ", *works_map)
-	return nil
+	// Count the number of rows in the "works" table before deletion
+	worksRows, totalWorks, err := supaClient.From("works").Select("*", "exact", false).Execute()
+	if err != nil {
+		return err
+	}
+	// Print the count result
+	fmt.Printf("Count Result: %v\n", totalWorks)
+	workIdToDelete, err:= strconv.Atoi(workID)
+	if err!= nil{
+		return err
+	}
+	// Deleting last work, no need to change workId of other works... else
+	if workIdToDelete == int(totalWorks){
+		_, _, err = supaClient.From("works").Delete("","").Eq("WorkID", workID).Execute()
+		if err!=nil{
+			return err
+		}
+	}else{
+		if err := json.Unmarshal(worksRows, &works); err != nil {
+			log.Fatalf("Error unmarshalling result: %v", err)
+			return err
+		}
+		// Update works with new workIDs
+		for _, work := range works{
+			// assing 0 to the work we will delete later
+			if work.WorkID == workIdToDelete{
+				work.WorkID = 0
+			}
+			// Reduce workId by one for all works after ID selected is deleted.
+			if work.WorkID > workIdToDelete{
+				work.WorkID = work.WorkID - 1
+			}
+			updatedWorkList = append(updatedWorkList, work)
+		}
+		// Update works
+		fmt.Printf("updated works %v\n", updatedWorkList)
+		for _, work := range updatedWorkList{
+			fmt.Println("WORK ID: ", work.WorkID)
+		_,_,err = supaClient.From("works").Update(work, "", "").Eq("ID", strconv.Itoa(work.ID)).Execute()
+		if err!=nil{
+			return err
+		}}
+		// Delete specified work
+		fmt.Println("Works udpated, proceeding to delete")
+		_, _, err = supaClient.From("works").Delete("","").Eq("WorkID", "0").Execute()
+		if err!=nil{
+			return err
+		}
+	}
+	return err
 }
-
 
 // Create a variable to hold the result
 // var result interface{}
@@ -118,19 +176,11 @@ func DeleteWork(workID int) error{
 */
 func AllWorks() []Work{
 	
-	var worksQuery []WorkQuery
-	var works []Work
-	// prepare godot to rerad from .env
-	if err := godotenv.Load(); err != nil {
-        log.Fatalf("Error loading .env file: %v", err)
-    }
-	dbURL := os.Getenv("DB_URL")
-	dbKey:= os.Getenv("DB_KEY")
-
-	supaClient, err := supabase.NewClient(dbURL, dbKey, nil) // Maybe need to init this on another place...
-	if err != nil {
-		log.Fatalf("Error creating client: %v", err)
-	}
+	var (
+		worksQuery []WorkQuery
+		works []Work
+	)
+	supaClient:= InitDB()
 
 	//  Query "works" table
 	result, _, err := supaClient.From("works").
@@ -144,9 +194,9 @@ func AllWorks() []Work{
         log.Fatalf("Error unmarshalling result: %v", err)
     }
 
-	// Open storage(bucket) client and prepare 'works = []work' to send data to front
+	// Open storage(bucket) client to get picture url
     storage := supaClient.Storage
-	for i,_:= range worksQuery{
+	for i:= range worksQuery{
     	filePath := worksQuery[i].Path
     	title := worksQuery[i].Title
 		workID:= worksQuery[i].WorkID
