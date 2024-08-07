@@ -9,9 +9,16 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"text/template"
 	// "time"
 )
+
+type DataComponents struct{
+	WorkID  string
+	BelowWorkID string
+	Component string
+}
 
 /*
 	Get html template for the '/editor' view
@@ -49,6 +56,13 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		WorkID:   r.FormValue("WorkID"),
 		Component: r.FormValue("Component"),
 	}
+	belowWorkId, _:= strconv.Atoi(data.WorkID) // validate error later here......
+	belowWorkID:= strconv.Itoa(belowWorkId + 1)
+	
+	componentData := DataComponents{
+		WorkID: data.WorkID,
+		BelowWorkID: belowWorkID,
+	}
 
 	// Search for the component and call handler
 	tmplFunc, exists := editorComponents.ComponentsHandlers[data.Component]
@@ -65,12 +79,35 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		return
 	}
 	fmt.Println("\n\nFound template")
-	err = tmpl.Execute(w, data)
+	err = tmpl.Execute(w, componentData)
 	if err != nil {
 		http.Error(w, "Unable to render template", http.StatusInternalServerError)
 	}
 }
 
+
+func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
+	fmt.Println("Post activated")
+	err:= r.ParseMultipartForm(100<<20)
+	if err!=nil{
+		http.Error(w, "Unable to parse form", http.StatusBadRequest)
+		return
+	}
+	title := r.FormValue("title")
+	workID := r.FormValue("workID")
+	picName := "forest.jpg"
+	err = db.InsertWork(title, workID,picName)
+	if err!= nil{
+		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
+	}
+	tmpl , err:= template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
+	if err != nil {
+		log.Printf("Error parsing template: %v", err)
+		return
+	}
+	works:= db.AllWorks()
+	tmpl.Execute(w, works)
+}
 
 /*
 Handle any edits for the "works" table.

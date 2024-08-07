@@ -24,7 +24,7 @@ var ComponentsHandlers = map[string]func(workId string, templateFs embed.FS) *te
 
 
 /*
-	Renders the html template for the buttom 'Edit Title' in the 'buttons-container'.
+	Fecth the html template for the buttom 'Edit Title' in the 'buttons-container'.
 */
 func EditTitleComponent(workID string, templateFS embed.FS) *template.Template {
 	fmt.Println("My Pic Id is:", workID)
@@ -41,7 +41,7 @@ func EditTitleComponent(workID string, templateFS embed.FS) *template.Template {
 }
 
 /*
-	Renders the html template for the buttom 'Insert Above' in the 'buttons-container'.
+	Fecth the html template for the buttom 'Insert Above' in the 'buttons-container'.
 */ 
 func InsertAboveComponent(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
@@ -56,6 +56,9 @@ func InsertAboveComponent(picID string, templateFs embed.FS) *template.Template{
 	return tmpl
 }
 
+/*
+	Fecth the html template for the buttom 'Insert Below' in the 'buttons-container'.
+*/ 
 func InsertBelowComponent(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
@@ -69,6 +72,9 @@ func InsertBelowComponent(picID string, templateFs embed.FS) *template.Template{
 	return tmpl
 }
 
+/*
+	Fecth the html template for the buttom 'Change Picture' in the 'buttons-container'.
+*/ 
 func ChangePicComponent(picID string, templateFS embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
@@ -82,6 +88,9 @@ func ChangePicComponent(picID string, templateFS embed.FS) *template.Template{
 	return tmpl
 }
 
+/*
+	Fecth the html template for the buttom 'Delete' in the 'buttons-container'.
+*/ 
 func DeleteWorkComponent(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)
 	// Parse the template file and handle errors gracefully
@@ -96,7 +105,7 @@ func DeleteWorkComponent(picID string, templateFs embed.FS) *template.Template{
 }
 
 /*
-Fecthes Buttons Editor Component
+Fecth the html Buttons Editor Component
 */
 func ButtonsEditorComponent(picID string, templateFs embed.FS) *template.Template{
 	fmt.Println("My Pic Id is:", picID)

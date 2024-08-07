@@ -30,24 +30,9 @@ type Work struct {
     WorkID int    `json:"WorkID"`
 }
 
-// My "data base"
-var worksMap = map[string][]Work{
-	"works": {
-		{Title: "BEACH", Path: "../static/images/userWorks/beach.jpg", WorkID: 1},
-		{Title: "FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg", WorkID: 2},
-		{Title: "ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg", WorkID: 3},
-		{Title: "FOOD", Path: "../static/images/userWorks/food.jpg", WorkID: 4},
-		{Title: "BEACH", Path: "../static/images/userWorks/beach.jpg", WorkID: 5},
-		{Title: "FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg", WorkID: 6},
-		{Title: "ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg", WorkID: 7},
-		{Title: "FOOD", Path: "../static/images/userWorks/food.jpg", WorkID: 8},
-		{Title: "BEACH", Path: "../static/images/userWorks/beach.jpg", WorkID: 9},
-		{Title: "FOREST - EL YUNQUE", Path: "../static/images/userWorks/forest.jpg", WorkID: 10},
-		{Title: "ICELAND - BLACK SANDS", Path: "../static/images/userWorks/iceland.jpg", WorkID: 11},
-		{Title: "FOOD", Path: "../static/images/userWorks/food.jpg", WorkID: 12},
-	},
-}
-
+/*
+	Initialize client for supabase.
+*/ 
 func InitDB() *supabase.Client {
 	fmt.Println("Initializing DATABASE:")
 	// Load environment variables
@@ -66,14 +51,40 @@ func InitDB() *supabase.Client {
 	return supaClient
 }
 
-/*
-Returns a pointer to the map of the works. Acting as database table.
-*/
-func WorksDB() *map[string][]Work {
-	return &worksMap
+
+func InsertWork(title string, workID string, picName string) error {
+	supaClient:= InitDB()
+	var newWork Work
+	// Count the number of rows in the "works" table before insertion
+	_, totalWorks, err := supaClient.From("works").Select("*", "exact", false).Execute()
+	if err != nil {
+		return err
+	}
+	// Print the count result
+	fmt.Printf("Count Result: %v\n", totalWorks)
+	workIdToInsert, err:= strconv.Atoi(workID)
+	if err!= nil{
+		return err
+	}
+	// Work is going be inserted in last position
+	if workIdToInsert == int(totalWorks) + 1{
+		newWork = Work{
+			Title: title,
+			Path: picName,
+			WorkID: workIdToInsert,
+		}
+		_, _, err = supaClient.From("works").Insert(newWork, true, "","", "").Execute()
+		if err!=nil{
+			return err
+		}
+	}
+	return nil
 }
 
 
+/*
+	Edit tile of a work.
+*/ 
 func EditTitle(workID string, newTitle string) (bool, error) {
     supaClient := InitDB()
 	fmt.Println("EDITING WITH DB")
@@ -86,6 +97,9 @@ func EditTitle(workID string, newTitle string) (bool, error) {
     return true, nil
 }
 
+/*
+	Delete a work
+*/ 
 func DeleteWork(workID string) error {
     supaClient := InitDB()
     fmt.Println("DELETING FROM DB")
@@ -172,7 +186,7 @@ func DeleteWork(workID string) error {
 /*
 	Get all "works" from database.
 	Returns a slice []work that contains all the works.
-	Example: works[0].Title or .WorkID or .Path(url)
+	Example: works[0].Title or .WorkID or .Path
 */
 func AllWorks() []Work{
 	
