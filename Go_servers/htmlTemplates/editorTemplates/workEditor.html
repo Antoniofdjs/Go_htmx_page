@@ -67,7 +67,7 @@
                     hx-get="/editor/components"
                     hx-target="#buttons-container-{{ .Position }}"
                     hx-swap="outerHTML"
-                    hx-vals='{"Position": "{{ .Position }}", "Component": "ChangePic"}'
+                    hx-vals='{"Position": "{{ .Position }}", "Component": "ChangePic", "Title": "{{ .Title }}"}'
                   >
                     Change Picture
                   </button>
@@ -77,7 +77,7 @@
                     hx-get="/editor/components"
                     hx-target="#buttons-container-{{ .Position }}"
                     hx-swap="outerHTML"
-                    hx-vals='{"Position": "{{ .Position }}", "Component": "EditTitle"}'
+                    hx-vals='{"Position": "{{ .Position }}", "Component": "EditTitle", "Title": "{{ .Title }}"}'
                   >
                     Edit Title
                   </button>
@@ -87,7 +87,7 @@
                     hx-get="/editor/components"
                     hx-target="#buttons-container-{{ .Position }}"
                     hx-swap="outerHTML"
-                    hx-vals='{"Position": "{{ .Position }}", "Component": "Delete"}'
+                    hx-vals='{"Position": "{{ .Position }}", "Component": "Delete", "Title": "{{ .Title }}"}'
                   >
                     Delete
                   </button>
@@ -97,7 +97,7 @@
                     hx-get="/editor/components"
                     hx-target="#buttons-container-{{ .Position }}"
                     hx-swap="outerHTML"
-                    hx-vals='{"Position": "{{ .Position }}", "Component": "InsertAbove"}'
+                    hx-vals='{"Position": "{{ .Position }}", "Component": "InsertAbove", "Title": "{{ .Title }}"}'
                   >
                     Insert Work Above
                   </button>
@@ -107,7 +107,7 @@
                     hx-get="/editor/components"
                     hx-target="#buttons-container-{{ .Position }}"
                     hx-swap="outerHTML"
-                    hx-vals='{"Position": "{{ .Position }}", "Component": "InsertBelow"}'
+                    hx-vals='{"Position": "{{ .Position }}", "Component": "InsertBelow", "Title": "{{ .Title }}"}'
                   >
                     Insert Work Below
                   </button>

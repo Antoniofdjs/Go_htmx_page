@@ -11,7 +11,7 @@
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
       hx-get="/editor/components"
-      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor"}'
+      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor", "Title": "{{ .Title }}"}'
       hx-target="#work-above-component-{{ .Position }}"
       hx-swap="outerHTML"
     >
