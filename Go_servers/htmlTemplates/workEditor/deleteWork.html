@@ -1,7 +1,7 @@
 <!-- EDITOR  TITLE COMPONENT -->
 <div
   class="flex flex-col h-1/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 md:items-start text-left justify-center"
-  id="delete-work-component-{{ .WorkID }}"
+  id="delete-work-component-{{ .Position }}"
 >
   <h2 class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
     <!-- The button is for closing this component and retreiving the previous one -->
@@ -11,15 +11,15 @@
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
       hx-get="/editor/components"
-      hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "ButtonsEditor"}'
-      hx-target="#delete-work-component-{{ .WorkID }}"
+      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor"}'
+      hx-target="#delete-work-component-{{ .Position }}"
       hx-swap="outerHTML"
     >
       <!-- Add button text or icon here if needed -->
       <span class="text-red-500 hover:text-red-600">X</span>
       <!-- You can style this text as needed -->
     </button>
-    DELETE WORK: #{{ .WorkID }}
+    DELETE WORK: #{{ .Position }}
   </h2>
   <div class="flex flex-col justify-start gap-3 mt-6 sm:flex-row items-center w-full text-left">
     <p class="px-6 py-2 rounded-md md:w-1/2 w-full text-center">---WARNING---</p>
@@ -30,7 +30,7 @@
       hx-post="/editor/del"
       hx-target="#works-section"
       hx-swap="outerHTML"
-      hx-vals='{"WorkID":"{{ .WorkID }}", "Option": "EditTitle"}'
+      hx-vals='{"Position":"{{ .Position }}", "Option": "EditTitle"}'
     >
       DELETE
     </button>

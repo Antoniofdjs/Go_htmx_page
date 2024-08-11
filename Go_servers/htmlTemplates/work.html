@@ -46,7 +46,10 @@
         <div class="-m-1 flex flex-wrap md:-m-2 flex-col items-center w-screen gap-1" id="gallery">
           <!-- IMAGES HERE BELOW: -->
           {{ range . }}
-          <div class="flex w-full h-[500px] flex-wrap pb-10 object-center relative" id="image-container-{{ .WorkID }}">
+          <div
+            class="flex w-full h-[500px] flex-wrap pb-10 object-center relative"
+            id="image-container-{{ .Position }}"
+          >
             <img
               alt="gallery"
               class="block w-full h-full object-cover object-center absolute top-0 left-0 hover:brightness-75"

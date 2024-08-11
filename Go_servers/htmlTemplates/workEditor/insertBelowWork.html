@@ -1,7 +1,7 @@
 <!-- INSERT ABOVE WORK COMPONENT -->
 <div
   class="flex flex-col h-5/6 md:h-2/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 md:items-start text-left justify-start"
-  id="work-below-component-{{ .WorkID }}"
+  id="work-below-component-{{ .Position }}"
 >
   <h2 class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
     <!-- The button is for closing this component and retreiving the previous one -->
@@ -11,8 +11,8 @@
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
       hx-get="/editor/components"
-      hx-vals='{"WorkID":"{{ .WorkID }}", "Component": "ButtonsEditor"}'
-      hx-target="#work-below-component-{{ .WorkID }}"
+      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor"}'
+      hx-target="#work-below-component-{{ .Position }}"
       hx-swap="outerHTML"
     >
       <!-- Add button text or icon here if needed -->
@@ -32,7 +32,7 @@
       hx-encoding="multipart/form-data"
       hx-trigger="submit"
       hx-target="#works-section"
-      hx-include="[name='title'], [name='workID']"
+      hx-include="[name='title'], [name='Position']"
       hx-swap="outerHTML"
     >
       <!-- Title input -->
@@ -49,8 +49,8 @@
         />
       </div>
       <!-- /Title Input -->
-      <!-- Hidden WorkID input -->
-      <input type="hidden" name="workID" value="{{ .BelowWorkID }}" />
+      <!-- Hidden Position input -->
+      <input type="hidden" name="Position" value="{{ .BelowPosition }}" />
 
       <!-- Pic upload and submit -->
       <div
