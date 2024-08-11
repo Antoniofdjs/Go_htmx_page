@@ -15,8 +15,8 @@ import (
 )
 
 type DataComponents struct{
-	WorkID  string
-	BelowWorkID string
+	Position  string
+	BelowPosition string
 	Component string
 }
 
@@ -53,15 +53,15 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		return
 	}
 	data := RequestData{
-		WorkID:   r.FormValue("WorkID"),
+		Position:   r.FormValue("Position"),
 		Component: r.FormValue("Component"),
 	}
-	belowWorkId, _:= strconv.Atoi(data.WorkID) // validate error later here......
-	belowWorkID:= strconv.Itoa(belowWorkId + 1)
+	belowPositionInt, _:= strconv.Atoi(data.Position) // validate error later here......
+	belowPosition:= strconv.Itoa(belowPositionInt + 1)
 	
 	componentData := DataComponents{
-		WorkID: data.WorkID,
-		BelowWorkID: belowWorkID,
+		Position: data.Position,
+		BelowPosition: belowPosition,
 	}
 
 	// Search for the component and call handler
@@ -73,7 +73,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	}
 
 	// Get the template and render it
-	tmpl := tmplFunc(data.WorkID, templateFs)
+	tmpl := tmplFunc(data.Position, templateFs)
 	if tmpl == nil {
 		http.Error(w, "Template error", http.StatusInternalServerError)
 		return
@@ -86,6 +86,10 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 }
 
 
+/*
+	Handler for the POST request of '/editor'.
+	Here either 'Insert Above' or 'Insert Below'  is being triggered to insert new work.
+*/ 
 func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Post activated")
 	err:= r.ParseMultipartForm(100<<20)
@@ -93,10 +97,25 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
+
+	// Get picture bytes and pic name
+	file,fileHeader,err := r.FormFile("picture")
+	if err!= nil{
+		http.Error(w, "Could not access file", http.StatusInternalServerError)
+		return
+	}
+	defer file.Close()
+
+	fileName := fileHeader.Filename
+	fileBytes, err := io.ReadAll(file)
+	if err != nil {
+		http.Error(w, "Could not read file", http.StatusInternalServerError)
+		return
+	}
+
 	title := r.FormValue("title")
-	workID := r.FormValue("workID")
-	picName := "forest.jpg"
-	err = db.InsertWork(title, workID,picName)
+	position := r.FormValue("Position")
+	err = db.InsertWork(title, position,fileName, fileBytes)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
 	}
@@ -123,12 +142,12 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 		return
 	}
 
-	WorkID := r.FormValue("WorkID")
-	if WorkID == "" {
+	Position := r.FormValue("Position")
+	if Position == "" {
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-	fmt.Println("EDIT my work id is: ",WorkID)
+	fmt.Println("EDIT my work id is: ",Position)
 	title := r.FormValue("inputTitle")
 
 	PicBytes, _, err := r.FormFile("picture")
@@ -139,7 +158,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 
 	if PicBytes == nil && title != "" {
-		updated, err:= db.EditTitle(WorkID, title)
+		updated, err:= db.EditTitle(Position, title)
 		if !updated{
 			fmt.Println(err)
 			http.Error(w, "Error updating title", http.StatusBadRequest)
@@ -164,10 +183,10 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	fmt.Println("Delete Activated")
 	option := r.FormValue("Component")
 	fmt.Println("option component",option )
-	workID := r.FormValue("WorkID")
-	fmt.Println("workId in before delete",workID )
+	position := r.FormValue("Position")
+	fmt.Println("Position in before delete",position )
 
-	err := db.DeleteWork(workID)
+	err := db.DeleteWork(position)
 	if err!=nil{
 		http.Error(w, "Unable to delete work", http.StatusBadRequest)
 		fmt.Printf("Error: %v\n", err)
