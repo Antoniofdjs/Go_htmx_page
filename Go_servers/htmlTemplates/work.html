@@ -56,13 +56,15 @@
               src="{{ .Path }}"
             />
             <!-- Image text container -->
-            <div
-              class="opacity-0 image-overlay w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center"
-            >
-              <div class="bg-black bg-opacity-50 w-full h-full flex items-center">
-                <h2 class="text-white pl-6 md:pl-24 w-full text-left mt-2 font-serif text-xl">{{ .Title }}</h2>
+            <a href="/work/{{ .Title }}">
+              <div
+                class="opacity-0 image-overlay w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center cursor-pointer"
+              >
+                <div class="bg-black bg-opacity-50 w-full h-full flex items-center">
+                  <h2 class="text-white pl-6 md:pl-24 w-full text-left mt-2 font-serif text-xl">{{ .Title }}</h2>
+                </div>
               </div>
-            </div>
+            </a>
           </div>
           {{ end }}
         </div>
