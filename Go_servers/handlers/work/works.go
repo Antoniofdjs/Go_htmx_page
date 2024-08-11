@@ -17,6 +17,7 @@ type RequestData struct {
     Position      string `json:"PicID"`
     Option  string `json:"Option"`
 	Component string `json:"Component"`
+	Title string `json:"Title"`
 }
 
 type Picture struct{

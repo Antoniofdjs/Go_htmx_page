@@ -18,6 +18,7 @@ type DataComponents struct{
 	Position  string
 	BelowPosition string
 	Component string
+	Title string
 }
 
 /*
@@ -55,6 +56,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	data := RequestData{
 		Position:   r.FormValue("Position"),
 		Component: r.FormValue("Component"),
+		Title: r.FormValue("Title"),
 	}
 	belowPositionInt, _:= strconv.Atoi(data.Position) // validate error later here......
 	belowPosition:= strconv.Itoa(belowPositionInt + 1)
@@ -62,8 +64,10 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	componentData := DataComponents{
 		Position: data.Position,
 		BelowPosition: belowPosition,
+		Title: data.Title,
 	}
-
+	fmt.Println("My data response Title is: ", data.Title)
+	fmt.Println("MY TITLE IS: ", componentData.Title)
 	// Search for the component and call handler
 	tmplFunc, exists := editorComponents.ComponentsHandlers[data.Component]
 	if !exists {
