@@ -14,7 +14,7 @@ import (
 
 //  Currently being used for the json data received from the fecth of '/editor/component'
 type RequestData struct {
-    WorkID      string `json:"PicID"`
+    Position      string `json:"PicID"`
     Option  string `json:"Option"`
 	Component string `json:"Component"`
 }
