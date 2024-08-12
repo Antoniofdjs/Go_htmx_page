@@ -21,6 +21,20 @@ var templatesFS embed.FS
 //// go:embed static/*
 // var staticFS embed.FS
 
+
+func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        supabaseCookie, err := r.Cookie("SPB_TOKEN")
+        if err != nil || supabaseCookie.Value != "123" {
+            // http.Redirect(w, r, "/", http.StatusSeeOther)
+			msg := "Unauthorized"
+			w.Write([]byte(msg))
+            return
+        }
+        next.ServeHTTP(w, r)
+    }
+}
+
 func main() {
         
 	fmt.Println("SERVER LISTENING:")
@@ -46,12 +60,17 @@ func main() {
 	http.HandleFunc("GET /work", func(w http.ResponseWriter, r *http.Request){work.GetHand(w, r, templatesFS)})
 	http.HandleFunc("GET /work/{title}", func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r, templatesFS)})
 	
-	http.HandleFunc("GET /editor", func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)})
+	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)}))
 	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
 
+	// Login and logout
+	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){work.Login(w, r)})
+	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){work.Logout(w, r)})
+
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
+
 
 	// Start server
 	log.Fatal(http.ListenAndServe(":8000", nil))
