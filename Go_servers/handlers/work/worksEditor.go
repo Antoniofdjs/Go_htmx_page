@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
-	// "time"
+	"time"
 )
 
 type DataComponents struct{
@@ -21,11 +21,47 @@ type DataComponents struct{
 	Title string
 }
 
+func Login(w http.ResponseWriter, r *http.Request) {
+    // Set the expiration time to 1 minute from now
+    expirationTime := time.Now().Add(30 * time.Minute)
+
+	cookieSupa := http.Cookie{
+        Name:     "SPB_TOKEN",
+        Value:    "123",
+        Expires:  expirationTime,
+        HttpOnly: true,  // Ensures the cookie is only accessible via HTTP(S)
+        Secure:   false, // Set to false if serving over HTTP (not HTTPS)
+        Path:     "/",   // Scope of the cookie
+    }
+
+    http.SetCookie(w, &cookieSupa)
+
+    // Optionally, send a response to the frontend
+    w.Write([]byte("LOGGED IN"))
+}
+
+func Logout(w http.ResponseWriter, r *http.Request) {
+    expiredCookie := http.Cookie{
+        Name:     "SPB_TOKEN",
+        Value:    "",
+        Expires:  time.Unix(0, 0), // Expiration date set in the past
+        HttpOnly: true,
+        Secure:   false, // Set to false if serving over HTTP
+        Path:     "/",   // Scope of the cookie
+    }
+
+    // Set the expired cookie, which will delete it from the browser
+    http.SetCookie(w, &expiredCookie)
+	  // Optionally, send a response to the frontend
+	  w.Write([]byte("LOGGED OUT"))
+}
+
+
 /*
 	Get html template for the '/editor' view
 */ 
 func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
-	tmpl := template.Must(template.ParseFS(editorFs,"htmlTemplates/editorTemplates/workEditor.html"))
+	tmpl := template.Must(template.ParseFS(editorFs, "htmlTemplates/editorTemplates/workEditor.html"))
 	works := db.AllWorks()
 	tmpl.Execute(w, works)
 }
