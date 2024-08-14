@@ -70,6 +70,20 @@ func InitDB() *supabase.Client {
 	return supaClient
 }
 
+
+func Login(email string, pwd string) (string,error){
+	supaClient:= InitDB()
+	fmt.Println("Email: ",email)
+	fmt.Println("Password: ",pwd)
+	authSession , err:= supaClient.SignInWithEmailPassword(email, pwd)
+	if err!=nil{
+		fmt.Println("Error", err)
+		return "", err
+	}
+	token:= authSession.AccessToken
+	return token, nil
+}
+
 /*
 	Insert new work. Picture is also sent here. 
 */
