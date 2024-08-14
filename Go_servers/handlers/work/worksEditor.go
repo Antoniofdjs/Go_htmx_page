@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
-	"time"
 )
 
 type DataComponents struct{
@@ -20,42 +19,6 @@ type DataComponents struct{
 	Component string
 	Title string
 }
-
-func Login(w http.ResponseWriter, r *http.Request) {
-    // Set the expiration time to 1 minute from now
-    expirationTime := time.Now().Add(30 * time.Minute)
-
-	cookieSupa := http.Cookie{
-        Name:     "SPB_TOKEN",
-        Value:    "123",
-        Expires:  expirationTime,
-        HttpOnly: true,  // Ensures the cookie is only accessible via HTTP(S)
-        Secure:   false, // Set to false if serving over HTTP (not HTTPS)
-        Path:     "/",   // Scope of the cookie
-    }
-
-    http.SetCookie(w, &cookieSupa)
-
-    // Optionally, send a response to the frontend
-    w.Write([]byte("LOGGED IN"))
-}
-
-func Logout(w http.ResponseWriter, r *http.Request) {
-    expiredCookie := http.Cookie{
-        Name:     "SPB_TOKEN",
-        Value:    "",
-        Expires:  time.Unix(0, 0), // Expiration date set in the past
-        HttpOnly: true,
-        Secure:   false, // Set to false if serving over HTTP
-        Path:     "/",   // Scope of the cookie
-    }
-
-    // Set the expired cookie, which will delete it from the browser
-    http.SetCookie(w, &expiredCookie)
-	  // Optionally, send a response to the frontend
-	  w.Write([]byte("LOGGED OUT"))
-}
-
 
 /*
 	Get html template for the '/editor' view
@@ -105,7 +68,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	fmt.Println("My data response Title is: ", data.Title)
 	fmt.Println("MY TITLE IS: ", componentData.Title)
 	// Search for the component and call handler
-	tmplFunc, exists := editorComponents.ComponentsHandlers[data.Component]
+	templHandler, exists := editorComponents.ComponentsHandlers[data.Component]
 	if !exists {
 		fmt.Println("\n\nOption not found", data.Option)
 		http.Error(w, "Invalid option", http.StatusBadRequest)
@@ -113,7 +76,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	}
 
 	// Get the template and render it
-	tmpl := tmplFunc(data.Position, templateFs)
+	tmpl := templHandler(data.Position, templateFs)
 	if tmpl == nil {
 		http.Error(w, "Template error", http.StatusInternalServerError)
 		return
