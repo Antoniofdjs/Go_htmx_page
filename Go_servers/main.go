@@ -1,16 +1,20 @@
 package main
 
 import (
+	"Go_servers/db"
+	"Go_servers/handlers/about"
+	contacts "Go_servers/handlers/contact"
+	"Go_servers/handlers/galleries"
+	"Go_servers/handlers/user"
+	"Go_servers/handlers/work"
 	"embed"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 
-	"Go_servers/handlers/about"
-	contacts "Go_servers/handlers/contact"
-	"Go_servers/handlers/galleries"
-	"Go_servers/handlers/work"
+	"github.com/joho/godotenv"
 )
 
 // Embed all HTML files
@@ -23,10 +27,20 @@ var templatesFS embed.FS
 
 
 func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-        supabaseCookie, err := r.Cookie("SPB_TOKEN")
-        if err != nil || supabaseCookie.Value != "123" {
-            // http.Redirect(w, r, "/", http.StatusSeeOther)
+	return func(w http.ResponseWriter, r *http.Request) {
+		supaClient:= db.InitDB()
+		tokenName:= os.Getenv("SPB_TOKEN_NAME")
+		spbToken, err:= r.Cookie(tokenName)
+		if err != nil{
+			msg := "Unauthorized"
+			w.Write([]byte(msg))
+            return
+        }
+
+		authClient:= supaClient.Auth.WithToken(spbToken.Value)
+
+		_, err = authClient.GetUser()
+		if err != nil {
 			msg := "Unauthorized"
 			w.Write([]byte(msg))
             return
@@ -37,6 +51,11 @@ func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 func main() {
         
+	err:= godotenv.Load()
+	if err != nil {
+        log.Fatalf("Error loading .env file")
+    }
+
 	fmt.Println("SERVER LISTENING:")
 	// db.AllWorks() // Testing db storage and buucker from supabase here
 
@@ -66,8 +85,9 @@ func main() {
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
 
 	// Login and logout
-	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){work.Login(w, r)})
-	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){work.Logout(w, r)})
+	http.HandleFunc("POST /login", func(w http.ResponseWriter, r *http.Request){user.Login(w, r)})
+	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){user.GetLoginTmpl(w, r, templatesFS)})
+	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
 
