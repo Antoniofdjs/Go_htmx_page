@@ -76,7 +76,7 @@ func main() {
 	http.HandleFunc("GET /contact", func(w http.ResponseWriter, r *http.Request) {contacts.GetHand(w, r, templatesFS)})
 	http.HandleFunc("POST /contact", func(w http.ResponseWriter, r *http.Request) {contacts.PostHand(w, r, templatesFS)})
 
-	http.HandleFunc("GET /work", func(w http.ResponseWriter, r *http.Request){work.GetHand(w, r, templatesFS)})
+	http.HandleFunc("GET /work", func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)})
 	http.HandleFunc("GET /work/{title}", func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r, templatesFS)})
 	
 	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)}))
@@ -84,9 +84,9 @@ func main() {
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
 
-	// Login and logout
-	http.HandleFunc("POST /login", func(w http.ResponseWriter, r *http.Request){user.Login(w, r)})
+
 	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){user.GetLoginTmpl(w, r, templatesFS)})
+	http.HandleFunc("POST /login", func(w http.ResponseWriter, r *http.Request){user.Login(w, r)})
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
