@@ -4,6 +4,7 @@ Database handler
 package db
 
 import (
+	"Go_servers/models"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -18,13 +19,13 @@ import (
 )
 
 // Use this for query on "works" table
-type Work struct {
-	CreatedAt string `json:"CreatedAt"`
-	ID        int    `json:"ID"`
-	Path   string `json:"Path"`
-	Title     string `json:"Title"`
-	Position int    `json:"Position"`
-}
+// type Work struct {
+// 	CreatedAt string `json:"CreatedAt"`
+// 	ID        int    `json:"ID"`
+// 	Path   string `json:"Path"`
+// 	Title     string `json:"Title"`
+// 	Position int    `json:"Position"`
+// }
 // Use this to send works to html
 type WorkForFront struct {
     Path   string `json:"Path"`
@@ -33,12 +34,12 @@ type WorkForFront struct {
 }
 
 /*
-	Work method used to delete the picture in the bucket of the work.
+	Delete picture in 'works' bucket when the work will be deleted.
 */
-func (w Work) deletePicture() error{
+func DeletePicture(workPath string) error{
 	supaClient:= InitDB()
 	var paths []string
-	paths = append(paths, w.Path)
+	paths = append(paths, workPath)
 	storage := supaClient.Storage
 	response, err:= storage.RemoveFile("works",paths)
 	if err!=nil{
@@ -88,12 +89,12 @@ func Login(email string, pwd string) (string,error){
 	Insert new work. Picture is also sent here. 
 */
 func InsertWork(newTitle string, position string, picName string, picBytes []byte) error {
-	var newWork WorkForFront
-	var works []Work
+	var newWork models.Work
+	var works []models.Work
 	supaClient:= InitDB()
 
 	// Count the number of rows in the "works" table before insertion
-	workRowsQuery, totalWorks, err := supaClient.From("works").Select("*", "exact", false).Execute()
+	workRowsQuery, totalWorks, err := supaClient.From("works").Select("Position,Title,Path", "exact", false).Execute()
 	if err != nil {
 		return err
 	}
@@ -103,11 +104,12 @@ func InsertWork(newTitle string, position string, picName string, picBytes []byt
 	}
 
 	//New work to insert
-	newWork = WorkForFront{
+	newWork = models.Work{
 		Title: newTitle,
 		Path: picName,
 		Position: positionToInsert,
 	}
+
 	// Check first if Work is going be inserted in last position... else
 	if positionToInsert == int(totalWorks) + 1{
 		_, _, err = supaClient.From("works").Insert(newWork, true, "","", "").Execute()
@@ -127,20 +129,20 @@ func InsertWork(newTitle string, position string, picName string, picBytes []byt
 		for _, work := range works{
 			if work.Position >= positionToInsert{
 				work.Position += 1
-				_,_,err = supaClient.From("works").Update(work, "", "").Eq("ID", strconv.Itoa(work.ID)).Execute()
+				_,_,err = supaClient.From("works").Update(work, "", "").Eq("Path",work.Path).Execute()
 				if err!=nil{
 					return err
 				}
 			}
 		}
-		// Finally insert new work
+		// Insert new work
 		_, _, err = supaClient.From("works").Insert(newWork, true, "","", "").Execute()
 		if err!=nil{
 			return err
 		}
 		
 	}
-	// Finally insert picture to bucket with jpeg content 
+	// Insert picture to bucket as jpeg content headers 
 	content:="image/jpeg"
 	fileOption := storage_go.FileOptions{
 		ContentType: &content,
@@ -150,6 +152,9 @@ func InsertWork(newTitle string, position string, picName string, picBytes []byt
 	response, err:= supaClient.Storage.UploadFile("works",newWork.Path, picReader, fileOption)
 	fmt.Println("Response", response)
 	fmt.Println("Error: ",err)
+
+	// Update local storage
+	models.WorksStorage = AllWorks()
 	return nil
 }
 
@@ -158,13 +163,19 @@ func InsertWork(newTitle string, position string, picName string, picBytes []byt
 */ 
 func EditTitle(position string, newTitle string) (bool, error) {
     supaClient := InitDB()
+	positionInt, err := strconv.Atoi(position)
+	if err!=nil{
+		return false, fmt.Errorf("error in ATOI: %w", err)
+	}
+	
 	fmt.Println("EDITING WITH DB")
-    // Perform the update directly
-    _, _, err := supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,}, "", "").Eq("Position", position).Execute()
+    // Perform the update on databse
+    _, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,}, "", "").Eq("Position", position).Execute()
     if err != nil {
         return false, fmt.Errorf("error updating record: %w", err)
     }
-
+	// Update Local Storage
+	models.WorksStorage[positionInt - 1].Title = newTitle
     return true, nil
 }
 
@@ -173,10 +184,10 @@ func EditTitle(position string, newTitle string) (bool, error) {
 */ 
 func DeleteWork(position string) error {
     supaClient := InitDB()
-	var works []Work
-	var updatedWorkList []Work
+	var works []models.Work
+	var updatedWorkList []models.Work
 	var err error = nil
-	var worksToDelete []Work
+	var worksToDelete []models.Work
 	
     fmt.Println("DELETING FROM DB")
 	
@@ -208,7 +219,7 @@ func DeleteWork(position string) error {
 	if positionToDelete == int(totalWorks){
 		fmt.Println("Last work being deleted")
 		workToDelete.Position = 0
-		_,_,err = supaClient.From("works").Update(workToDelete, "", "").Eq("ID", strconv.Itoa(workToDelete.ID)).Execute()
+		_,_,err = supaClient.From("works").Update(workToDelete, "", "").Eq("Path", workToDelete.Path).Execute()
 		if err!=nil{
 			return err
 		}
@@ -233,82 +244,55 @@ func DeleteWork(position string) error {
 		fmt.Printf("updated works %v\n", updatedWorkList)
 		for _, work := range updatedWorkList{
 			fmt.Println("WORK ID: ", work.Position)
-		_,_,err = supaClient.From("works").Update(work, "", "").Eq("ID", strconv.Itoa(work.ID)).Execute()
+		_,_,err = supaClient.From("works").Update(work, "", "").Eq("Path",work.Path).Execute()
 		if err!=nil{
 			return err
 		}}
 	}
 	// Finally Delete specified work with the position = 0 and its picture from the bucket
-	err = workToDelete.deletePicture()
+	err = DeletePicture(workToDelete.Path)
 	if err!= nil{
 		fmt.Println("Error trying to delete picture in bucket: ", err)
 		return err
 	}
+
 	fmt.Println("Works udpated, proceeding to delete")
 	_, _, err = supaClient.From("works").Delete("","").Eq("Position", "0").Execute()
 	if err!=nil{
 		return err
 	}
+
+	models.WorksStorage = AllWorks()
 	return err
 }
-
-// Create a variable to hold the result
-// var result interface{}
-
-// func InsertWork(supa *supabase.Client) {
-// 	newWork := struct {
-// 		Title   string `json:"title"`
-// 		PicPath string `json:"picPath"`
-// 	}{
-// 		Title:   "New Title",
-// 		PicPath: "/path/to/picture",
-// 	}
-
-// 	// Build the query
-// 	query := supa.DB.From("works").Insert(newWork)
-// 	err := query.Execute(&result)
-// 	if err != nil {
-// 		log.Printf("Error inserting work: %v", err)
-// 		return
-// 	}
-
-// 	// Handle the successful insertion
-// 	log.Println("Inserted work:", result)
-// }
 
 /*
 	Get all "works" from database.
 	Returns a slice []work that contains all the works.
 	Example: works[0].Title or .Position or .Path
 */
-func AllWorks() []WorkForFront{
+func AllWorks() []models.Work{
 	
-	var (
-		worksQuery []Work
-		works []WorkForFront
-	)
+	var works []models.Work
 	supaClient:= InitDB()
 
 	//  Query "works" table
 	result, _, err := supaClient.From("works").
-		Select("*", "", false).
+		Select("Position,Title,Path", "", false).
 		Order("Position", &postgrest.OrderOpts{Ascending: true}).
 		Execute() // true for descending order.Execute()
 	if err != nil {
 		log.Fatalf("Error executing query: %v", err)
 	}
-    if err := json.Unmarshal(result, &worksQuery); err != nil {
+    if err := json.Unmarshal(result, &works); err != nil {
         log.Fatalf("Error unmarshalling result: %v", err)
     }
 
-	// Open storage(bucket) client to get picture url
+	// Open bucket to get picture urls
     storage := supaClient.Storage
-	for i:= range worksQuery{
-    	filePath := worksQuery[i].Path
-    	title := worksQuery[i].Title
-		position:= worksQuery[i].Position
-		publicURL := storage.GetPublicUrl("works", filePath)
-		works = append(works, WorkForFront{Path: publicURL.SignedURL, Title: title, Position: position})
+	for i:= range works{
+		publicURL := storage.GetPublicUrl("works", works[i].Path)
+		works[i].Path = publicURL.SignedURL
 }
 	return works
 }
