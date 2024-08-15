@@ -11,7 +11,7 @@ import (
 )
 
 /*
-Map of handlers to fecth components for the editor
+Map of handlers to fecth html components for the editor. This does not execute or render them.
 */
 var ComponentsHandlers = map[string]func(workId string, templateFs embed.FS) *template.Template{
 	"EditTitle":   EditTitleComponent,

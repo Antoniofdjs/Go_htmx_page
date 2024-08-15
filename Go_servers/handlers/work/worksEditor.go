@@ -19,6 +19,7 @@ type DataComponents struct{
 	BelowPosition string
 	Component string
 	Title string
+	Description string
 }
 
 /*
@@ -62,6 +63,7 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		Position:   r.FormValue("Position"),
 		Component: r.FormValue("Component"),
 		Title: r.FormValue("Title"),
+		Description: r.FormValue("Description"),
 	}
 	belowPositionInt, _:= strconv.Atoi(data.Position) // validate error later here......
 	belowPosition:= strconv.Itoa(belowPositionInt + 1)
@@ -70,9 +72,8 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		Position: data.Position,
 		BelowPosition: belowPosition,
 		Title: data.Title,
+		Description: data.Description,
 	}
-	fmt.Println("My data response Title is: ", data.Title)
-	fmt.Println("MY TITLE IS: ", componentData.Title)
 	// Search for the component and call handler
 	templHandler, exists := editorComponents.ComponentsHandlers[data.Component]
 	if !exists {
@@ -80,7 +81,6 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		http.Error(w, "Invalid option", http.StatusBadRequest)
 		return
 	}
-
 	// Get the template and render it
 	tmpl := templHandler(data.Position, templateFs)
 	if tmpl == nil {
@@ -158,7 +158,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 	fmt.Println("EDIT my work id is: ",Position)
 	title := r.FormValue("inputTitle")
-
+	description := r.FormValue("inputDescription")
 	PicBytes, _, err := r.FormFile("picture")
 	if err != nil {
 		fmt.Println("No picture detected")
@@ -167,7 +167,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 
 	if PicBytes == nil && title != "" {
-		updated, err:= db.EditTitle(Position, title)
+		updated, err:= db.EditTitle(Position, title, description)
 		if !updated{
 			fmt.Println(err)
 			http.Error(w, "Error updating title", http.StatusBadRequest)

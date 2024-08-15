@@ -20,6 +20,7 @@ type RequestData struct {
     Option  string `json:"Option"`
 	Component string `json:"Component"`
 	Title string `json:"Title"`
+	Description string `json:"Description"`
 }
 
 type Picture struct{

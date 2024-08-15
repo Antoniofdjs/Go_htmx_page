@@ -161,21 +161,22 @@ func InsertWork(newTitle string, position string, picName string, picBytes []byt
 /*
 	Edit tile of a work.
 */ 
-func EditTitle(position string, newTitle string) (bool, error) {
+func EditTitle(position string, newTitle string, newDescription string) (bool, error) {
     supaClient := InitDB()
 	positionInt, err := strconv.Atoi(position)
 	if err!=nil{
 		return false, fmt.Errorf("error in ATOI: %w", err)
 	}
-	
+	fmt.Println("Description: ", newDescription)
 	fmt.Println("EDITING WITH DB")
     // Perform the update on databse
-    _, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,}, "", "").Eq("Position", position).Execute()
+    _, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,"Description":newDescription}, "", "").Eq("Position", position).Execute()
     if err != nil {
         return false, fmt.Errorf("error updating record: %w", err)
     }
 	// Update Local Storage
 	models.WorksStorage[positionInt - 1].Title = newTitle
+	models.WorksStorage[positionInt - 1].Description = newDescription
     return true, nil
 }
 
@@ -278,7 +279,7 @@ func AllWorks() []models.Work{
 
 	//  Query "works" table
 	result, _, err := supaClient.From("works").
-		Select("Position,Title,Path", "", false).
+		Select("Position,Title,Path,Description", "", false).
 		Order("Position", &postgrest.OrderOpts{Ascending: true}).
 		Execute() // true for descending order.Execute()
 	if err != nil {

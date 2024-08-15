@@ -5,6 +5,7 @@ package models
 type Work struct {
 	Path   string `json:"Path"`
 	Title     string `json:"Title"`
+	Description string `json:"Description"`
 	Position int    `json:"Position"`
 }
 
