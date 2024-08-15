@@ -7,7 +7,9 @@ package work
 
 import (
 	"Go_servers/db"
+	"Go_servers/models"
 	"embed"
+	"fmt"
 	"net/http"
 	"text/template"
 )
@@ -34,9 +36,15 @@ type PictureData struct {
 /*
 	Get all works for the /work route
 */
-func GetHand(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
-	tmpl := template.Must(template.ParseFS(fileEmbed,"htmlTemplates/work.html"))
-	works:= db.AllWorks()
+func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
+    // Parse the HTML template
+    tmpl := template.Must(template.ParseFS(fileEmbed, "htmlTemplates/work.html"))
 
-	tmpl.Execute(w, works)
+	// Check if local data is valid if not, get data from DB
+	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+		fmt.Println("Fecthing data from database")
+		models.WorksStorage = db.AllWorks()
+	}
+
+    tmpl.Execute(w, models.WorksStorage)
 }
