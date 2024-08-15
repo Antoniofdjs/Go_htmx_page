@@ -11,7 +11,7 @@
       aria-label="Close"
       hx-headers='{"Content-Type": "application/json"}'
       hx-get="/editor/components"
-      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor", "Title": "{{ .Title }}"}'
+      hx-vals='{"Position":"{{ .Position }}", "Component": "ButtonsEditor", "Title": "{{ .Title }}", "Description": "{{ .Description }}"}'
       hx-target="#edit-title-component-{{ .Position }}"
       hx-swap="outerHTML"
     >
@@ -26,7 +26,7 @@
       class="flex flex-row flex-wrap justify-start mt-6 items-center w-full h-5/6 text-left"
       hx-put="/editor"
       hx-target="#works-section"
-      hx-include="[name='inputTitle'], [name='Position']"
+      hx-include="[name='inputTitle'], [name='Position'], [name='inputDescription']"
       hx-swap="outerHTML"
     >
       <input
@@ -41,11 +41,11 @@
       <textarea
         id="input-description-{{ .Position }}"
         class="px-7 py-2 rounded-md md:w-1/2 w-full h-5/6 align-text-top items-start justify-start border border-gray-700 bg-blue-50 text-black flex-1 resize-none"
-        placeholder="Description"
+        placeholder="Enter your description here"
         name="inputDescription"
-        required
+        required="true"
         fdprocessedid="k7en4m"
-      ></textarea>
+      >{{ .Description }}</textarea>
 
       <button
         type="submit"
