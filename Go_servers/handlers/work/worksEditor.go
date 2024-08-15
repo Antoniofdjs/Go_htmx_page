@@ -3,6 +3,7 @@ package work
 import (
 	"Go_servers/db"
 	editorComponents "Go_servers/handlers/editors"
+	"Go_servers/models"
 	"bytes"
 	"embed"
 	"fmt"
@@ -25,8 +26,13 @@ type DataComponents struct{
 */ 
 func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	tmpl := template.Must(template.ParseFS(editorFs, "htmlTemplates/editorTemplates/workEditor.html"))
-	works := db.AllWorks()
-	tmpl.Execute(w, works)
+	
+	// Check if local data is valid if not, get data from DB
+	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+		fmt.Println("Fecthing data from database")
+		models.WorksStorage = db.AllWorks()
+	}
+	tmpl.Execute(w, models.WorksStorage)
 }
 
 /*
@@ -173,8 +179,12 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 			log.Printf("Error parsing template: %v", err)
 			return
 		}
-		works:= db.AllWorks()
-		tmpl.Execute(w, works)
+		// Check if local data is valid if not, get data from DB
+		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+			fmt.Println("Fecthing data from database")
+			models.WorksStorage = db.AllWorks()
+		}
+		tmpl.Execute(w, models.WorksStorage)
 	} else if PicBytes != nil && title == "" {
 		fmt.Println("Change Picture")
 	} else {
