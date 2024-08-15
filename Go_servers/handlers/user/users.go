@@ -52,9 +52,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
     }
 
     http.SetCookie(w, &cookieSupaBase)
-
 	fmt.Println("Logged in succes")
-	w.Write([]byte(`<p id="message-login" class="block w-full p-3 text-center rounded-sm dark:text-emerald-500 dark:bg-green-600">Login successful!</p>`))
+	w.Header().Set("HX-Redirect", "/editor")
+	w.WriteHeader(http.StatusOK)
 }
 
 
