@@ -2,25 +2,31 @@ package user
 
 import (
 	"Go_servers/db"
+	templates "Go_servers/templ"
 	"embed"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 	"time"
 
 	"github.com/joho/godotenv"
 )
 
 // Get Login html template
+// func GetLoginTmpl(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
+// 	tmpl, err:= template.ParseFS(templateFs, "htmlTemplates/login.html")
+// 	if err != nil {
+// 		log.Printf("Error parsing template: %v", err)
+// 		return
+// 	}
+// 	tmpl.Execute(w,nil)
+// }
 func GetLoginTmpl(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-	tmpl, err:= template.ParseFS(templateFs, "htmlTemplates/login.html")
+	err:= templates.ShowLogin().Render(r.Context(), w)
 	if err != nil {
-		log.Printf("Error parsing template: %v", err)
-		return
+		http.Error(w, "Unable to render template", http.StatusInternalServerError)
 	}
-	tmpl.Execute(w,nil)
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {

@@ -8,10 +8,10 @@ package work
 import (
 	"Go_servers/db"
 	"Go_servers/models"
+	templates "Go_servers/templ"
 	"embed"
 	"fmt"
 	"net/http"
-	"text/template"
 )
 
 //  Currently being used for the json data received from the fecth of '/editor/component'
@@ -37,15 +37,24 @@ type PictureData struct {
 /*
 	Get all works for the /work route
 */
-func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
-    // Parse the HTML template
-    tmpl := template.Must(template.ParseFS(fileEmbed, "htmlTemplates/work.html"))
+// func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
+//     // Parse the HTML template
+//     tmpl := template.Must(template.ParseFS(fileEmbed, "htmlTemplates/work.html"))
 
+// 	// Check if local data is valid if not, get data from DB
+// 	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+// 		fmt.Println("Fecthing data from database")
+// 		models.WorksStorage = db.AllWorks()
+// 	}
+
+//     tmpl.Execute(w, models.WorksStorage)
+// }
+func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 	// Check if local data is valid if not, get data from DB
 	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
 		fmt.Println("Fecthing data from database")
 		models.WorksStorage = db.AllWorks()
 	}
-
-    tmpl.Execute(w, models.WorksStorage)
+	
+	templates.ShowWorks(models.WorksStorage).Render(r.Context(), w)
 }
