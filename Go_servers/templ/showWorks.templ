@@ -1,0 +1,11 @@
+package templates
+
+import "Go_servers/models"
+
+/* Render the view for 'GET /work' */ 
+templ ShowWorks(works []models.Work) {
+    @BaseLayout(){
+        @Header("/work")
+        @WorkSection(works)
+    }
+}

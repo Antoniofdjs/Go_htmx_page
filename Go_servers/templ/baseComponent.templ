@@ -1,0 +1,29 @@
+package templates
+
+templ BaseLayout() {
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <!-- <link rel="stylesheet" href="../static/styles/output.css" /> -->
+    <!-- <link rel="stylesheet" href="/index.css" /> -->
+  </head>
+  <style>
+    /* Custom Scrollbar Styles */
+    .element::-webkit-scrollbar {
+      width: 0 !important;
+    }
+    .element {
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  </style>
+  <body class="h-screen element bg-yellow-50">
+  { children... }
+  </body>
+</html>
+}
