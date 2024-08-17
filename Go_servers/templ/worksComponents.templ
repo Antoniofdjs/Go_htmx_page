@@ -3,10 +3,8 @@ package templates
 
 import "Go_servers/models"
 
-
-/* Work section Component*/ 
-templ WorkSection(works []models.Work) {
-    <!-- Works SECTION-->
+/* Work section component */ 
+templ WorkSection(works []models.WorkFrontEnd) {
     <section class="px-0 dark:bg-gray-800 dark:text-gray-900 justify-between w-screen" id="works-section">
       <!-- images outer container -->
       <div class="mx-auto px-0 flex flex-col items-center justify-between w-screen">
@@ -15,7 +13,7 @@ templ WorkSection(works []models.Work) {
           for _, work := range works{
           <div
             class="flex w-full h-[500px] flex-wrap pb-10 object-center relative"
-            id="image-container-{ work.Position }"
+            id={ templ.JoinStringErrs("image-container-" + work.Position)}
           >
             <img
               alt="gallery"
@@ -23,7 +21,7 @@ templ WorkSection(works []models.Work) {
               src={ work.Path }
             />
             <!-- Image text container -->
-            <a href={ templ.SafeURL("/work/" + work.Title) } alt="{ work.Title} gallery">
+            <a href={ templ.SafeURL("/work/" + work.Title) } alt={ work.Title }>
               <div
                 class="opacity-0 image-overlay w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center cursor-pointer"
               >
@@ -37,5 +35,4 @@ templ WorkSection(works []models.Work) {
         </div>
       </div>
     </section>
-    <!-- /Works section -->
 }

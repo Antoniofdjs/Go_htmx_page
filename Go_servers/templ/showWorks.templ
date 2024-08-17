@@ -3,9 +3,17 @@ package templates
 import "Go_servers/models"
 
 /* Render the view for 'GET /work' */ 
-templ ShowWorks(works []models.Work) {
+templ ShowWorks(works []models.WorkFrontEnd) {
     @BaseLayout(){
         @Header("/work")
         @WorkSection(works)
+    }
+}
+
+/* Render the view for 'GET /editor' */ 
+templ ShowEditor(works []models.WorkFrontEnd) {
+    @BaseLayout(){
+        @Header("/work")
+        @EditorSection(works)
     }
 }
