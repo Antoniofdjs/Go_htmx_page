@@ -90,6 +90,8 @@ func main() {
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
+	http.HandleFunc("GET /test", func(w http.ResponseWriter, r *http.Request){work.GetTestView(w, r, templatesFS)})
+
 
 
 	// Start server
