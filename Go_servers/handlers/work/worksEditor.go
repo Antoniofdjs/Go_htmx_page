@@ -4,6 +4,7 @@ import (
 	"Go_servers/db"
 	editorComponents "Go_servers/handlers/editors"
 	"Go_servers/models"
+	templates "Go_servers/templ"
 	"bytes"
 	"embed"
 	"fmt"
@@ -12,6 +13,8 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
+
+	"github.com/a-h/templ"
 )
 
 type DataComponents struct{
@@ -22,18 +25,57 @@ type DataComponents struct{
 	Description string
 }
 
-/*
-	Get html template for the '/editor' view
-*/ 
-func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
-	tmpl := template.Must(template.ParseFS(editorFs, "htmlTemplates/editorTemplates/workEditor.html"))
-	
+func GetTestView(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
+	var works []models.WorkFrontEnd
+
 	// Check if local data is valid if not, get data from DB
 	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
 		fmt.Println("Fecthing data from database")
 		models.WorksStorage = db.AllWorks()
 	}
-	tmpl.Execute(w, models.WorksStorage)
+
+	// Change to strings all values of the work struct, in this case Position since its an int
+	// Every value must be string for the html .templ
+	for _, work := range models.WorksStorage{
+		positionString := strconv.Itoa(work.Position)
+		workStringsOnly := models.WorkFrontEnd{
+			Title : work.Title,
+			Path : work.Path,
+			Description : work.Description,
+			Position : positionString,
+		}
+		works = append(works, workStringsOnly)
+	}
+
+	templates.ShowEditor(works, true).Render(r.Context(), w)
+}
+
+/*
+	Get html template for the '/editor' view
+*/ 
+func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
+	var works []models.WorkFrontEnd
+
+	// Check if local data is valid if not, get data from DB
+	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+		fmt.Println("Fecthing data from database")
+		models.WorksStorage = db.AllWorks()
+	}
+
+	// Change to strings all values of the work struct, in this case Position since its an int
+	// Every value must be string for the html .templ
+	for _, work := range models.WorksStorage{
+		positionString := strconv.Itoa(work.Position)
+		workStringsOnly := models.WorkFrontEnd{
+			Title : work.Title,
+			Path : work.Path,
+			Description : work.Description,
+			Position : positionString,
+		}
+		works = append(works, workStringsOnly)
+	}
+
+	templates.ShowEditor(works, true).Render(r.Context(), w)
 }
 
 /*
@@ -75,23 +117,62 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 		Description: data.Description,
 	}
 	// Search for the component and call handler
-	templHandler, exists := editorComponents.ComponentsHandlers[data.Component]
+	fmt.Println("Fectgin component: ", data.Component)
+	fmt.Println("Title is: ", data.Title)
+	fmt.Println("Position is: ", data.Position)
+	fmt.Println("Decription is: ", data.Description)
+
+	_, exists := editorComponents.ComponentsHandlers[data.Component]
 	if !exists {
 		fmt.Println("\n\nOption not found", data.Option)
 		http.Error(w, "Invalid option", http.StatusBadRequest)
 		return
 	}
+	
+	editorComponents := map[string]func(models.WorkFrontEnd) templ.Component{
+		"EditTitle": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ButtonView("EditTitle", work)
+		},
+		"ButtonsEditor": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ButtonsContainer(work)
+		},
+		"Delete": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ButtonView("Delete",work)
+		},
+		"InsertAbove": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ButtonView("InsertAbove", work)
+		},
+		"InsertBelow": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ButtonView("InsertBelow", work)
+		},
+		"ChangePic": func(work models.WorkFrontEnd) templ.Component {
+			return templates.ChangePicView(work)
+		},
+		
+	}
+
+	work := models.WorkFrontEnd{
+		Title: componentData.Title,
+		Position: componentData.Position,
+		Description: componentData.Description,
+	}
+	fmt.Println("Below Position: ", componentData.BelowPosition)
+	compFunc:= editorComponents[data.Component]
+
+	templComponent := compFunc(work)
+	templComponent.Render(r.Context(), w)
+	
 	// Get the template and render it
-	tmpl := templHandler(data.Position, templateFs)
-	if tmpl == nil {
-		http.Error(w, "Template error", http.StatusInternalServerError)
-		return
-	}
-	fmt.Println("\n\nFound template")
-	err = tmpl.Execute(w, componentData)
-	if err != nil {
-		http.Error(w, "Unable to render template", http.StatusInternalServerError)
-	}
+	// tmpl := templHandler(data.Position, templateFs)
+	// if tmpl == nil {
+	// 	http.Error(w, "Template error", http.StatusInternalServerError)
+	// 	return
+	// }
+	// fmt.Println("\n\nFound template")
+	// err = tmpl.Execute(w, componentData)
+	// if err != nil {
+	// 	http.Error(w, "Unable to render template", http.StatusInternalServerError)
+	// }
 }
 
 
