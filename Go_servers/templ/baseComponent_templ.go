@@ -26,7 +26,7 @@ func BaseLayout() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Document</title><script src=\"https://cdn.tailwindcss.com\"></script><script src=\"https://unpkg.com/htmx.org@1.9.2\"></script><!-- <link rel=\"stylesheet\" href=\"../static/styles/output.css\" /> --><!-- <link rel=\"stylesheet\" href=\"/index.css\" /> --></head><style>\r\n    /* Custom Scrollbar Styles */\r\n    .element::-webkit-scrollbar {\r\n      width: 0 !important;\r\n    }\r\n    .element {\r\n      overflow: -moz-scrollbars-none;\r\n      -ms-overflow-style: none; /* IE and Edge */\r\n    }\r\n  </style><body class=\"h-screen element bg-yellow-50\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Document</title><script src=\"https://unpkg.com/htmx.org@1.9.2\"></script><link href=\"/static/styles/output.css\" rel=\"stylesheet\"></head><style>\r\n    /* Custom Scrollbar Styles */\r\n    .element::-webkit-scrollbar {\r\n      width: 0 !important;\r\n    }\r\n    .element {\r\n      overflow: -moz-scrollbars-none;\r\n      -ms-overflow-style: none; /* IE and Edge */\r\n    }\r\n  </style><body class=\"h-screen element bg-yellow-50\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -2,7 +2,7 @@ package templates
 
 templ ShowLogin() {
     @BaseLayout(){
-      @Header("")
+      @Header("", false)
       @BaseLogin(){
         @LoginForm()
         }
@@ -11,7 +11,7 @@ templ ShowLogin() {
 }
 
 /* Pass the current route string to correctly set the color of the view activated*/
-templ Header(currentRoute string) {
+templ Header(currentRoute string, userIsAdmin bool) {
     <header
       class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4"
     >
@@ -45,6 +45,15 @@ templ Header(currentRoute string) {
               <a href="/contact" class="text-blue-100 hover:text-amber-600">Contact</a>
             }
           </li>
+          if userIsAdmin{
+          <li>
+            if currentRoute == "/editor" {
+              <a href="/test" class="text-amber-600 hover:text-amber-600">TestEditor</a>
+            } else {
+              <a href="/test" class="text-blue-100 hover:text-amber-600">TestEditor</a>
+            }
+          </li>
+          }
           <li class="h-16 w-40 flex flex-col items-center justify-center m-auto">
             <img
               src="../static/images/jorgeadrianes logotype orange.png"
