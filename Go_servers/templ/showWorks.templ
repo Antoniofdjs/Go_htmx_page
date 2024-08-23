@@ -5,15 +5,15 @@ import "Go_servers/models"
 /* Render the view for 'GET /work' */ 
 templ ShowWorks(works []models.WorkFrontEnd) {
     @BaseLayout(){
-        @Header("/work")
+        @Header("/work", false)
         @WorkSection(works)
     }
 }
 
 /* Render the view for 'GET /editor' */ 
-templ ShowEditor(works []models.WorkFrontEnd) {
+templ ShowEditor(works []models.WorkFrontEnd, isAdmin bool) {
     @BaseLayout(){
-        @Header("/work")
+        @Header("/editor", isAdmin)
         @EditorSection(works)
     }
 }

@@ -44,6 +44,9 @@ func GetTestView(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 			Description : work.Description,
 			Position : positionString,
 		}
+		
+		fmt.Println("Description BACK: ",work.Description)
+		fmt.Println("Description FRONT: ",workStringsOnly.Description)
 		works = append(works, workStringsOnly)
 	}
 
@@ -72,6 +75,7 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 			Description : work.Description,
 			Position : positionString,
 		}
+		fmt.Println("Description: ",workStringsOnly.Description)
 		works = append(works, workStringsOnly)
 	}
 
@@ -131,24 +135,20 @@ func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embe
 	
 	editorComponents := map[string]func(models.WorkFrontEnd) templ.Component{
 		"EditTitle": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("EditTitle", work)
+			return templates.ButtonView("Edit", work)
 		},
 		"ButtonsEditor": func(work models.WorkFrontEnd) templ.Component {
 			return templates.ButtonsContainer(work)
 		},
 		"Delete": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("Delete",work)
+			return templates.ButtonView("Delete", work)
 		},
 		"InsertAbove": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("InsertAbove", work)
+			return templates.ButtonView("Insert", work)
 		},
 		"InsertBelow": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("InsertBelow", work)
+			return templates.ButtonView("Insert", work)
 		},
-		"ChangePic": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ChangePicView(work)
-		},
-		
 	}
 
 	work := models.WorkFrontEnd{
@@ -203,19 +203,19 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		return
 	}
 
-	title := r.FormValue("title")
+	title := r.FormValue("Title")
+	description := r.FormValue("Description")
 	position := r.FormValue("Position")
+	fmt.Printf("Title: %s, Description: %s, Position: %s \n",title, description, position)
+
 	err = db.InsertWork(title, position,fileName, fileBytes)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
-	}
-	tmpl , err:= template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
-	if err != nil {
-		log.Printf("Error parsing template: %v", err)
 		return
 	}
-	works:= db.AllWorks()
-	tmpl.Execute(w, works)
+	models.WorksStorage = db.AllWorks()
+	w.Header().Set("HX-Redirect", "/test")
+	w.WriteHeader(http.StatusOK)
 }
 
 /*
