@@ -208,7 +208,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	position := r.FormValue("Position")
 	fmt.Printf("Title: %s, Description: %s, Position: %s \n",title, description, position)
 
-	err = db.InsertWork(title, position,fileName, fileBytes)
+	err = db.InsertWork(title, position, description, fileName, fileBytes)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
 		return
@@ -223,54 +223,60 @@ Handle any edits for the "works" table.
 Will call the database to order db operations related to PUT.
 */
 func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) {
+	var fileName string = ""
+
 	fmt.Println("PUT EDITOR")
 	// time.Sleep(2 * time.Second)
-
-	err := r.ParseForm()
+	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
+		fmt.Println("Error: ", err)
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
 
 	Position := r.FormValue("Position")
+	title := r.FormValue("Title")
+	description := r.FormValue("Description")
+
 	if Position == "" {
+		fmt.Println("Error parsing position")
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-	fmt.Println("EDIT my work id is: ",Position)
-	title := r.FormValue("inputTitle")
-	description := r.FormValue("inputDescription")
-	PicBytes, _, err := r.FormFile("picture")
+	//  Get file from form and then read bytes and get name of the picture.
+	file, fileHeader, err := r.FormFile("picture")
 	if err != nil {
 		fmt.Println("No picture detected")
 	} else {
-		defer PicBytes.Close() // Prevent resource leak
+		fmt.Println("Picture detected")
+		defer file.Close() // Prevent resource leak
 	}
-
-	if PicBytes == nil && title != "" {
-		updated, err:= db.EditTitle(Position, title, description)
-		if !updated{
-			fmt.Println(err)
-			http.Error(w, "Error updating title", http.StatusBadRequest)
-			return
+	
+	// Call db to add new picture
+	if file != nil{
+		fileName = fileHeader.Filename
+		picBytes , err:= io.ReadAll(file)
+		if err!=nil{
+		http.Error(w,"Error reading picture bytes",http.StatusInternalServerError)
+		return
 		}
-
-		tmpl, err := template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
-		if err != nil {
-			log.Printf("Error parsing template: %v", err)
-			return
-		}
-		// Check if local data is valid if not, get data from DB
-		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
-			fmt.Println("Fecthing data from database")
-			models.WorksStorage = db.AllWorks()
-		}
-		tmpl.Execute(w, models.WorksStorage)
-	} else if PicBytes != nil && title == "" {
-		fmt.Println("Change Picture")
-	} else {
-		fmt.Println("No data sent")
+		err = db.AddPicture(fileName, picBytes)
+		if err!=nil{
+		http.Error(w,"Error changing picture on database",http.StatusInternalServerError)
+		return
 	}
+	}
+	fmt.Println("New Picture Name: ", fileName)
+	updated, err:= db.EditTitle(Position, title, description, fileName)
+	if !updated{
+		fmt.Println(err)
+		http.Error(w, "Error updating title", http.StatusBadRequest)
+		return
+	}
+	// Update local storage
+	models.WorksStorage = db.AllWorks()
+	w.Header().Set("HX-Redirect", "/test")
+	w.WriteHeader(http.StatusOK)
 }
 
 func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){

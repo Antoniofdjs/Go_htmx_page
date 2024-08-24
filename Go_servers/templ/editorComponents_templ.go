@@ -324,19 +324,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 	})
 }
 
-// Decide method to use base on the operation
-func GetHxMethod(operation string) string {
-	var method string
-	if operation == "EditTitle" {
-		method = "put"
-	}
-	if operation == "InsertAbove" {
-		method = "post"
-	}
-	return method
-}
-
-func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
+func DeleteView() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -354,108 +342,99 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var16 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col h-full md:h-2/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-blue-50 dark:text-gray-800 md:items-start text-left justify-start mb-2\" id=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full\"><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-full align-text-top items-center md:items-end justify-end text-black flex-1\"><div class=\" flex items-center md:items-end justify-center w-1/2 md:w-1/3 h-1/3 md:h-1/3 \"><button type=\"submit\" class=\"md:font-semibold bg-red-500 hover:bg-red-600 dark:text-gray-100 w-full h-full md:h-3/5  rounded-xl shadow-md shadow-slate-500\">Delete</button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var17 string
-		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("insert-work-" + work.Position))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 139, Col: 59}
+		return templ_7745c5c3_Err
+	})
+}
+
+func FileUploadView(operation string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var17 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var17 == nil {
+			templ_7745c5c3_Var17 = templ.NopComponent
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Go back-close --><h2 class=\"flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide\"><button type=\"button\" class=\"flex w-6 h-6 p-1 bg-blue-50 border-none outline-none cursor-pointer hover:bg-blue-200 justify-center items-center text-center\" aria-label=\"Close\" hx-headers=\"{&#34;Content-Type&#34;: &#34;application/json&#34;}\" hx-get=\"/editor/components\" hx-vals=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var18 string
-		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s", "Component": "ButtonsEditor", "Title": "%s", "Description": "%s"}`, work.Position, work.Title, work.Description))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 149, Col: 160}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var19 string
-		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#insert-work-" + work.Position))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 150, Col: 71}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full\"><div class=\"flex justify-center items-center w-full h-1/4 md:h-1/5 sm:text-sm md:text-lg rounded-lg  bg-blue-200 shadow-sm shadow-slate-500 border border-slate-500\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\"><span class=\"text-red-500 hover:text-red-600\">X</span></button> ")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		if operation == "Edit" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-black font-medium\">Change cover image</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		var templ_7745c5c3_Var20 string
-		templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(TextForButton(operation))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 155, Col: 30}
+		if operation == "Insert" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-black font-medium\">Choose an image  file below:</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><!-- Form div --><div class=\"flex md:flex-row flex-col justify-center items-center text-left bg-blue-50 h-full w-full rounded-md\"><form id=\"form-container\" class=\"flex md:flex-row flex-col justify-center text-left bg-blue-50 h-full md:h-full w-full gap-4\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-2/3 align-text-top items-end justify-end text-black flex-1\"><input class=\"text-center items-center justify-center w-full h-4/5 md:h-2/3 flex text-black rounded-lg bg-blue-50 pt-2 pl-2 shadow-sm shadow-slate-500 cursor-pointer hover:bg-blue-200 border border-blue-100\" type=\"file\" id=\"picture\" name=\"picture\" accept=\"image/*\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if operation == "Insert" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-put=\"editor\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-encoding=\"multipart/form-data\" hx-trigger=\"submit\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><div class=\" flex items-end justify-center w-1/2 md:w-1/3 h-1/2 md:h-1/3 \"><button type=\"submit\" class=\"md:font-semibold bg-emerald-400 hover:bg-emerald-500 dark:text-gray-100 w-full h-full md:h-3/4  rounded-xl shadow-md shadow-slate-500\">Submit</button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if operation == "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor/del\" hx-vals=\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			var templ_7745c5c3_Var21 string
-			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s"}`, work.Position))
-			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 174, Col: 66}
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
+		return templ_7745c5c3_Err
+	})
+}
+
+// Decide method to use base on the operation
+func GetHxMethod(operation string) string {
+	var method string
+	if operation == "EditTitle" {
+		method = `hx-put="/editor"`
+	}
+	if operation == "InsertAbove" {
+		method = `hx-post="/editor"`
+	}
+	return method
+}
+
+// Generate <input> fields for edit, insert, or a <p> for delete. Used inside the ButtonView() component in the -Title input- area.
+func GetInputsOrMessage(operation string, title string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><!-- Title input --><div class=\"flex md:flex-col flex-col justify-end gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full flex\"><div class=\"flex justify-center items-center border border-blue-100 w-full h-1/4 md:h-1/3 md:h-1/5 sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-blue-50 text-center shadow-sm shadow-slate-500\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var18 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var18 == nil {
+			templ_7745c5c3_Var18 = templ.NopComponent
 		}
+		ctx = templ.ClearChildren(ctx)
 		if operation != "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full h-full sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-blue-50 text-center hover:bg-blue-200 hover:shadow-md\" type=\"text\" id=\"title\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full h-full sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-blue-50 text-center hover:bg-blue-200 hover:shadow-md\" type=\"text\" name=\"Title\" id=\"title\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -464,12 +443,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var22 string
-				templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
+				var templ_7745c5c3_Var19 string
+				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 190, Col: 30}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 203, Col: 23}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -484,7 +463,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\" name=\"Title\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\" name=\"Title\"> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -494,12 +473,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var23 string
-			templ_7745c5c3_Var23, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
+			var templ_7745c5c3_Var20 string
+			templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 200, Col: 29}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 214, Col: 23}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var23))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -508,7 +487,232 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"rounded-md md:w-full  border border-blue-100 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-blue-50 text-black flex-1 resize-none shadow-sm shadow-slate-500\">")
+		return templ_7745c5c3_Err
+	})
+}
+
+// Generate content for message displayed when in a specific operation: delete,insert,edit. Used inside the ButtonView() in the input title div.
+func TextAreaContent(operation string, description string) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var21 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var21 == nil {
+			templ_7745c5c3_Var21 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		if operation == "Edit" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-blue-50 text-black resize-none pl-1 hover:shadow-md hover:bg-blue-200\" name=\"Description\" required=\"true\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var22 string
+			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(description)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 226, Col: 21}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</textarea> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if operation == "Insert" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-blue-50 text-black resize-none pl-1 hover:shadow-md hover:bg-blue-200\" name=\"Description\" placeholder=\"Enter work description here...\" required=\"true\"></textarea> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if operation == "Delete" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-blue-200 text-black resize-none pl-1 hover:shadow-md border border-red-500\" name=\"Description\">WARNING: This work will be permanently deleted and the gallery associated with it. If you do not wish to delete this work, press the 'X' to cancel and return.</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var23 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var23 == nil {
+			templ_7745c5c3_Var23 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col h-full md:h-2/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-blue-50 dark:text-gray-800 md:items-start text-left justify-start mb-2\" id=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var24 string
+		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("insert-work-" + work.Position))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 249, Col: 59}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Go back-close --><h2 class=\"flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide\"><button type=\"button\" class=\"flex w-6 h-6 p-1 bg-blue-50 border-none outline-none cursor-pointer hover:bg-blue-200 justify-center items-center text-center\" aria-label=\"Close\" hx-headers=\"{&#34;Content-Type&#34;: &#34;application/json&#34;}\" hx-get=\"/editor/components\" hx-vals=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var25 string
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s", "Component": "ButtonsEditor", "Title": "%s", "Description": "%s"}`, work.Position, work.Title, work.Description))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 259, Col: 160}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var26 string
+		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#insert-work-" + work.Position))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 260, Col: 71}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\"><span class=\"text-red-500 hover:text-red-600\">X</span></button> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var27 string
+		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(TextForButton(operation))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 265, Col: 30}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><!-- Form div --><div class=\"flex md:flex-row flex-col justify-center items-center text-left bg-blue-50 h-full w-full rounded-md\"><form id=\"form-container\" class=\"flex md:flex-row flex-col justify-center text-left bg-blue-50 h-full md:h-full w-full gap-4\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if operation == "Insert" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor\" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if operation == "Edit" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-put=\"/editor\" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-encoding=\"multipart/form-data\" hx-trigger=\"submit\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if operation == "Delete" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor/del\" hx-vals=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var28 string
+			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s"}`, work.Position))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 286, Col: 66}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><!-- Title input --><div class=\"flex md:flex-col flex-col justify-end gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full flex\"><div class=\"flex justify-center items-center border border-blue-100 w-full h-1/4 md:h-1/3 md:h-1/5 sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-blue-50 text-center shadow-sm shadow-slate-500\"><!-- Generate <input> for 'Edit','Insert' or <p> message for 'Delete'-->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if operation != "Delete" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full h-full sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-blue-50 text-center hover:bg-blue-200 hover:shadow-md\" type=\"text\" name=\"Title\" id=\"title\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if operation == "Edit" {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" value=\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var29 string
+				templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 302, Col: 28}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			if operation == "Insert" {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Title\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\"> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		if operation == "Delete" {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\" flex justify-center items-center bg-blue-200 h-full w-full rounded-md md:h-full text-center border border-red-500\">Work: ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var30 string
+			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 312, Col: 28}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"rounded-md md:w-full  border border-blue-100 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-blue-50 text-black flex-1 resize-none shadow-sm shadow-slate-500\"><!-- Generate <text area> or <p> with message depending on operation-->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -517,12 +721,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var24 string
-			templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(work.Description)
+			var templ_7745c5c3_Var31 string
+			templ_7745c5c3_Var31, templ_7745c5c3_Err = templ.JoinStringErrs(work.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 211, Col: 30}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 323, Col: 26}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var31))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -547,12 +751,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var25 string
-		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(work.Position)
+		var templ_7745c5c3_Var32 string
+		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(work.Position)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 229, Col: 66}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 341, Col: 66}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -572,74 +776,6 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- /File upload --></form></div><!-- /Form div --></div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		return templ_7745c5c3_Err
-	})
-}
-
-func DeleteView() templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
-				}
-			}()
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var26 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var26 == nil {
-			templ_7745c5c3_Var26 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full\"><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-full align-text-top items-center md:items-end justify-end text-black flex-1\"><div class=\" flex items-center md:items-end justify-center w-1/2 md:w-1/3 h-1/3 md:h-1/3 \"><button type=\"submit\" class=\"md:font-semibold bg-red-500 hover:bg-red-600 dark:text-gray-100 w-full h-full md:h-3/5  rounded-xl shadow-md shadow-slate-500\">Delete</button></div></div></div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		return templ_7745c5c3_Err
-	})
-}
-
-func FileUploadView(operation string) templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
-				}
-			}()
-		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var27 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var27 == nil {
-			templ_7745c5c3_Var27 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-blue-50 h-full w-full rounded-md md:h-full\"><div class=\"flex justify-center items-center w-full h-1/4 md:h-1/5 sm:text-sm md:text-lg rounded-lg  bg-blue-200 shadow-sm shadow-slate-500 border border-slate-500\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-black font-medium\">Change cover image</p>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		if operation == "Insert" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-black font-medium\">Choose an image  file below:</p>")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-2/3 align-text-top items-end justify-end text-black flex-1\"><input class=\"text-center items-center justify-center w-full h-4/5 md:h-2/3 flex text-black rounded-lg bg-blue-50 pt-2 pl-2 shadow-sm shadow-slate-500 cursor-pointer hover:bg-blue-200 border border-blue-100\" type=\"file\" id=\"picture\" name=\"picture\" accept=\"image/*\" required=\"true\"><div class=\" flex items-end justify-center w-1/2 md:w-1/3 h-1/2 md:h-1/3 \"><button type=\"submit\" class=\"md:font-semibold bg-emerald-400 hover:bg-emerald-500 dark:text-gray-100 w-full h-full md:h-3/4  rounded-xl shadow-md shadow-slate-500\">Submit</button></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
