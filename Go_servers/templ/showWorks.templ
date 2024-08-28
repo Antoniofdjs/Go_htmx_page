@@ -17,3 +17,10 @@ templ ShowEditor(works []models.WorkFrontEnd, isAdmin bool) {
         @EditorSection(works)
     }
 }
+
+templ ShowGallery(work models.WorkFrontEnd, isAdmin bool, galleryItems []models.GalleryItemFrontEnd) {
+    @BaseLayout(){
+        @Header("/work", isAdmin)
+        @Gallery(work, galleryItems)
+    }
+}
