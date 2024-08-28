@@ -2,10 +2,8 @@ package work
 
 import (
 	"Go_servers/db"
-	editorComponents "Go_servers/handlers/editors"
 	"Go_servers/models"
 	templates "Go_servers/templ"
-	"bytes"
 	"embed"
 	"fmt"
 	"io"
@@ -13,8 +11,6 @@ import (
 	"net/http"
 	"strconv"
 	"text/template"
-
-	"github.com/a-h/templ"
 )
 
 type DataComponents struct{
@@ -25,6 +21,8 @@ type DataComponents struct{
 	Description string
 }
 
+
+//  This needs to replace the 'GET /editor' view
 func GetTestView(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	var works []models.WorkFrontEnd
 
@@ -44,9 +42,6 @@ func GetTestView(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 			Description : work.Description,
 			Position : positionString,
 		}
-		
-		fmt.Println("Description BACK: ",work.Description)
-		fmt.Println("Description FRONT: ",workStringsOnly.Description)
 		works = append(works, workStringsOnly)
 	}
 
@@ -87,92 +82,47 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 */ 
 func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	// Read the body of the request
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println("Could not read body")
-		http.Error(w, "Failed to read body", http.StatusBadRequest)
-		return
-	}
-	defer r.Body.Close()
-
-	// Print the body content
-	fmt.Println("Body:", string(body))
-	r.Body = io.NopCloser(io.MultiReader(bytes.NewReader(body)))
+	var belowPosition string = ""
 
 	// Extract values from request
-	err = r.ParseForm()
+	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-	data := RequestData{
+
+	//  Data from http request
+	requestData := RequestData{
 		Position:   r.FormValue("Position"),
 		Component: r.FormValue("Component"),
 		Title: r.FormValue("Title"),
 		Description: r.FormValue("Description"),
 	}
-	belowPositionInt, _:= strconv.Atoi(data.Position) // validate error later here......
-	belowPosition:= strconv.Itoa(belowPositionInt + 1)
-	
-	componentData := DataComponents{
-		Position: data.Position,
-		BelowPosition: belowPosition,
-		Title: data.Title,
-		Description: data.Description,
-	}
-	// Search for the component and call handler
-	fmt.Println("Fectgin component: ", data.Component)
-	fmt.Println("Title is: ", data.Title)
-	fmt.Println("Position is: ", data.Position)
-	fmt.Println("Decription is: ", data.Description)
 
-	_, exists := editorComponents.ComponentsHandlers[data.Component]
-	if !exists {
-		fmt.Println("\n\nOption not found", data.Option)
-		http.Error(w, "Invalid option", http.StatusBadRequest)
-		return
+	// Change postion to the next value for the InsertBelow request
+	if requestData.Component == "InsertBelow"{
+		belowPositionInt, _:= strconv.Atoi(requestData.Position)
+		belowPosition = strconv.Itoa(belowPositionInt + 1)
+		fmt.Println("Below position is: ", belowPosition)
 	}
 	
-	editorComponents := map[string]func(models.WorkFrontEnd) templ.Component{
-		"EditTitle": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("Edit", work)
-		},
-		"ButtonsEditor": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonsContainer(work)
-		},
-		"Delete": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("Delete", work)
-		},
-		"InsertAbove": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("Insert", work)
-		},
-		"InsertBelow": func(work models.WorkFrontEnd) templ.Component {
-			return templates.ButtonView("Insert", work)
-		},
-	}
+	fmt.Println("Fetching component: ", requestData.Component)
+	fmt.Println("Title is: ", requestData.Title)
+	fmt.Println("Position is: ", requestData.Position)
+	fmt.Println("Decription is: ", requestData.Description)
 
 	work := models.WorkFrontEnd{
-		Title: componentData.Title,
-		Position: componentData.Position,
-		Description: componentData.Description,
+		Title: requestData.Title,
+		Position: requestData.Position,
+		Description: requestData.Description,
+		PositionBelow: belowPosition,
 	}
-	fmt.Println("Below Position: ", componentData.BelowPosition)
-	compFunc:= editorComponents[data.Component]
 
-	templComponent := compFunc(work)
-	templComponent.Render(r.Context(), w)
-	
-	// Get the template and render it
-	// tmpl := templHandler(data.Position, templateFs)
-	// if tmpl == nil {
-	// 	http.Error(w, "Template error", http.StatusInternalServerError)
-	// 	return
-	// }
-	// fmt.Println("\n\nFound template")
-	// err = tmpl.Execute(w, componentData)
-	// if err != nil {
-	// 	http.Error(w, "Unable to render template", http.StatusInternalServerError)
-	// }
+	if requestData.Component == "ButtonsEditor"{
+		templates.ButtonsContainer(work).Render(r.Context(), w)
+	}else{
+	templates.ButtonView(requestData.Component, work).Render(r.Context(), w)
+	}
 }
 
 
@@ -206,6 +156,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	title := r.FormValue("Title")
 	description := r.FormValue("Description")
 	position := r.FormValue("Position")
+	// insertBelow:= r.FormValue("InsertBelow")
 	fmt.Printf("Title: %s, Description: %s, Position: %s \n",title, description, position)
 
 	err = db.InsertWork(title, position, description, fileName, fileBytes)
@@ -267,6 +218,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 	}
 	fmt.Println("New Picture Name: ", fileName)
+	// Edit the work object on the db
 	updated, err:= db.EditTitle(Position, title, description, fileName)
 	if !updated{
 		fmt.Println(err)
