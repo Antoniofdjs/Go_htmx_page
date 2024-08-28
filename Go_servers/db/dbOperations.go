@@ -38,10 +38,10 @@ type WorkForFront struct {
 */
 func DeletePicture(picName string) error{
 	supaClient:= InitDB()
-	var paths []string
-	paths = append(paths, picName)
+	var picNames []string
+	picNames = append(picNames, picName)
 	storage := supaClient.Storage
-	response, err:= storage.RemoveFile("works",paths)
+	response, err:= storage.RemoveFile("works",picNames)
 	if err!=nil{
 		fmt.Printf("Error deleting picture: %v\n", err)
 		fmt.Println("response", response)
@@ -177,7 +177,7 @@ func InsertWork(newTitle string, position string, description string,picName str
 /*
 	Edit tile of a work.
 */ 
-func EditTitle(position string, newTitle string, newDescription string, newPath string) (bool, error) {
+func EditTitle(position string, newTitle string, newDescription string, newPicName string) (bool, error) {
     supaClient := InitDB()
 	var workTodeletePic []models.Work
 	positionInt, err := strconv.Atoi(position)
@@ -188,7 +188,7 @@ func EditTitle(position string, newTitle string, newDescription string, newPath 
 	fmt.Println("EDITING WITH DB")
     // Perform the update on databse
     // Option 1(if), picture was not changed, option 2(else) picture was changed
-	if newPath == ""{
+	if newPicName == ""{
 	_, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,"Description":newDescription}, "", "").Eq("Position", position).Execute()
     if err != nil {
         return false, fmt.Errorf("error updating record: %w", err)
@@ -197,10 +197,11 @@ func EditTitle(position string, newTitle string, newDescription string, newPath 
 		workToDeleteQuery,_,_ := supaClient.From("works").Select("Path,Title,Description,Position","",false).Eq("Position", position).Execute()
 		json.Unmarshal(workToDeleteQuery, &workTodeletePic)
 		picNameToDelete := workTodeletePic[0].Path
-		_, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,"Description":newDescription, "Path":newPath}, "", "").Eq("Position", position).Execute()
+		_, _, err = supaClient.From("works").Update(map[string]interface{}{"Title": newTitle,"Description":newDescription, "Path":newPicName}, "", "").Eq("Position", position).Execute()
 		if err != nil {
     return false, fmt.Errorf("error updating record: %w", err)
 	}
+	
 	fmt.Println("Pic to delete: ", picNameToDelete)
 	DeletePicture(picNameToDelete)
 	}
@@ -292,7 +293,7 @@ func DeleteWork(position string) error {
 	if err!=nil{
 		return err
 	}
-
+	// Update local storage
 	models.WorksStorage = AllWorks()
 	return err
 }
@@ -308,22 +309,74 @@ func AllWorks() []models.Work{
 	supaClient:= InitDB()
 
 	//  Query "works" table
-	result, _, err := supaClient.From("works").
-		Select("Position,Title,Path,Description", "", false).
+	worksQuery, _, err := supaClient.From("works").
+		Select("Position,Title,Path,Description,ID", "", false).
 		Order("Position", &postgrest.OrderOpts{Ascending: true}).
 		Execute() // true for descending order.Execute()
 	if err != nil {
 		log.Fatalf("Error executing query: %v", err)
 	}
-    if err := json.Unmarshal(result, &works); err != nil {
-        log.Fatalf("Error unmarshalling result: %v", err)
+    if err := json.Unmarshal(worksQuery, &works); err != nil {
+        log.Fatalf("Error unmarshalling query result: %v", err)
     }
 
 	// Open bucket to get picture urls
-    storage := supaClient.Storage
+    storageBucket := supaClient.Storage
 	for i:= range works{
-		publicURL := storage.GetPublicUrl("works", works[i].Path)
+		publicURL := storageBucket.GetPublicUrl("works", works[i].Path)
 		works[i].Path = publicURL.SignedURL
 }
-	return works
+
+return works
 }
+func AllGalleries() []models.GalleryItem{
+	
+	var galleryItems []models.GalleryItem
+	supaClient:= InitDB()
+	
+	//  Query "galleries" table
+	galleriesQuery, _, err := supaClient.From("galleries").
+	Select("*", "", false).
+	Order("Work_ID", &postgrest.OrderOpts{Ascending: true}).
+	Execute()
+	if err != nil {
+		log.Fatalf("Error executing query: %v", err)
+	}
+    if err := json.Unmarshal(galleriesQuery, &galleryItems); err != nil {
+		log.Fatalf("Error unmarshalling query result: %v", err)
+    }
+	
+	storageBucket := supaClient.Storage
+	for i := range galleryItems{
+		subFolderName := strconv.Itoa(galleryItems[i].Work_ID)
+		filePath := fmt.Sprintf("%s/%s", subFolderName, galleryItems[i].Path)
+		publicUrl:= storageBucket.GetPublicUrl("galleries",filePath)
+		galleryItems[i].Path = publicUrl.SignedURL
+	}
+
+	return galleryItems
+}
+	// Check if map exists
+	// if models.GalleriesStorage == nil {
+	// 	models.GalleriesStorage = make(map[int][]models.GalleryItem)
+	// }
+	// for _, galleryItem := range galleries{
+	// 		fmt.Println("Gallery Item: ", galleryItem)
+	// 		fmt.Println("Appending item to local storage")
+	// 		key:= galleryItem.Work_ID
+
+	// 		_, exists := models.GalleriesStorage[key] // Check if key doesnt exist on the local storage map
+	// 		if !exists{
+	// 			models.GalleriesStorage[key] = []models.GalleryItem{}
+	// 		}
+	// 		models.GalleriesStorage[key] = append(models.GalleriesStorage[key], galleryItem) // Append Item to the []GalleryItem
+	// 	}
+
+	// for keyID, gallery := range models.GalleriesStorage{
+	// 	fmt.Println("--------------------------------------------------")
+	// 	fmt.Println("Work ID KEY = ", keyID)
+	// 	for _, item := range gallery{
+	// 		fmt.Println("Pic Name: ", item.Path)
+	// 		fmt.Println("Pic Position: ", item.Position)
+	// 	}
+	// }
