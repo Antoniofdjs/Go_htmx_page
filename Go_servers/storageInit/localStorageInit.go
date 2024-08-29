@@ -12,11 +12,7 @@ func InitGalleries(){
 
 	models.GalleriesStorage = make(map[int][]models.GalleryItem)
 	for _, galleryItem := range galleryItems{
-		fmt.Println("Gallery Item: ", galleryItem)
-		fmt.Println("Appending item to local storage")
-		fmt.Println("ITEM BEFORE MAP ", galleryItem.Path)
 		key:= galleryItem.Work_ID
-		
 		_, exists := models.GalleriesStorage[key] // Check if key doesnt exist on the local storage map
 		if !exists{
 			models.GalleriesStorage[key] = []models.GalleryItem{}

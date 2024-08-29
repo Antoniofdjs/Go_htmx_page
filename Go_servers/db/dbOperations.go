@@ -104,7 +104,14 @@ func Login(email string, pwd string) (string,error){
 	Insert new work. Picture is also sent here. 
 */
 func InsertWork(newTitle string, position string, description string,picName string, picBytes []byte) error {
-	var newWork models.Work
+	
+	type workInsert struct{
+		Path   string `json:"Path"`
+		Title     string `json:"Title"`
+		Description string `json:"Description"`
+		Position int    `json:"Position"`
+	}
+
 	var works []models.Work
 	supaClient:= InitDB()
 
@@ -118,17 +125,15 @@ func InsertWork(newTitle string, position string, description string,picName str
 		return err
 	}
 
-	//New work to insert
-	newWork = models.Work{
+	newInsertWork := workInsert{
 		Title: newTitle,
 		Path: picName,
 		Position: positionToInsert,
 		Description: description,
 	}
-
 	// Check first if Work is going be inserted in last position... else
 	if positionToInsert == int(totalWorks) + 1{
-		_, _, err = supaClient.From("works").Insert(newWork, true, "","", "").Execute()
+		_, _, err = supaClient.From("works").Insert(newInsertWork, true, "","", "").Execute()
 		if err!=nil{
 			return err
 		}
@@ -145,19 +150,21 @@ func InsertWork(newTitle string, position string, description string,picName str
 		for _, work := range works{
 			if work.Position >= positionToInsert{
 				work.Position += 1
-				_,_,err = supaClient.From("works").Update(work, "", "").Eq("Path",work.Path).Execute()
+				_,_,err = supaClient.From("works").
+				Update(map[string]interface{}{"Position": work.Position,}, "", "").
+				Eq("Path",work.Path).Execute()
 				if err!=nil{
 					return err
 				}
 			}
 		}
 		// Insert new work
-		_, _, err = supaClient.From("works").Insert(newWork, true, "","", "").Execute()
+		_, _, err = supaClient.From("works").Insert(newInsertWork, true, "","", "").Execute()
 		if err!=nil{
 			return err
-		}
-		
+		}	
 	}
+
 	// Insert picture to bucket as jpeg content headers 
 	content:="image/jpeg"
 	fileOption := storage_go.FileOptions{
@@ -165,7 +172,7 @@ func InsertWork(newTitle string, position string, description string,picName str
 	}
 
 	picReader := bytes.NewReader(picBytes)
-	response, err:= supaClient.Storage.UploadFile("works",newWork.Path, picReader, fileOption)
+	response, err:= supaClient.Storage.UploadFile("works",newInsertWork.Path, picReader, fileOption)
 	fmt.Println("Response", response)
 	fmt.Println("Error: ",err)
 

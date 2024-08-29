@@ -53,7 +53,7 @@ func Gallery(w http.ResponseWriter, r *http.Request) {
 	galleryItemsFront := []models.GalleryItemFrontEnd{}
 	var workIdKey int
 
-	// Change data to strings
+	// Change work data to strings
 	works = models.WorksStorage
 	for _, w := range works{
 		if w.Title == title{
@@ -73,20 +73,21 @@ func Gallery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check local storage
+	// Check local storage Galleries
 	if models.GalleriesStorage == nil{
 		storageInits.InitGalleries()
 	}
 	
 	// Change data to strings
-	gallery := models.GalleriesStorage[workIdKey]
+	gallery, exists:= models.GalleriesStorage[workIdKey]
+	if exists{
 	for _, item := range gallery{
 			itemFront := models.GalleryItemFrontEnd{
 				Path: item.Path,
 				Position: strconv.Itoa(item.Position),
 			}
 			galleryItemsFront = append(galleryItemsFront, itemFront)
-		}
+		}}
 
 	templates.ShowGallery(work, false, galleryItemsFront).Render(r.Context(), w)
 }
