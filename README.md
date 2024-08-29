@@ -16,14 +16,11 @@ This project is a dynamic portfolio page for a photographer, built using Go, HTM
 
 ## Features
 
-- Responsive design for multiple devices
-- Dynamic content
-- Image gallery management with an 'Editor' mode on the page
-- Secure content editing via PC or even phone
-- Integration with Supabase for database operations and bucket for picture retrieval
+- Responsive Design
+- Dynamic Content
+- Editor Mode for Admin Management
+- Editing Availabe on Mobile
+- Picture Integration with Supabase Buckets
 
-## Installation
-Work in development
-
-## Usage
-Work in development
+# The Product
+Work in progress, some images below:
