@@ -7,6 +7,8 @@ import (
 	"Go_servers/handlers/galleries"
 	"Go_servers/handlers/user"
 	"Go_servers/handlers/work"
+	"Go_servers/models"
+	storageInits "Go_servers/storageInit"
 	"embed"
 	"fmt"
 	"html/template"
@@ -25,8 +27,20 @@ var templatesFS embed.FS
 //// go:embed static/*
 // var staticFS embed.FS
 
+// Route wrappers
+func initStorageMiddleware(nextHandler http.HandlerFunc) http.HandlerFunc{
+	return func(w http.ResponseWriter, r *http.Request){
+		if models.GalleriesStorage == nil{
+			storageInits.InitGalleries()
+		}
+		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+			models.WorksStorage = db.AllWorks()
+		}
+		nextHandler.ServeHTTP(w, r)
+	}
+}
 
-func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
+func authMiddleware(nextHandler http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		supaClient:= db.InitDB()
 		tokenName:= os.Getenv("SPB_TOKEN_NAME")
@@ -45,9 +59,20 @@ func authMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			w.Write([]byte(msg))
             return
         }
-        next.ServeHTTP(w, r)
+
+		//  Init local storage
+		if models.GalleriesStorage == nil{
+			storageInits.InitGalleries()
+		}
+		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
+			models.WorksStorage = db.AllWorks()
+		}
+        
+		nextHandler.ServeHTTP(w, r)
     }
 }
+// End Route Wrappers
+
 
 func main() {
         
@@ -76,13 +101,13 @@ func main() {
 	http.HandleFunc("GET /contact", func(w http.ResponseWriter, r *http.Request) {contacts.GetHand(w, r, templatesFS)})
 	http.HandleFunc("POST /contact", func(w http.ResponseWriter, r *http.Request) {contacts.PostHand(w, r, templatesFS)})
 
-	http.HandleFunc("GET /work", func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)})
-	http.HandleFunc("GET /work/{title}", func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)})
+	http.HandleFunc("GET /work", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)}))
+	http.HandleFunc("GET /work/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)}))
 	
 	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)}))
 	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)})
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
-	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r, templatesFS)})
+	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r)})
 
 
 	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){user.GetLoginTmpl(w, r, templatesFS)})
@@ -90,7 +115,7 @@ func main() {
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
-	http.HandleFunc("GET /test", func(w http.ResponseWriter, r *http.Request){work.GetTestView(w, r, templatesFS)})
+	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetTestView(w, r, templatesFS)}))
 
 
 
