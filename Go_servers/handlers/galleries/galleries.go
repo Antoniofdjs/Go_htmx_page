@@ -2,7 +2,6 @@ package galleries
 
 import (
 	"Go_servers/models"
-	storageInits "Go_servers/storageInit"
 	templates "Go_servers/templ"
 	"fmt"
 	"net/http"
@@ -37,21 +36,15 @@ import (
 // 	tmpl.Execute(w, nil)
 // }
 func Gallery(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("\n\nGallery activated")
-	title := r.PathValue("title")
-	fmt.Println("My title is: ", title)
-	// supaClient:= db.InitDB()
-	// workQuery,results,err:= supaClient.From("works").Select("Title,Position,Description,Path", "exact", false).Eq("Title", title).Execute()
-	// if err!=nil{
-	// 	fmt.Println("Error ", err)
-	// 	http.Error(w, "Error in query", http.StatusInternalServerError)
-	// 	return
-	// }
-	
 	var works []models.Work
 	var work models.WorkFrontEnd
 	galleryItemsFront := []models.GalleryItemFrontEnd{}
 	var workIdKey int
+
+	fmt.Println("\n\nGallery activated")
+	title := r.PathValue("title")
+	fmt.Println("Fecthing gallery for: ", title)
+
 
 	// Change work data to strings
 	works = models.WorksStorage
@@ -73,11 +66,6 @@ func Gallery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check local storage Galleries
-	if models.GalleriesStorage == nil{
-		storageInits.InitGalleries()
-	}
-	
 	// Change data to strings
 	gallery, exists:= models.GalleriesStorage[workIdKey]
 	if exists{
