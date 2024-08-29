@@ -7,10 +7,9 @@ import (
 	"embed"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
+	"net/url"
 	"strconv"
-	"text/template"
 )
 
 type DataComponents struct{
@@ -146,7 +145,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	}
 	defer file.Close()
 
-	fileName := fileHeader.Filename
+	fileName, _ := url.QueryUnescape(fileHeader.Filename)
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
 		http.Error(w, "Could not read file", http.StatusInternalServerError)
@@ -231,7 +230,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	w.WriteHeader(http.StatusOK)
 }
 
-func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
+func DelHandEditor(w http.ResponseWriter, r *http.Request){
 	fmt.Println("Delete Activated")
 	option := r.FormValue("Component")
 	fmt.Println("option component",option )
@@ -244,12 +243,7 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
-	// Render template:
-	tmpl, err := template.ParseFS(templateFs,"htmlTemplates/reloads/worksSectionSucces.html")
-	if err != nil {
-		log.Printf("Error parsing template: %v", err)
-		return
-	}
-	works:= db.AllWorks()
-	tmpl.Execute(w, works)
+
+	w.Header().Set("HX-Redirect", "/test")
+	w.WriteHeader(http.StatusOK)
 }
