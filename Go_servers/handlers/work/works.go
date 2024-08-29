@@ -6,11 +6,9 @@ package work
 //  WORKING WAAAAY BELOWW GO CHECK
 
 import (
-	"Go_servers/db"
 	"Go_servers/models"
 	templates "Go_servers/templ"
 	"embed"
-	"fmt"
 	"net/http"
 	"strconv"
 )
@@ -53,12 +51,6 @@ type PictureData struct {
 func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 	var works []models.WorkFrontEnd
 
-	// Check if local data is valid if not, get data from DB
-	if models.WorksStorage == nil || len(models.WorksStorage) == 0{
-		fmt.Println("Fecthing data from database")
-		models.WorksStorage = db.AllWorks()
-	}
-	
 	// Change to strings all values from the work struct, in this case Position sicne its an int
 	for _, work := range models.WorksStorage{
 		positionString := strconv.Itoa(work.Position)
