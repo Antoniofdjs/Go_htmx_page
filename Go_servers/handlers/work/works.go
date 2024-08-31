@@ -13,15 +13,6 @@ import (
 	"strconv"
 )
 
-//  Currently being used for the json data received from the fecth of '/editor/component'
-type RequestData struct {
-    Position      string `json:"PicID"`
-    Option  string `json:"Option"`
-	Component string `json:"Component"`
-	Title string `json:"Title"`
-	Description string `json:"Description"`
-}
-
 type Picture struct{
 	PicID int
 	Title string
