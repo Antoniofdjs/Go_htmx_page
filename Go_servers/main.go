@@ -4,6 +4,7 @@ import (
 	"Go_servers/db"
 	"Go_servers/handlers/about"
 	contacts "Go_servers/handlers/contact"
+	editor "Go_servers/handlers/editors"
 	"Go_servers/handlers/galleries"
 	"Go_servers/handlers/user"
 	"Go_servers/handlers/work"
@@ -102,21 +103,23 @@ func main() {
 	http.HandleFunc("POST /contact", func(w http.ResponseWriter, r *http.Request) {contacts.PostHand(w, r, templatesFS)})
 
 	http.HandleFunc("GET /work", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)}))
-	http.HandleFunc("GET /work/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)}))
-	
-	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetHandEditor(w, r, templatesFS)}))
-	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){work.PutHandEditor(w, r, templatesFS)})
-	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){work.PostHandEditor(w, r, templatesFS)})
-	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){work.DelHandEditor(w, r)})
+	http.HandleFunc("GET /work/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)})) // Gallery
+
+	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetHandEditor(w, r, templatesFS)}))
+	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){editor.PutHandEditor(w, r, templatesFS)}) // auth
+	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){editor.PostHandEditor(w, r, templatesFS)}) // auth
+	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){editor.DelHandEditor(w, r)}) // auth
 
 
 	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){user.GetLoginTmpl(w, r, templatesFS)})
 	http.HandleFunc("POST /login", func(w http.ResponseWriter, r *http.Request){user.Login(w, r)})
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
-	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){work.GetEditorComponents(w, r, templatesFS)})
-	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetTestView(w, r, templatesFS)}))
+	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){editor.GetEditorComponents(w, r, templatesFS)})
+	http.HandleFunc("GET /editor/gallery", func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)})
+	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateElement(w, r)})
 
+	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetTestView(w, r, templatesFS)}))
 
 
 	// Start server
