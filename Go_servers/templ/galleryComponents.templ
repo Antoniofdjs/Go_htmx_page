@@ -34,61 +34,29 @@ templ Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEn
 
         <!-- Gallery Container -->
         <div class="px-0 dark:bg-gray-800 dark:text-gray-900 justify-center items-start flex pb-4 w-full h-auto" id="gallery-container">
+
             <!-- Gallery Grid -->
             <div class=" flex h-auto grid md:grid-cols-3 auto-cols-max grid-cols-2 w-11/12 md:gap-3 gap-1" id="gallery-grid">
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[1].Path }
-                        alt=""
-                        loading="lazy"
-                    />
-                </div>
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[0].Path }
-                        alt=""
-                        loading="lazy"
-                    />
-                </div>
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[0].Path }
-                        alt=""
-                        loading="lazy"
-                    />
-                </div>
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[1].Path }
-                        alt=""
-                        loading="lazy"
-                    />
-                </div>
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[0].Path }
-                        alt=""
-                        loading="lazy"
-                    />
-                </div>
-                <div class="w-full md:h-96 h-80 flex">
-                    <img
-                        class="w-full h-full object-cover"
-                        src={ galleryItems[1].Path }
-                        alt=""
-                        loading="lazy"
-                    />
+                for _, item := range galleryItems{
+                    <div class="w-full md:h-96 h-80 flex">
+                        <img
+                            class="w-full h-full object-cover"
+                            src={ item.Path }
+                            alt=""
+                            loading="lazy"
+                        />
+                    </div>
+                }
+                <div class="w-full md:h-96 h-80 flex bg-gray-200">
+                <p>
+                    helo
+                </p>
                 </div>
             </div>
         <!-- /Gallery Grid -->
+
         </div>
         <!-- /Gallery Container -->
 
 </section>
-
 }

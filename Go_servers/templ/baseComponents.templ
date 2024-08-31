@@ -1,20 +1,35 @@
+/* Base components for structure of page */ 
 package templates
 
-templ ShowLogin() {
-    @BaseLayout(){
-      @Header("", false)
-      @BaseLogin(){
-        @LoginForm()
-        }
+templ BaseLayout() {
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <link href="/static/styles/output.css" rel="stylesheet"/>
+  </head>
+  <style>
+    /* Custom Scrollbar Styles */
+    .element::-webkit-scrollbar {
+      width: 0 !important;
     }
-
+    .element {
+      overflow: -moz-scrollbars-none;
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  </style>
+  <body class="h-screen element bg-yellow-50">
+  { children... }
+  </body>
+</html>
 }
 
 /* Pass the current route string to correctly set the color of the view activated*/
 templ Header(currentRoute string, userIsAdmin bool) {
-    <header
-      class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4"
-    >
+    <header class="bg-gray-800 text-white sticky top-0 z-50 min-h-16 w-full flex items-center justify-between overflow-hidden px-4">
       <nav class="flex items-center h-full w-full">
         <ul class="list-none p-0 flex items-center space-x-4 h-full w-full">
           <li>
@@ -55,11 +70,7 @@ templ Header(currentRoute string, userIsAdmin bool) {
           </li>
           }
           <li class="h-16 w-40 flex flex-col items-center justify-center m-auto">
-            <img
-              src="../static/images/jorgeadrianes logotype orange.png"
-              alt="Description"
-              class="h-full w-full object-cover"
-            />
+            <img src="../static/images/jorgeadrianes logotype orange.png" alt="Description" class="h-full w-full object-cover"/>
           </li>
         </ul>
       </nav>

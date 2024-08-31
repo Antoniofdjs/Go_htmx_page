@@ -45,7 +45,7 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(work.Path)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 20, Col: 31}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 20, Col: 31}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -58,7 +58,7 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 25, Col: 100}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 25, Col: 100}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -116,7 +116,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("buttons-container-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 44, Col: 71}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 44, Col: 71}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -181,7 +181,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#buttons-container-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 64, Col: 79}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 64, Col: 79}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -194,7 +194,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s", "Component": "%s", "Title": "%s", "Description": "%s"}`, work.Position, component, work.Title, work.Description))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 66, Col: 162}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 66, Col: 162}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {
@@ -207,7 +207,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(TextForButton(component))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 68, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 68, Col: 34}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -246,7 +246,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("delete-work-component-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 75, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 75, Col: 69}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
@@ -259,7 +259,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s", "Component": "ButtonsEditor", "Title": "%s", "Description": "%s"}`, work.Position, work.Title, work.Description))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 85, Col: 160}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 85, Col: 160}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -272,7 +272,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#delete-work-component-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 86, Col: 81}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 86, Col: 81}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -285,7 +285,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var14 string
 		templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 93, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 93, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 		if templ_7745c5c3_Err != nil {
@@ -298,7 +298,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var15 string
 		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s"}`, work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 104, Col: 64}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 104, Col: 64}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 		if templ_7745c5c3_Err != nil {
@@ -434,7 +434,7 @@ func GetInputsOrMessage(operation string, title string) templ.Component {
 				var templ_7745c5c3_Var19 string
 				templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 191, Col: 23}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 191, Col: 23}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 				if templ_7745c5c3_Err != nil {
@@ -464,7 +464,7 @@ func GetInputsOrMessage(operation string, title string) templ.Component {
 			var templ_7745c5c3_Var20 string
 			templ_7745c5c3_Var20, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 202, Col: 23}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 202, Col: 23}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var20))
 			if templ_7745c5c3_Err != nil {
@@ -506,7 +506,7 @@ func TextAreaContent(operation string, description string) templ.Component {
 			var templ_7745c5c3_Var22 string
 			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 214, Col: 21}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 214, Col: 21}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 			if templ_7745c5c3_Err != nil {
@@ -569,7 +569,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var24 string
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("insert-work-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 248, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 248, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
@@ -582,7 +582,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var25 string
 		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s", "Component": "ButtonsEditor", "Title": "%s", "Description": "%s"}`, work.Position, work.Title, work.Description))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 258, Col: 160}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 258, Col: 160}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
@@ -595,7 +595,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var26 string
 		templ_7745c5c3_Var26, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#insert-work-" + work.Position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 259, Col: 71}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 259, Col: 71}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var26))
 		if templ_7745c5c3_Err != nil {
@@ -608,7 +608,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		var templ_7745c5c3_Var27 string
 		templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(TextForButton(operation))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 264, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 264, Col: 30}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 		if templ_7745c5c3_Err != nil {
@@ -642,13 +642,13 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			var templ_7745c5c3_Var28 string
 			templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Position": "%s"}`, work.Position))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 285, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 285, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-confirm=\"Are you sure you want to delete?\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -677,7 +677,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			var templ_7745c5c3_Var29 string
 			templ_7745c5c3_Var29, templ_7745c5c3_Err = templ.JoinStringErrs(work.PositionBelow)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 300, Col: 71}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 299, Col: 73}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var29))
 			if templ_7745c5c3_Err != nil {
@@ -695,7 +695,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			var templ_7745c5c3_Var30 string
 			templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(work.Position)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorComponents.templ`, Line: 301, Col: 72}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorWorkComp.templ`, Line: 300, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
 			if templ_7745c5c3_Err != nil {
