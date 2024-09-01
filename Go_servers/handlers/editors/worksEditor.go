@@ -86,21 +86,6 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 	templates.ShowEditor(works, true).Render(r.Context(), w)
 }
 
-
-func GetEditorGallery(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-	templates.ShowEditorGallery().Render(r.Context(), w)
-}
-
-func UpdateElement(w http.ResponseWriter, r *http.Request){
-	r.ParseForm()
-	opacity:= r.FormValue("Opacity")
-	picUrl:= r.FormValue("PicUrl")
-	fmt.Println("UPDATE ACTIVATED")
-	fmt.Println("Opacity: ",opacity)
-	fmt.Println("Url: ", picUrl)
-	templates.UpdatePicStatus(opacity, picUrl).Render(r.Context(), w)
-}
-
 /*
 	Get components for the editor, this includes the views of the buttons clicked and 'Buttons Editor Component'
 */ 
