@@ -47,6 +47,12 @@ templ ButtonsContainer(work models.WorkFrontEnd) {
         @EditorButton("InsertAbove", work)
         @EditorButton("InsertBelow", work)
         @EditorButton("Delete", work)
+        <a
+        class="h-14 bg-slate-200 hover:bg-slate-400 text-gray-700 font-bold py-2 px-4 text-center justify-center items-center flex"
+        href={ templ.SafeURL("/editor/" + work.Title) }
+        >
+        Gallery
+      </a>
     </div>
 }
 
