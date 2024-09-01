@@ -19,10 +19,10 @@ templ ShowEditor(works []models.WorkFrontEnd, isAdmin bool) {
     }
 }
 
-templ ShowEditorGallery() {
+templ ShowEditorGallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd) {
      @BaseLayout(){
         @Header("/editor", true)
-        @GalleryEditor()
+        @GalleryEditor(work, galleryItems)
     }
 }
 

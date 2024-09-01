@@ -118,7 +118,7 @@ func ShowEditor(works []models.WorkFrontEnd, isAdmin bool) templ.Component {
 	})
 }
 
-func ShowEditorGallery() templ.Component {
+func ShowEditorGallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -156,7 +156,7 @@ func ShowEditorGallery() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = GalleryEditor().Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = GalleryEditor(work, galleryItems).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
