@@ -14,7 +14,7 @@ import (
 */
 // func Gallery(w http.ResponseWriter, r *http.Request, templateFs embed.FS) {
 // 	fmt.Println("Gallery activated")
-// 	title := r.PathValue("title")
+// 	title := r.PathValue("title").
 
 // 	fmt.Println("My title is: ", title)
 // 	supaClient:= db.InitDB()

@@ -26,7 +26,7 @@ templ ShowEditorGallery(work models.WorkFrontEnd, galleryItems []models.GalleryI
     }
 }
 
-// 'GET /work/{workTitle}
+// 'GET /work/{workTitle} 
 templ ShowGallery(work models.WorkFrontEnd, isAdmin bool, galleryItems []models.GalleryItemFrontEnd) {
     @BaseLayout(){
         @Header("/work", isAdmin)

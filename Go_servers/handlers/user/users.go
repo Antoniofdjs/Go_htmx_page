@@ -13,7 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// Get Login html template
+// Get Login html template.
 // func GetLoginTmpl(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 // 	tmpl, err:= template.ParseFS(templateFs, "htmlTemplates/login.html")
 // 	if err != nil {

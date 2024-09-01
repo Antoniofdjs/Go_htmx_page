@@ -87,7 +87,7 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 }
 
 /*
-	Get components for the editor, this includes the views of the buttons clicked and 'Buttons Editor Component'
+	Get components for the editor, this includes the views of the buttons clicked and 'Buttons Editor Component'.
 */ 
 func GetEditorComponents(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 	var belowPosition string = ""

@@ -285,7 +285,7 @@ func DeleteWork(positionToDel string) error {
 		updatedWorkToInsert := work
 		args:= strings.Split(updatedWorkToInsert.Path, "/")
 		picNameEncodedURL := args[len(args)-1] // accesing file name only since local .path contains the url for the pic
-		updatedWorkToInsert.Path, _= url.QueryUnescape(picNameEncodedURL) // picture name can contain white spaces from the url generated
+		updatedWorkToInsert.Path, _= url.QueryUnescape(picNameEncodedURL) // picture name can contain white spaces from the url generated.
 		workIdstring := strconv.Itoa(work.Id)
 		fmt.Println("WORK ID: ", work.Position)
 	_,_,err = supaClient.From("works").Update(updatedWorkToInsert, "", "").Eq("ID",workIdstring).Execute()

@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// Define a struct to hold the JSON data
+// Define a struct to hold the JSON data.
 
 func GetHand(w http.ResponseWriter, r *http.Request, templateFs embed.FS) {
 	tmpl := template.Must(template.ParseFS(templateFs,"htmlTemplates/contact.html"))

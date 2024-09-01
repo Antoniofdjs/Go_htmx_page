@@ -11,7 +11,7 @@ import (
 
 
 func GetEditorGallery(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
-	gallery := models.GalleriesStorage[67] // 67 is the key and work id fro the mountains gallery at the moment
+	gallery := models.GalleriesStorage[67] // 67 is the key and work id fro the mountains gallery at the moment.
 	work := models.WorksStorage[2]
 	galleryItemsFront := []models.GalleryItemFrontEnd{}
 	workFront := models.WorkFrontEnd{
