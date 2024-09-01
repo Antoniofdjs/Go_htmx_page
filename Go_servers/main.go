@@ -116,10 +116,14 @@ func main() {
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){editor.GetEditorComponents(w, r, templatesFS)})
-	http.HandleFunc("GET /editor/gallery", func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)})
-	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateElement(w, r)})
 
-	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetTestView(w, r, templatesFS)}))
+	http.HandleFunc("GET /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)}))
+	http.HandleFunc("POST /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.FileUploadGallery(w, r)}))
+
+	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateGalleryItems(w, r)})
+
+	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetTestView(w, r, templatesFS)})) // this is for /editor!!!!
+
 
 
 	// Start server
