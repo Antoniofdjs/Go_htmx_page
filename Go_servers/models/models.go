@@ -36,3 +36,10 @@ var WorksStorage []Work
 
 /* Local storage for galleries assocciate with works_id and []Gallery. <Gallery.Path> is storing the public bucket url, not the the picture name*/
 var GalleriesStorage map[int][]GalleryItem
+
+type FileTemp struct{
+	FileName string
+	FileBytes []byte
+}
+
+var FileTempStorage []FileTemp

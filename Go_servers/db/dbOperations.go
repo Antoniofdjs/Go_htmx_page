@@ -102,6 +102,49 @@ func Login(email string, pwd string) (string,error){
 	return token, nil
 }
 
+
+/* Insert new gallery item to table "galleries" */ 
+func InsertGalleryItem(workID int, fileName string, fileBytes []byte) error{
+	fmt.Println("INSERT ITEMS GALLERY TO DB ACTIVATED")
+	supaClient := InitDB()
+
+	positionItemGAllery:= len(models.GalleriesStorage[workID]) + 1 // count how many items are already in the map for this work on local storage
+	
+	newGalleryItem := models.GalleryItem{ 
+		Work_ID: workID,
+		Path: fileName,
+		Position: positionItemGAllery,
+		} 			// this newGalleryItem will be placed on the local storae map as a placholder so that each next item can increase the count,
+					//after all inserts are done, storageInits.InitGalleries will correctly fix the data
+
+	fmt.Println("Inserting gallery item")
+	response, _, err:= supaClient.From("galleries").Insert(newGalleryItem, true, "", "","").Execute()
+	if err!= nil{
+		fmt.Println("Error inserting new gallery item")
+		fmt.Printf("%s", err)
+		return err
+	}
+	fmt.Println("Insert succes")
+	fmt.Println("Response", response)
+
+	// Insert picture to bucket as also create sub folder in galleries bucket
+	content:="image/jpeg"
+	fileOption := storage_go.FileOptions{
+		ContentType: &content,
+	}
+	picReader := bytes.NewReader(fileBytes)
+	folderPath := fmt.Sprintf("%d/%s",workID, fileName)
+	storageBucket:= supaClient.Storage
+	responseBucket , err:= storageBucket.UploadFile("galleries", folderPath,picReader, fileOption)
+	if err!=nil{
+		fmt.Println("Error inserting picture to bucket")
+	}
+	fmt.Println("Response Bucket", responseBucket.Message)
+	models.GalleriesStorage[workID] = append(models.GalleriesStorage[workID], newGalleryItem) // newGalleryItem.path its not correct format, after this sotrageInits.InitGalleries() will be called to fix
+	return err
+}
+
+
 /*
 	Insert new work. Picture is also sent here. 
 */

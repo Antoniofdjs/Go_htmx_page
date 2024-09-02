@@ -117,7 +117,9 @@ func main() {
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){editor.GetEditorComponents(w, r, templatesFS)})
 
-	http.HandleFunc("GET /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)}))
+	http.HandleFunc("GET /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)}))
+	http.HandleFunc("POST /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.UploadGalleryItems(w, r)})) // Actual insert of gallery items
+	
 	http.HandleFunc("POST /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.FileUploadGallery(w, r)}))
 
 	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateGalleryItems(w, r)})

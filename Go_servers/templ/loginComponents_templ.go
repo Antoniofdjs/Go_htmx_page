@@ -28,7 +28,7 @@ func BaseLogin() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 1)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main class=\"flex flex-col justify-center items-center flex-grow w-screen h-full overflow-y-scroll bg-primary element pb-2\"><div class=\"h-full w-full flex flex-col justify-center items-center\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -36,7 +36,7 @@ func BaseLogin() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 2)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></main>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -64,7 +64,7 @@ func LoginForm() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800\"><h1 class=\"text-2xl font-bold text-center\">Login</h1><form class=\"space-y-6 justify-center items-center flex flex-col\" hx-post=\"/login\" hx-include=\"[name=&#39;email&#39;], [name=&#39;pwd&#39;]\" hx-target=\"#message-login\" hx-swap=\"innerHTML\"><div class=\"space-y-1 text-sm w-full\"><label for=\"username\" class=\"block dark:text-gray-600\">Username</label> <input type=\"text\" name=\"email\" id=\"username\" placeholder=\"Email\" class=\"w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-green-600 shadow-md shadow-gray-600\" fdprocessedid=\"dpl298\"></div><div class=\"space-y-1 text-sm w-full\"><label for=\"password\" class=\"block dark:text-gray-600\">Password</label> <input type=\"password\" name=\"pwd\" id=\"password\" placeholder=\"Password\" class=\"w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-green-600 shadow-md shadow-gray-600\" fdprocessedid=\"dthv4\"></div><button class=\"w-1/2 px-8 py-3 text-lg rounded focus:ring hover:ring focus:ring-opacity-75 bg-amber-200 dark:text-gray-50 focus:dark:ring-cyan-600 hover:dark:ring-cyan-600 border-customColor border-spacing-4 border-r-2 shadow-lg hover:bg-violet-600\" id=\"sing-submit\" fdprocessedid=\"1jrywc\">Submit</button><p id=\"message-login\" class=\"block w-full p-3 text-center rounded-sm dark:text-gray-50 dark:bg-green-600\">Sign in with your credentials.</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
