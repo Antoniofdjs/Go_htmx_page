@@ -96,23 +96,23 @@ func main() {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	
-	// Routes
 	http.HandleFunc("GET /{$}", landingHandler) // Match only exactly '/' thanks to {$}
-        
 	http.HandleFunc("GET /about",func(w http.ResponseWriter, r *http.Request){about.GetHand(w, r, templatesFS)})
-        
+
 	http.HandleFunc("GET /contact", func(w http.ResponseWriter, r *http.Request) {contacts.GetHand(w, r, templatesFS)})
 	http.HandleFunc("POST /contact", func(w http.ResponseWriter, r *http.Request) {contacts.PostHand(w, r, templatesFS)})
 
+	//  Work Routes
 	http.HandleFunc("GET /work", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)}))
 	http.HandleFunc("GET /work/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)})) // Gallery
 
+	//  Work Editor Routes
 	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetHandEditor(w, r, templatesFS)}))
 	http.HandleFunc("PUT /editor", func(w http.ResponseWriter, r *http.Request){editor.PutHandEditor(w, r, templatesFS)}) // auth
 	http.HandleFunc("POST /editor", func(w http.ResponseWriter, r *http.Request){editor.PostHandEditor(w, r, templatesFS)}) // auth
 	http.HandleFunc("POST /editor/del", func(w http.ResponseWriter, r *http.Request){editor.DelHandEditor(w, r)}) // auth
 
-
+	// LoginRoutes
 	http.HandleFunc("GET /login", func(w http.ResponseWriter, r *http.Request){user.GetLoginTmpl(w, r, templatesFS)})
 	http.HandleFunc("POST /login", func(w http.ResponseWriter, r *http.Request){user.Login(w, r)})
 	http.HandleFunc("GET /logout", func(w http.ResponseWriter, r *http.Request){user.Logout(w, r)})
@@ -124,10 +124,11 @@ func main() {
 	http.HandleFunc("POST /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.PostHandGalleryEditor(w, r)})) // Actual insert of gallery items
 	http.HandleFunc("PUT /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.PutHandGalleryEditor(w, r)})) // Edit gallery items(delete pics)
 	
+	// Thes 2 routes maybe need to be defined in another handler and group them
 	http.HandleFunc("POST /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.FileUploadTemporaryStorage(w, r)}))
-
 	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateGalleryItems(w, r)})
 
+	// Test route for editor
 	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetTestView(w, r, templatesFS)})) // this is for /editor!!!!
 
 
