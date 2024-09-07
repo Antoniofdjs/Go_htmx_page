@@ -42,15 +42,15 @@ type PictureData struct {
 func GetWorksView(w http.ResponseWriter, r *http.Request, fileEmbed embed.FS) {
 	var works []models.WorkFrontEnd
 
-	// Change to strings all values from the work struct, in this case Position sicne its an int
-	for _, work := range models.WorksStorage{
-		positionString := strconv.Itoa(work.Position)
+	for _, w:= range models.WorksStorage{		
+		positionString := strconv.Itoa(w.Position)
 		workStringsOnly := models.WorkFrontEnd{
-			Title : work.Title,
-			Path : work.Path,
-			Description : work.Description,
+			Title : w.Title,
+			Path : w.Path,
+			Description : w.Description,
 			Position : positionString,
 		}
+
 		works = append(works, workStringsOnly)
 	}
 
