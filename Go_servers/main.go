@@ -33,9 +33,10 @@ func initStorageMiddleware(nextHandler http.HandlerFunc) http.HandlerFunc{
 	return func(w http.ResponseWriter, r *http.Request){
 		if models.GalleriesStorage == nil{
 			storageInits.InitGalleries()
+			models.DeleteGalleryItemTempStorage = make(map[string][]int)
 		}
-		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
-			models.WorksStorage = db.AllWorks()
+		if models.WorksMapStorage == nil{
+			storageInits.InitWorksStorage()
 		}
 		nextHandler.ServeHTTP(w, r)
 	}
@@ -64,9 +65,10 @@ func authMiddleware(nextHandler http.HandlerFunc) http.HandlerFunc {
 		//  Init local storage
 		if models.GalleriesStorage == nil{
 			storageInits.InitGalleries()
+			models.DeleteGalleryItemTempStorage = make(map[string][]int)
 		}
-		if models.WorksStorage == nil || len(models.WorksStorage) == 0{
-			models.WorksStorage = db.AllWorks()
+		if models.WorksMapStorage == nil{
+			storageInits.InitWorksStorage()
 		}
         
 		nextHandler.ServeHTTP(w, r)
@@ -117,10 +119,12 @@ func main() {
 
 	http.HandleFunc("GET /editor/components", func(w http.ResponseWriter, r *http.Request){editor.GetEditorComponents(w, r, templatesFS)})
 
+	// Gallery Editor Routes
 	http.HandleFunc("GET /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetEditorGallery(w, r, templatesFS)}))
-	http.HandleFunc("POST /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.UploadGalleryItems(w, r)})) // Actual insert of gallery items
+	http.HandleFunc("POST /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.PostHandGalleryEditor(w, r)})) // Actual insert of gallery items
+	http.HandleFunc("PUT /editor/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.PutHandGalleryEditor(w, r)})) // Edit gallery items(delete pics)
 	
-	http.HandleFunc("POST /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.FileUploadGallery(w, r)}))
+	http.HandleFunc("POST /editor/gallery", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.FileUploadTemporaryStorage(w, r)}))
 
 	http.HandleFunc("GET /editor/update", func(w http.ResponseWriter, r *http.Request){editor.UpdateGalleryItems(w, r)})
 
