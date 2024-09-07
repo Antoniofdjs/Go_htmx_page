@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-/* Initialize local storage Gallery Map with database data. Paths contain the urls fro the each gallery item */ 
+/* Initialize local storage Gallery Map with database data. Paths contain the urls for each gallery item */ 
 func InitGalleries(){
 	galleryItems:= db.AllGalleries()
 
@@ -29,4 +29,35 @@ func InitGalleries(){
 			fmt.Println("Pic Position: ", item.Position)
 		}
 	}
+}
+
+func InitWorksStorage(){
+	fmt.Println("Initializing work map storage locally")
+	works := db.AllWorks()
+	models.WorksStorage = works // update the slice, this mantains the order of the pics
+
+	if models.WorksMapStorage == nil{
+		fmt.Println("Work Storage doesnt exists, creating storage")
+		models.WorksMapStorage = make(map[string]models.Work)
+	}else{
+		fmt.Println("Map already exists, deleting all keys... and update is happening")
+		for key := range models.WorksMapStorage {
+			delete(models.WorksMapStorage, key)
+		}
+	}
+
+	for _, work := range works{
+		keyTitle:= work.Title
+		_, exists := models.WorksMapStorage[keyTitle]
+		if !exists{
+			models.WorksMapStorage[keyTitle] = models.Work{
+				Id : work.Id,
+				Title: work.Title,
+				Description: work.Description,
+				Position: work.Position,
+				Path: work.Path,
+			}
+		}
+	}
+	fmt.Println("Work Storage Map len ",len(models.WorksMapStorage))
 }
