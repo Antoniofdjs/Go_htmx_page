@@ -3,6 +3,7 @@ package editor
 import (
 	"Go_servers/db"
 	"Go_servers/models"
+	storageInits "Go_servers/storageInit"
 	templates "Go_servers/templ"
 	"embed"
 	"fmt"
@@ -71,7 +72,9 @@ func GetHandEditor(w http.ResponseWriter, r *http.Request, editorFs embed.FS) {
 
 	// Change to strings all values of the work struct, in this case Position since its an int
 	// Every value must be string for the html .templ
+	fmt.Printf("GET HAND EDITOR ALL WORKS ")
 	for _, work := range models.WorksStorage{
+		fmt.Println("Work PATH: ")
 		positionString := strconv.Itoa(work.Position)
 		workStringsOnly := models.WorkFrontEnd{
 			Title : work.Title,
@@ -172,7 +175,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
 		return
 	}
-	models.WorksStorage = db.AllWorks()
+	storageInits.InitWorksStorage()
 	w.Header().Set("HX-Redirect", "/test")
 	w.WriteHeader(http.StatusOK)
 }
@@ -185,7 +188,6 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	var fileName string = ""
 
 	fmt.Println("PUT EDITOR")
-	// time.Sleep(2 * time.Second)
 	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -227,14 +229,14 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 	fmt.Println("New Picture Name: ", fileName)
 	// Edit the work object on the db
-	updated, err:= db.EditTitle(Position, title, description, fileName)
+	updated, err:= db.EditWork(Position, title, description, fileName)
 	if !updated{
 		fmt.Println(err)
 		http.Error(w, "Error updating title", http.StatusBadRequest)
 		return
 	}
 	// Update local storage
-	models.WorksStorage = db.AllWorks()
+	storageInits.InitWorksStorage()
 	w.Header().Set("HX-Redirect", "/test")
 	w.WriteHeader(http.StatusOK)
 }
