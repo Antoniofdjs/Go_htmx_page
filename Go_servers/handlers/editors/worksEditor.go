@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 //  Currently being used for the json data received from the fecth of '/editor/component'
@@ -156,8 +157,16 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		return
 	}
 	defer file.Close()
+	fileType:= fileHeader.Header.Get("Content-type")
+	if fileType != "image/jpeg" && fileType != "image/webp" && fileType != "image/png"{
+		fmt.Println("File type not allowed: ",fileType)
+		return 
+	}
 
+	fmt.Println("File Content Type is:  ", fileType)
 	fileName, _ := url.QueryUnescape(fileHeader.Filename)
+	fileNameCleaned := strings.ReplaceAll(fileName, " ", "-")
+	fmt.Println("File named cleaned: ", fileNameCleaned)
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
 		http.Error(w, "Could not read file", http.StatusInternalServerError)
@@ -165,12 +174,13 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	}
 
 	title := r.FormValue("Title")
+	titleCleaned := strings.ReplaceAll(title, " ", "-")
 	description := r.FormValue("Description")
 	position := r.FormValue("Position")
 	// insertBelow:= r.FormValue("InsertBelow")
 	fmt.Printf("Title: %s, Description: %s, Position: %s \n",title, description, position)
 
-	err = db.InsertWork(title, position, description, fileName, fileBytes)
+	err = db.InsertWork(titleCleaned, position, description, fileNameCleaned, fileBytes)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
 		return
@@ -197,6 +207,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 
 	Position := r.FormValue("Position")
 	title := r.FormValue("Title")
+	titleCleaned := strings.ReplaceAll(title, " ", "-")
 	description := r.FormValue("Description")
 
 	if Position == "" {
@@ -229,7 +240,7 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	}
 	fmt.Println("New Picture Name: ", fileName)
 	// Edit the work object on the db
-	updated, err:= db.EditWork(Position, title, description, fileName)
+	updated, err:= db.EditWork(Position, titleCleaned, description, fileName)
 	if !updated{
 		fmt.Println(err)
 		http.Error(w, "Error updating title", http.StatusBadRequest)
