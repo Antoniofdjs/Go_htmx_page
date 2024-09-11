@@ -306,7 +306,7 @@ func InsertWork(newTitle string, position string, description string,picName str
 		ContentType: &content,
 	}
 	newKey := insertedWorkID
-	models.GalleriesStorage[newKey]= []models.GalleryItem{} // Add to local storage map gallery, new key for the work
+	models.GalleriesStorage[newKey]= []models.GalleryItem{} // Add to local storage gallery, new key
 	picReader := bytes.NewReader(picBytes)
 	_, _ = supaClient.Storage.UploadFile("works",newInsertWork.Path, picReader, fileOption)
 	folderPath := fmt.Sprintf("%d/",insertedWorkID)
@@ -314,7 +314,7 @@ func InsertWork(newTitle string, position string, description string,picName str
 	fmt.Println("Response", response.Message)
 
 	// Update local storage
-	models.WorksStorage = AllWorks()
+	// models.WorksStorage = AllWorks()
 	return nil
 }
 
