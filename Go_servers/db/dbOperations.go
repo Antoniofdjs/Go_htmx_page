@@ -9,10 +9,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/url"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/supabase-community/postgrest-go"
@@ -233,7 +235,7 @@ func DeleteGalleryItem(workID string, position string, picName string) error{
 /*
 	Insert new work. Picture is also sent here. 
 */
-func InsertWork(newTitle string, position string, description string,picName string, picBytes []byte) error {
+func InsertWork(newTitle string, position string, description string, picName string, picBytes []byte) error {
 	
 	type workInsert struct{
 		Path   string `json:"Path"`
@@ -245,6 +247,22 @@ func InsertWork(newTitle string, position string, description string,picName str
 	var works []models.Work
 	var insertedWorks []models.Work
 	var insertedWorkID int
+
+	// check if pic name doesnt exists
+	for key := range models.WorksMapStorage{
+		args:= strings.Split(models.WorksMapStorage[key].Path, "/")
+		picNameEncodedURL := args[len(args)-1] // accesing file name only
+		existingPicNAme, _:= url.QueryUnescape(picNameEncodedURL) // picture name can contain white spaces from the url generated.
+		if existingPicNAme == picName{
+			
+			// Seed the random number generator to have unique nums(controlled randomness)
+			rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+    
+			// Generate a random number
+			randomNum := rng.Intn(100)
+			picName = fmt.Sprintf("Cpy_%d_%s", randomNum, picName) // modify name of the pic since it already exists
+		}
+	}
 	supaClient:= InitDB()
 
 	// Count the number of rows in the "works" table before insertion
@@ -279,7 +297,6 @@ func InsertWork(newTitle string, position string, description string,picName str
 		}
 		// Increase by one any work id matching or higher than the new work coming
 		//This will shift all work id's correctly and update them 
-		// COnsider a faster way to do this, maybe a function in the db
 		for _, work := range works{
 			if work.Position >= positionToInsert{
 				work.Position += 1
@@ -313,8 +330,6 @@ func InsertWork(newTitle string, position string, description string,picName str
 	response, _ := supaClient.Storage.UploadFile("galleries",folderPath, picReader, fileOption)
 	fmt.Println("Response", response.Message)
 
-	// Update local storage
-	// models.WorksStorage = AllWorks()
 	return nil
 }
 
@@ -330,6 +345,7 @@ func EditWork(position string, newTitle string, newDescription string, newPicNam
 	}
 	fmt.Println("Description: ", newDescription)
 	fmt.Println("EDITING WITH DB")
+
     // Perform the update on databse
     // Option 1(if), picture was not changed, option 2(else) picture was changed
 	if newPicName == ""{
