@@ -57,7 +57,7 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-sm dark:text-gray-600 font-thin text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full font-serif text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-3/4 font-serif text-lg h-auto text-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-sm dark:text-gray-600 font-thin text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full font-serif text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 font-serif text-lg h-auto md:text-center text-left\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -145,20 +145,20 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"title-input\"> <label for=\"upload-pics\" class=\"flex hover:opacity-70 hover:cursor-pointer\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 31\" class=\"w-20 w-20 md:h-28 md:w-28 fill-current text-amber-500 bg-gradient-to-t bg-yellow-50 hover:from-amber-200 hover:to-amber-100 rounded-lg shadow shadow-lg shadow-amber-800 hover:text-amber-500 hover:shadow-none transition duration-150 ease-in-out\" style=\"fill-rule: evenodd;\"><path d=\"m30 19.59-4.29-4.29a1 1 0 0 0-1.41 0L19 20.59l-6.29-6.29a1 1 0 0 0-1.41 0L2 23.59V3a1 1 0 0 1 1-1h18V0H3a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V12h-2z\"></path> <path d=\"M10 8a4 4 0 1 0 4-4 4 4 0 0 0-4 4zm6 0a2 2 0 1 1-2-2 2 2 0 0 1 2 2zM28 4V0h-2v4h-4v2h4v4h2V6h4V4h-4z\"></path></svg> <input type=\"file\" name=\"Pictures\" id=\"upload-pics\" multiple class=\"hidden\" accept=\"image/*\"></label></form><div class=\"w-full h-1/3 flex flex-col gap-3 items-center text-ellipsis\" id=\"files-list\"></div></div></div><!-- /Gallery Grid --></div><!-- /Gallery Container --></section><!-- /sticky footer --><div class=\"flex w-full sticky bottom-0 left-0 justify-center items-center py-2\"><button class=\"w-auto h-auto bg-btnPrimary hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out\" id=\"save-button\" type=\"submit\" hx-target=\"#files-list\" hx-swap=\"innerHTML\" hx-put=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"title-input\"> <label for=\"upload-pics\" class=\"flex hover:opacity-70 hover:cursor-pointer\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 31\" class=\"w-20 w-20 md:h-28 md:w-28 fill-current text-amber-500 bg-gradient-to-t bg-yellow-50 hover:from-amber-200 hover:to-amber-100 rounded-lg shadow shadow-lg shadow-amber-800 hover:text-amber-500 hover:shadow-none transition duration-150 ease-in-out\" style=\"fill-rule: evenodd;\"><path d=\"m30 19.59-4.29-4.29a1 1 0 0 0-1.41 0L19 20.59l-6.29-6.29a1 1 0 0 0-1.41 0L2 23.59V3a1 1 0 0 1 1-1h18V0H3a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V12h-2z\"></path> <path d=\"M10 8a4 4 0 1 0 4-4 4 4 0 0 0-4 4zm6 0a2 2 0 1 1-2-2 2 2 0 0 1 2 2zM28 4V0h-2v4h-4v2h4v4h2V6h4V4h-4z\"></path></svg> <input type=\"file\" name=\"Pictures\" id=\"upload-pics\" multiple class=\"hidden\" accept=\"image/*\"></label></form><div class=\"w-full h-1/3 flex flex-col gap-3 items-center text-ellipsis\" id=\"files-list\"></div></div></div><!-- /Gallery Grid --></div><!-- /Gallery Container --><div class=\"flex w-auto h-auto sticky bottom-0 left-0 justify-center items-center py-2\"><button class=\"flex flex-row w-auto h-auto bg-btnPrimary gap-2 hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out\" id=\"save-button\" type=\"submit\" hx-target=\"#files-list\" hx-swap=\"innerHTML\" hx-put=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("/editor/" + work.Title))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 99, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 97, Col: 62}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Save changes</button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-indicator=\"#spinner\">Save changes<span class=\"spinner animate-spin h-6 w-6\" id=\"spinner\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div></section><!-- /sticky footer -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -193,7 +193,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(picUrl)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 108, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 113, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -232,7 +232,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#image-container-" + position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 123, Col: 67}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 128, Col: 67}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -250,7 +250,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 			var templ_7745c5c3_Var14 string
 			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Opacity": "false", "PicUrl": "%s", "Position": "%s", "WorkTitle": "%s"}`, picUrl, position, workTitle))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 125, Col: 130}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 130, Col: 130}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 			if templ_7745c5c3_Err != nil {
@@ -269,7 +269,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 			var templ_7745c5c3_Var15 string
 			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Opacity": "true", "PicUrl": "%s", "Position": "%s", "WorkTitle": "%s"}`, picUrl, position, workTitle))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 128, Col: 129}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 133, Col: 129}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 			if templ_7745c5c3_Err != nil {
@@ -336,7 +336,7 @@ func FilesSelectedContainer(fileNames []string, workTitle string) templ.Componen
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(fileName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 145, Col: 22}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 150, Col: 22}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
@@ -347,20 +347,20 @@ func FilesSelectedContainer(fileNames []string, workTitle string) templ.Componen
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><div class=\"w-10/12 h-1/4 flex justify-end items-center pb-2\"><button class=\"w-10 h-10 mr-2 rounded-full flex justify-center items-center border border-1 border-emerald-400 overflow-hidden\" hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><div class=\"w-10/12 h-1/4 flex justify-end items-center  gap-2 pb-2\"><button class=\"w-10 h-10 mr-2 rounded-full flex justify-center items-center border border-1 border-emerald-400 overflow-hidden\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("/editor/" + workTitle))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 152, Col: 58}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templ/editorGalleryComp.templ`, Line: 157, Col: 62}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-include=\"#form\" id=\"upload-pics\"><svg class=\"w-20 h-20 fill-current text-emerald-500 hover:bg-emerald-300 transition duration-75 hover:ease-out hover:\" fill=\"#247b30\" height=\"90px\" width=\"90px\" version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"-115.98 -115.98 606.08 606.08\" xml:space=\"preserve\" stroke=\"#247b49\" stroke-width=\"0.0037411600000000003\" transform=\"matrix(-1, 0, 0, 1, 0, 0)\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g> <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g> <g id=\"SVGRepo_iconCarrier\"><g><path d=\"M344.058,207.506c-16.568,0-30,13.432-30,30v76.609h-254v-76.609c0-16.568-13.432-30-30-30c-16.568,0-30,13.432-30,30 v106.609c0,16.568,13.432,30,30,30h314c16.568,0,30-13.432,30-30V237.506C374.058,220.938,360.626,207.506,344.058,207.506z\"></path> <path d=\"M123.57,135.915l33.488-33.488v111.775c0,16.568,13.432,30,30,30c16.568,0,30-13.432,30-30V102.426l33.488,33.488 c5.857,5.858,13.535,8.787,21.213,8.787c7.678,0,15.355-2.929,21.213-8.787c11.716-11.716,11.716-30.71,0-42.426L208.271,8.788 c-11.715-11.717-30.711-11.717-42.426,0L81.144,93.489c-11.716,11.716-11.716,30.71,0,42.426 C92.859,147.631,111.855,147.631,123.57,135.915z\"></path></g></g></svg></button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-include=\"#form\" id=\"upload-pics\" hx-indicator=\"#spinner-upload\"><svg class=\"w-20 h-20 fill-current text-emerald-500 hover:bg-emerald-300 transition duration-75 hover:ease-out hover:\" fill=\"#247b30\" height=\"90px\" width=\"90px\" version=\"1.1\" id=\"Capa_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" viewBox=\"-115.98 -115.98 606.08 606.08\" xml:space=\"preserve\" stroke=\"#247b49\" stroke-width=\"0.0037411600000000003\" transform=\"matrix(-1, 0, 0, 1, 0, 0)\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g> <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g> <g id=\"SVGRepo_iconCarrier\"><g><path d=\"M344.058,207.506c-16.568,0-30,13.432-30,30v76.609h-254v-76.609c0-16.568-13.432-30-30-30c-16.568,0-30,13.432-30,30 v106.609c0,16.568,13.432,30,30,30h314c16.568,0,30-13.432,30-30V237.506C374.058,220.938,360.626,207.506,344.058,207.506z\"></path> <path d=\"M123.57,135.915l33.488-33.488v111.775c0,16.568,13.432,30,30,30c16.568,0,30-13.432,30-30V102.426l33.488,33.488 c5.857,5.858,13.535,8.787,21.213,8.787c7.678,0,15.355-2.929,21.213-8.787c11.716-11.716,11.716-30.71,0-42.426L208.271,8.788 c-11.715-11.717-30.711-11.717-42.426,0L81.144,93.489c-11.716,11.716-11.716,30.71,0,42.426 C92.859,147.631,111.855,147.631,123.57,135.915z\"></path></g></g></svg></button> <span class=\"spinner animate-spin h-6 w-6\" id=\"spinner-upload\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
