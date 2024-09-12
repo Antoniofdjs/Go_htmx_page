@@ -27,7 +27,7 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
             <h2 id="work-title" class="text-xl md:text-3xl font-semibold text-center">{ work.Title }</h2>
             <span class="block md:pb-1 md:pt-2 pb-4 text-sm dark:text-gray-600 font-thin text-center">07/26/2024</span>
             <div class="md:w-3/5 w-full font-serif text-lg h-auto flex justify-center items-center">
-                <p id="work-description" class="md:w-full w-3/4 font-serif text-lg h-auto text-center">
+                <p id="work-description" class="md:w-full w-11/12 font-serif text-lg h-auto md:text-center text-left">
                 { work.Description }
                 </p>
             </div>    
@@ -87,18 +87,23 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
     <!-- /Gallery Grid -->
     </div>
     <!-- /Gallery Container -->
+    <div class="flex w-auto h-auto sticky bottom-0 left-0 justify-center items-center py-2">
+        <button
+        class="flex flex-row w-auto h-auto bg-btnPrimary gap-2 hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out" 
+        id="save-button"
+        type="submit"
+        hx-target="#files-list"
+        hx-swap="innerHTML"
+        hx-put={ templ.JoinStringErrs("/editor/" + work.Title) }
+        hx-indicator="#spinner"
+        >Save changes<span class="spinner animate-spin h-6 w-6" id="spinner">
+        <svg viewBox="0 0 24 24"
+        fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#bc690d"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z" fill="#fff9d1"></path> <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#fff9d1"></path> </g></svg>
+        </span>
+        </button>
+    </div>
 </section>
  <!-- /sticky footer -->
-<div class="flex w-full sticky bottom-0 left-0 justify-center items-center py-2">
-    <button
-    class="w-auto h-auto bg-btnPrimary hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out" 
-    id="save-button"
-    type="submit"
-    hx-target="#files-list"
-    hx-swap="innerHTML"
-    hx-put={ templ.JoinStringErrs("/editor/" + work.Title) }
-    >Save changes</button>
-</div>
 }
 
 /* Update pics that will be deleted, visually and load content fro teh requests */ 
@@ -146,13 +151,14 @@ templ FilesSelectedContainer(fileNames []string, workTitle string) {
             </li>
         }
     </ul>
-    <div class="w-10/12 h-1/4 flex justify-end items-center pb-2">
-    <button
-    class="w-10 h-10 mr-2 rounded-full flex justify-center items-center border border-1 border-emerald-400 overflow-hidden"
-    hx-post={ templ.JoinStringErrs("/editor/" + workTitle) }
-    hx-include="#form"
-    id="upload-pics"
-    >
+    <div class="w-10/12 h-1/4 flex justify-end items-center  gap-2 pb-2">
+        <button
+        class="w-10 h-10 mr-2 rounded-full flex justify-center items-center border border-1 border-emerald-400 overflow-hidden"
+        hx-post={ templ.JoinStringErrs("/editor/" + workTitle) }
+        hx-include="#form"
+        id="upload-pics"
+        hx-indicator="#spinner-upload"
+        >
         <svg  class="w-20 h-20 fill-current text-emerald-500 hover:bg-emerald-300 transition duration-75 hover:ease-out hover:" fill="#247b30" height="90px" width="90px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-115.98 -115.98 606.08 606.08" xml:space="preserve" stroke="#247b49" stroke-width="0.0037411600000000003" transform="matrix(-1, 0, 0, 1, 0, 0)">
             <g id="SVGRepo_bgCarrier" stroke-width="0">
             </g>
@@ -164,7 +170,12 @@ templ FilesSelectedContainer(fileNames []string, workTitle string) {
                 </g>
             </g>
         </svg>
-    </button>
-
+        </button>
+        <span class="spinner animate-spin h-6 w-6" id="spinner-upload">
+            <svg viewBox="0 0 24 24"
+            fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#bc690d"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z" fill="#fff9d1"></path>
+            <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#fff9d1"></path> </g></svg>
+        </span>
     </div>
 }
