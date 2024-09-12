@@ -33,12 +33,12 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"px-0 dark:bg-gray-800 dark:text-gray-900 justify-between w-screen\" id=\"works-section\"><!-- images outer container --><div class=\"mx-auto px-0 flex flex-col items-center justify-between w-screen overflow-hidden\"><div class=\"-m-1 flex flex-wrap md:-m-2 flex-col items-center w-screen md:gap-1 gap-3\" id=\"gallery\"><!-- IMAGES HERE BELOW: -->")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 1)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, work := range works {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex w-full h-[500px] flex-wrap pb-10 object-center relative\" id=\"work-container-{{ .Position }}\"><img alt=\"gallery\" class=\"block w-full h-full object-cover object-center absolute top-0 left-0\" src=\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 2)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -51,7 +51,7 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Image text container --><div class=\"w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center\"><div class=\"bg-black bg-opacity-50 w-full h-full flex flex-col items-baseline\"><h2 class=\"text-white md:pl-2 w-full text-left mt-2 font-serif text-xl\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -64,7 +64,7 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 4)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -72,17 +72,17 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 5)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></section>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 6)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if len(works) == 0 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"px-0 dark:bg-gray-800 dark:text-gray-900 justify-center items-center flex w-screen md:h-3/4 h-5/6\"><form id=\"form-container\" class=\"flex md:flex-row flex-col justify-center text-left bg-primary h-3/4 w-10/12 gap-4 p-4 rounded-lg\" hx-post=\"/editor\" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\" hx-encoding=\"multipart/form-data\" hx-trigger=\"submit\" hx-indicator=\"#spinner\"><!-- Title input --><div class=\"flex md:flex-col flex-col justify-end gap-2 items-center bg-primary h-full w-full rounded-md md:h-full flex\"><div class=\"flex justify-center items-center border border-slate-800 w-full h-1/4 md:h-1/3 md:h-1/5 sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-primary text-center shadow shadow-md shadow-slate-800 hover:border-btnAccent\"><!-- Generate <input> for 'Edit','Insert' or <p> message for 'Delete'--><input class=\"w-full h-full sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-primary text-center text-secondary hover:bg-slate-800 hover:shadow-md border-0\" type=\"text\" name=\"Title\" id=\"title\" placeholder=\"Title\" required=\"true\" name=\"Title\"></div><div class=\"rounded-md md:w-full border border-slate-800 hover:border-btnAccent w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 overflow-hidden hover:bg-slate-800\"><!-- Generate <text area> or <p> with message depending on operation--><textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border-0\" name=\"Description\" placeholder=\"Enter work description here...\" required=\"true\"></textarea></div></div><!-- /Title Input --><!-- File upload  --><div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-primary h-full w-full rounded-md md:h-full\"><div class=\"flex justify-center items-center w-full h-1/4 md:h-1/5 sm:text-sm md:text-lg rounded-lg bg-slate-800 shadow-sm shadow-slate-800 border border-slate-900\"><p class=\"flex justify-center items-center h-full w-full text-center text-secondary font-medium\">Choose an image file below:</p></div><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-2/3 align-text-top items-end justify-end text-secondary flex-1\"><input class=\"text-center items-center justify-center w-full h-4/5 md:h-2/3 flex text-secondary rounded-lg bg-primary pt-2 pl-2 shadow shadow-md shadow-slate-800 cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-btnAccent\" type=\"file\" id=\"picture\" name=\"picture\" accept=\"image/*\" required=\"true\"> <input type=\"hidden\" name=\"Position\" value=\"1\"><div class=\"flex items-end justify-end w-full h-1/2 md:h-1/3\"><button type=\"submit\" class=\"flex flex-row px-4 py-1 justify-between items-center gap-2 text-center md:font-semibold bg-btnPrimary hover:bg-hoverBtnPrimary text-btnPrimaryText w-auto h-auto rounded-xl shadow-md hover:shadow-none shadow-slate-800 transition duration-150 ease-in-out hover:border-btnAccent\">Submit<span class=\"spinner animate-spin h-6 w-6\" id=\"spinner\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g> <g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g> <g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div></div></div><!-- /File upload --></form></section>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 7)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -115,7 +115,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-1/2 md:w-2/12 flex flex-col gap-y-2 ml-3 rounded-lg\" id=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -128,7 +128,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 9)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -148,7 +148,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"flex justify-center items-center h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" href=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 10)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -157,7 +157,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Gallery</a></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 11)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -189,7 +189,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" class=\"h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" hx-get=\"/editor/components\" hx-target=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 12)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -202,7 +202,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-vals=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 13)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -215,7 +215,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 14)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -228,7 +228,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 15)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -254,7 +254,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var11 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col h-1/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow-md bg-white dark:text-gray-800 md:items-start text-left justify-center\" id=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 16)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -267,7 +267,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h2 class=\"flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide\"><!-- The button is for closing this component and retreiving the previous one --><button type=\"button\" class=\"flex w-6 h-6 p-1 bg-transparent border-none outline-none cursor-pointer hover:bg-gray-200 justify-center items-center text-center\" aria-label=\"Close\" hx-headers=\"{&#34;Content-Type&#34;: &#34;application/json&#34;}\" hx-get=\"/editor/components\" hx-vals=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 17)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -280,7 +280,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 18)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -293,7 +293,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\"><!-- Add button text or icon here if needed --><span class=\"text-red-500 hover:text-red-600\">X</span><!-- You can style this text as needed --></button> DELETE WORK: ")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 19)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -306,7 +306,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><div class=\"flex flex-col justify-between t md:gap-3 mt-6 sm:flex-row items-center w-full text-left\"><p class=\"px-6 py-2 rounded-md md:w-1/2 w-full text-center\">---WARNING---</p><button id=\"delete-button\" type=\"submit\" class=\"py-1 rounded-md md:w-1/6 w-1/4 bg-red-500 text-center hover:bg-red-800 border border-red-900\" hx-post=\"/editor/del\" hx-target=\"#works-section\" hx-swap=\"outerHTML\" hx-vals=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 20)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -319,7 +319,7 @@ func Delete(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">DELETE</button></div></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 21)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -345,7 +345,7 @@ func DeleteView() templ.Component {
 			templ_7745c5c3_Var17 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center h-full w-full rounded-md md:h-full\"><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-full align-text-top items-center md:items-end justify-end text-secondary flex-1\"><div class=\" flex items-center md:items-end justify-center w-1/2 md:w-1/3 h-1/3 md:h-1/3 \"><button type=\"submit\" class=\"flex flex-row px-4 py-1 justify-between items-center gap-2 text-center md:font-semibold bg-btnPrimary hover:bg-red-500 text-btnPrimaryText w-auto h-auto  rounded-xl shadow-md hover:shadow-none shadow-slate-800 transition duration-150 ease-in-out hover:border-btnAccent\">Delete<span class=\"spinner animate-spin h-6 w-6\" id=\"spinner\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div></div></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -371,33 +371,33 @@ func FileUploadView(operation string) templ.Component {
 			templ_7745c5c3_Var18 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex md:flex-col flex-col justify-start gap-3 md:gap-2 items-center bg-primary h-full w-full rounded-md md:h-full\"><div class=\"flex justify-center items-center w-full h-1/4 md:h-1/5 sm:text-sm md:text-lg rounded-lg  bg-slate-800 shadow-sm shadow-slate-800 border border-slate-900\">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 23)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-secondary font-medium\">Change cover image</p>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 24)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if operation == "InsertAbove" || operation == "InsertBelow" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"flex justify-center items-center h-full w-full text-center text-secondary font-medium\">Choose an image  file below:</p>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 25)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex flex-col gap-3 md:gap-2 rounded-md md:w-full w-full h-3/4 md:h-2/3 align-text-top items-end justify-end text-secondary flex-1\"><input class=\"text-center items-center justify-center w-full h-4/5 md:h-2/3 flex text-secondary rounded-lg bg-primary pt-2 pl-2 shadow shadow-md shadow-slate-800 cursor-pointer hover:bg-slate-800 border border-slate-800 hover:border-btnAccent\" type=\"file\" id=\"picture\" name=\"picture\" accept=\"image/*\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 26)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if operation == "Insert" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 27)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><div class=\" flex items-end justify-end w-full h-1/2 md:h-1/3 \"><button type=\"submit\" class=\"flex flex-row px-4 py-1 justify-between items-center gap-2 text-center md:font-semibold bg-btnPrimary hover:bg-hoverBtnPrimary text-btnPrimaryText w-auto h-auto  rounded-xl shadow-md hover:shadow-none shadow-slate-800 transition duration-150 ease-in-out hover:border-btnAccent\">Submit<span class=\"spinner animate-spin h-6 w-6\" id=\"spinner\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div></div></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 28)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -437,12 +437,12 @@ func GetInputsOrMessage(operation string, title string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if operation != "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input class=\"w-full h-full sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-primary text-center text-secondary hover:bg-slate-800 hover:shadow-md border-0\" type=\"text\" name=\"Title\" id=\"title\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 29)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			if operation == "Edit" {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" value=\"")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 30)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -455,24 +455,24 @@ func GetInputsOrMessage(operation string, title string) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 31)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
 			if operation == "InsertAbove" || operation == "InsertBelow" {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Title\"")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 32)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required=\"true\" name=\"Title\"> ")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 33)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if operation == "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\" flex justify-center items-center bg-slate-800 h-full w-full rounded-md md:h-full text-center text-secondary border border-red-500\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 34)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -485,7 +485,7 @@ func GetInputsOrMessage(operation string, title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 35)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -514,7 +514,7 @@ func TextAreaContent(operation string, description string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border-0\" name=\"Description\" required=\"true\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 36)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -527,19 +527,19 @@ func TextAreaContent(operation string, description string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</textarea> ")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 37)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if operation == "InsertAbove" || operation == "InsertBelow" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border-0\" name=\"Description\" placeholder=\"Enter work description here...\" required=\"true\"></textarea> ")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 38)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if operation == "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 bg-slate-800 border border-red-500\" name=\"Description\">WARNING: This work will be permanently deleted and the gallery associated with it. If you do not wish to delete this work, press the 'X' to cancel and return.</p>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 39)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -577,7 +577,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var24 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col h-full md:h-2/3 w-11/12 mx-4 md:w-1/2 gap-2 p-6 rounded-lg shadow shadow-md shadow-slate-800 bg-primary dark:text-gray-800 md:items-start text-left justify-start mb-2\" id=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 40)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -590,7 +590,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Go back-close --><h2 class=\"flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide text-secondary\"><button type=\"button\" class=\"flex w-6 h-6 p-1 bg-primary outline-none cursor-pointer rounded-full hover:bg-red-500 justify-center items-center text-center text-secondary\" aria-label=\"Close\" hx-headers=\"{&#34;Content-Type&#34;: &#34;application/json&#34;}\" hx-get=\"/editor/components\" hx-vals=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 41)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -603,7 +603,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 42)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -616,7 +616,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\"><span class=\"text-btnAccent hover:text-secondary\">X</span></button> ")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 43)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -629,28 +629,28 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><!-- Form div --><div class=\"flex md:flex-row flex-col justify-center items-center text-left bg-primary h-full w-full rounded-md\"><form id=\"form-container\" class=\"flex md:flex-row flex-col justify-center text-left bg-primary h-full md:h-full w-full gap-4\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 44)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if operation == "InsertAbove" || operation == "InsertBelow" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor\" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 45)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
 		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-put=\"/editor\" hx-include=\"[name=&#39;Title&#39;], [name=&#39;Position&#39;], [name=&#39;Description&#39;]\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 46)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-encoding=\"multipart/form-data\" hx-trigger=\"submit\" hx-indicator=\"#spinner\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 47)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if operation == "Delete" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-post=\"/editor/del\" hx-vals=\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 48)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -663,12 +663,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-confirm=\"Are you sure you want to delete?\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 49)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><!-- Title input --><div class=\"flex md:flex-col flex-col justify-end gap-2 items-center bg-primary h-full w-full rounded-md md:h-full flex\"><div class=\"flex justify-center items-center border border-slate-800 w-full h-1/4 md:h-1/3 md:h-1/5 sm:text-sm md:text-lg rounded-lg dark:text-gray-800 bg-primary text-center shadow shadow-md shadow-slate-800 hover:border-btnAccent\"><!-- Generate <input> for 'Edit','Insert' or <p> message for 'Delete'-->")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 50)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -676,7 +676,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"rounded-md md:w-full  border border-slate-800 hover:border-btnAccent w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 overflow-hidden hover:bg-slate-800\"><!-- Generate <text area> or <p> with message depending on operation-->")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 51)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -685,7 +685,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if work.PositionBelow != "" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"hidden\" name=\"Position\" value=\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 52)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -698,12 +698,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 53)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"hidden\" name=\"Position\" value=\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 54)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -716,12 +716,12 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 55)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><!-- /Title Input --><!-- File upload  -->")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 56)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -736,7 +736,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- /File upload --></form></div><!-- /Form div --></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 57)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
