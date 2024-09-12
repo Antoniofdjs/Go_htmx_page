@@ -65,7 +65,6 @@ func UpdateGalleryItems(w http.ResponseWriter, r *http.Request){
 	position:= r.FormValue("Position") // position of gallery item
 	positionInt,_:= strconv.Atoi(position)
 	workTitle:= r.FormValue("WorkTitle")
-	fmt.Println("UPDATE ACTIVATED")
 	fmt.Println("Opacity: ",opacity)
 	fmt.Println("Url: ", picUrl)
 
