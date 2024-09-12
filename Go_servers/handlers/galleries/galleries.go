@@ -48,3 +48,10 @@ func Gallery(w http.ResponseWriter, r *http.Request) {
 
 	templates.ShowGallery(workFront, false, galleryItemsFront).Render(r.Context(), w)
 }
+
+func GetModal(w http.ResponseWriter, r *http.Request){
+	fmt.Println("Getting Modal: ")
+	r.ParseForm()
+	picPath := r.FormValue("Path")
+	templates.ModalImage(picPath).Render(r.Context(), w)
+}
