@@ -8,10 +8,12 @@ import (
 	"embed"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //  Currently being used for the json data received from the fecth of '/editor/component'
@@ -224,10 +226,26 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 		defer file.Close() // Prevent resource leak
 	}
 	
+		
 	// Call db to add new picture
 	if file != nil{
 		fileName = fileHeader.Filename
 		picBytes , err:= io.ReadAll(file)
+
+		// check if pic name doesnt exists
+		for key := range models.WorksMapStorage{
+			args:= strings.Split(models.WorksMapStorage[key].Path, "/")
+			picNameEncodedURL := args[len(args)-1] // accesing file name only
+			existingPicNAme, _:= url.QueryUnescape(picNameEncodedURL) // picture name can contain white spaces from the url generated.
+			if existingPicNAme == fileName{
+				// Seed the random number generator to have unique nums(controlled randomness)
+				rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+		
+				// Generate a random number
+				randomNum := rng.Intn(100)
+				fileName = fmt.Sprintf("Cpy_%d_%s", randomNum, fileName) // modify name of the pic since it already exists
+			}
+		}
 		if err!=nil{
 		http.Error(w,"Error reading picture bytes",http.StatusInternalServerError)
 		return
@@ -236,8 +254,9 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 		if err!=nil{
 		http.Error(w,"Error changing picture on database",http.StatusInternalServerError)
 		return
+		}
 	}
-	}
+
 	fmt.Println("New Picture Name: ", fileName)
 	// Edit the work object on the db
 	updated, err:= db.EditWork(Position, titleCleaned, description, fileName)
