@@ -105,6 +105,7 @@ func main() {
 	//  Work Routes
 	http.HandleFunc("GET /work", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){work.GetWorksView(w, r, templatesFS)}))
 	http.HandleFunc("GET /work/{title}", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.Gallery(w, r)})) // Gallery
+	http.HandleFunc("GET /image", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){galleries.GetModal(w, r)})) // get modal for image
 
 	//  Work Editor Routes
 	http.HandleFunc("GET /editor", authMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetHandEditor(w, r, templatesFS)}))
