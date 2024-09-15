@@ -36,7 +36,7 @@ templ ShowGallery(work models.WorkFrontEnd, isAdmin bool, galleryItems []models.
 
 // 'GET /login' 
 templ ShowLogin() {
-    @BaseLayout(){
+    @BaseLayoutLogin(){
       @Header("", false)
       @BaseLogin(){
         @LoginForm()
