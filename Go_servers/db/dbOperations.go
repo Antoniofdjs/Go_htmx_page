@@ -187,7 +187,7 @@ func InsertGalleryItem(workID int, fileName string, fileBytes []byte) error{
 	fmt.Println("\n\nInsert succes")
 	fmt.Println("Response", response)
 
-	// Insert picture to bucket as also create sub folder in galleries bucket
+	// Insert picture to bucket and also create sub folder in galleries bucket
 	content:="image/jpeg"
 	fileOption := storage_go.FileOptions{
 		ContentType: &content,
