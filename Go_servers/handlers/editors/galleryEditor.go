@@ -93,7 +93,7 @@ func UpdateGalleryItems(w http.ResponseWriter, r *http.Request){
 	templates.UpdatePicStatus(opacity, picUrl, position, workTitle).Render(r.Context(), w)
 }
 
-// Uploading multiple images from gallery
+// Uploading multiple images from gallery into a local storage , await confirm from user. Pics are uplaoded in the PostHandGalleryEditor
 func FileUploadTemporaryStorage(w http.ResponseWriter, r *http.Request){
 	fmt.Println("Upload Pictures Temps")
 	
@@ -165,13 +165,13 @@ func PutHandGalleryEditor(w http.ResponseWriter, r *http.Request){ // Working as
 	sort.Ints(deletePositions)
 
 	for _, galleryItem := range galleryItems{
-		if j >= len(deletePositions) || galleryItem.Position != deletePositions[j]{ // item appended to updated gallery
+		if j >= len(deletePositions) || galleryItem.Position != deletePositions[j]{ // item appended to updated local gallery
 			fmt.Println("Appending to updated storage", galleryItem.Position)
 			galleryItem.Position = newposition
 			newposition +=1
 			updatedGalleryItems = append(updatedGalleryItems, galleryItem) 
 			continue
-		}else{ 																		// delete item
+		}else{ 																		// else delete item
 			fmt.Println("Deleting item", deletePositions[j])
 			positionToDelete := strconv.Itoa(deletePositions[j])
 			args:= strings.Split(galleryItem.Path, "/")
@@ -218,16 +218,30 @@ func PostHandGalleryEditor(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	workIdKey = work.Id
+	// make a map to search pic names faster when the new ones come in
+	galleryItems := models.GalleriesStorage[workIdKey]
+	galleryPaths:= make(map[string]bool)
+
+	for _, item := range galleryItems{
+		args := strings.Split(item.Path, "/")
+		picName:= args[len(args) - 1]
+		galleryPaths[picName] = true
+	}
 
 	filesInserted := 0
 	for _, file := range models.FileTempStorage{
-			err := db.InsertGalleryItem(workIdKey, file.FileName, file.FileBytes)
-			if err!=nil{
-				fmt.Println("Error", err)
-				fmt.Println("Total files inserted ", filesInserted)
-				return
-			}
-			filesInserted += 1
+		fileName := file.FileName
+		_, exists:= galleryPaths[file.FileName]
+		if exists{
+			fileName = fmt.Sprintf("Duplicate-%s", fileName)
+		}
+		err := db.InsertGalleryItem(workIdKey, fileName, file.FileBytes)
+		if err!=nil{
+			fmt.Println("Error", err)
+			fmt.Println("Total files inserted ", filesInserted)
+			return
+		}
+		filesInserted += 1
 	}
 	storageInits.InitGalleries() // Finally init the gallery storage
 
