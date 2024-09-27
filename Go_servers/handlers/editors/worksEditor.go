@@ -151,17 +151,22 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 		http.Error(w, "Unable to parse form", http.StatusBadRequest)
 		return
 	}
-
 	// Get picture bytes and pic name
 	file,fileHeader,err := r.FormFile("picture")
 	if err!= nil{
 		http.Error(w, "Could not access file", http.StatusInternalServerError)
+		customError := "Could not open file"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 	}
 	defer file.Close()
 	fileType:= fileHeader.Header.Get("Content-type")
 	if fileType != "image/jpeg" && fileType != "image/webp" && fileType != "image/png"{
 		fmt.Println("File type not allowed: ",fileType)
+		customError := "File type not allowed"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return 
 	}
 
@@ -172,6 +177,9 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
 		http.Error(w, "Could not read file", http.StatusInternalServerError)
+		customError := "Could not read file"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 	}
 
@@ -185,6 +193,9 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	err = db.InsertWork(titleCleaned, position, description, fileNameCleaned, fileBytes)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
+		customError := "Unable to insert work"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 	}
 	storageInits.InitWorksStorage()
@@ -248,11 +259,17 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 		}
 		if err!=nil{
 		http.Error(w,"Error reading picture bytes",http.StatusInternalServerError)
+		customError := "Error reading picture bytes"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 		}
 		err = db.AddPicture(fileName, picBytes)
 		if err!=nil{
 		http.Error(w,"Error changing picture on database",http.StatusInternalServerError)
+		customError := "Error changing picture on database"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 		}
 	}
@@ -262,7 +279,10 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 	updated, err:= db.EditWork(Position, titleCleaned, description, fileName)
 	if !updated{
 		fmt.Println(err)
-		http.Error(w, "Error updating title", http.StatusBadRequest)
+		http.Error(w, "Error updating work", http.StatusBadRequest)
+		customError := "Error updating work"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		return
 	}
 	// Update local storage
@@ -281,6 +301,9 @@ func DelHandEditor(w http.ResponseWriter, r *http.Request){
 	err := db.DeleteWork(position)
 	if err!=nil{
 		http.Error(w, "Unable to delete work", http.StatusBadRequest)
+		customError := "Unable to delete work"
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
