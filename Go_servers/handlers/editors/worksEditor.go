@@ -154,9 +154,8 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	// Get picture bytes and pic name
 	file,fileHeader,err := r.FormFile("picture")
 	if err!= nil{
-		http.Error(w, "Could not access file", http.StatusInternalServerError)
 		customError := "Could not open file"
-		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
 		w.Write([]byte(elementHTML))
 		return
 	}
@@ -165,7 +164,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	if fileType != "image/jpeg" && fileType != "image/webp" && fileType != "image/png"{
 		fmt.Println("File type not allowed: ",fileType)
 		customError := "File type not allowed"
-		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
 		w.Write([]byte(elementHTML))
 		return 
 	}
@@ -178,14 +177,27 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	if err != nil {
 		http.Error(w, "Could not read file", http.StatusInternalServerError)
 		customError := "Could not read file"
-		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
 		w.Write([]byte(elementHTML))
 		return
 	}
 
 	title := r.FormValue("Title")
+	if len(title) > 50{
+		customError := fmt.Sprintf(`Title is too long. Have %d chars. Maximum of 50 chars is allowed. Remove %d chars`, len(title), 50 - len(title))
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
+		return
+	}
 	titleCleaned := strings.ReplaceAll(title, " ", "-")
 	description := r.FormValue("Description")
+	if len(description) > 500{
+		customError := fmt.Sprintf(`Description is too long. Have %d chars. Maximum of 500 chars is allowed. Remove %d chars`, len(description), 500 - len(description))
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
+		return
+	}
+
 	position := r.FormValue("Position")
 	// insertBelow:= r.FormValue("InsertBelow")
 	fmt.Printf("Title: %s, Description: %s, Position: %s \n",title, description, position)
@@ -194,7 +206,7 @@ func PostHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS)
 	if err!= nil{
 		http.Error(w, "Unable to insert new work", http.StatusInternalServerError)
 		customError := "Unable to insert work"
-		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: auto; height: auto">%s<p>`, customError)
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
 		w.Write([]byte(elementHTML))
 		return
 	}
@@ -220,8 +232,23 @@ func PutHandEditor(w http.ResponseWriter, r *http.Request, templateFs embed.FS) 
 
 	Position := r.FormValue("Position")
 	title := r.FormValue("Title")
+	if len(title) > 50{
+		// http.Error(w,"Title exceeds 50 chars",http.StatusInternalServerError)
+		customError := fmt.Sprintf(`Title is too long. Have %d chars. Maximum of 50 chars is allowed. Remove %d chars`, len(title), 50 - len(title))
+		elementHTML:= fmt.Sprintf(`<p style="color: red; overflow-y: scroll; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
+		return
+	}
 	titleCleaned := strings.ReplaceAll(title, " ", "-")
+
 	description := r.FormValue("Description")
+	if len(description) > 500{
+		// http.Error(w,"Description exceeds 500 chars",http.StatusBadRequest)
+		customError := fmt.Sprintf(`Description is too long. Have %d chars. Maximum of 500 chars is allowed. Remove %d chars`, len(description), 500 - len(description))
+		elementHTML:= fmt.Sprintf(`<p style="color: red; white-space: wrap; width: 100%%; height: 90%%">%s<p>`, customError)
+		w.Write([]byte(elementHTML))
+		return
+	}
 
 	if Position == "" {
 		fmt.Println("Error parsing position")
