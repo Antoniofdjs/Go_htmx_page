@@ -120,7 +120,7 @@ func InitDB() *supabase.Client {
 	fmt.Println("Initializing DATABASE:")
 	// Load environment variables
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		log.Println("Error loading .env file, using OS env")
 	}
 	dbURL := os.Getenv("DB_URL")
 	dbKey := os.Getenv("DB_KEY")
