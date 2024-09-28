@@ -86,7 +86,6 @@ func main() {
 		
     }
 
-
 	fmt.Println("SERVER LISTENING:")
 	// db.AllWorks() // Testing db storage and buucker from supabase here
 
@@ -136,7 +135,11 @@ func main() {
 	http.HandleFunc("GET /test", initStorageMiddleware(func(w http.ResponseWriter, r *http.Request){editor.GetTestView(w, r, templatesFS)})) // this is for /editor!!!!
 
 
-
 	// Start server
-	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+    port = "8080" // Default to port 8080 for local development
+	}
+	log.Printf("Server listening on port %s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
