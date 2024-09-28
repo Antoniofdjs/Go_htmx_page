@@ -1,1 +1,1 @@
-web: go run Go_servers/main.go
+web: go run main.go
