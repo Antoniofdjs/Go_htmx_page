@@ -4,7 +4,6 @@ Database handler
 package db
 
 import (
-	"Go_servers/models"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -15,6 +14,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/Antoniofdjs/Go_htmx_page/models"
 
 	"github.com/joho/godotenv"
 	"github.com/supabase-community/postgrest-go"

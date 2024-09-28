@@ -1,0 +1,31 @@
+# github.com/a-h/templ v0.2.778
+## explicit; go 1.21
+github.com/a-h/templ
+github.com/a-h/templ/runtime
+github.com/a-h/templ/safehtml
+# github.com/google/uuid v1.6.0
+## explicit
+github.com/google/uuid
+# github.com/joho/godotenv v1.5.1
+## explicit; go 1.12
+github.com/joho/godotenv
+# github.com/supabase-community/functions-go v0.0.0-20220927045802-22373e6cb51d
+## explicit; go 1.18
+github.com/supabase-community/functions-go
+# github.com/supabase-community/gotrue-go v1.2.0
+## explicit; go 1.18
+github.com/supabase-community/gotrue-go
+github.com/supabase-community/gotrue-go/endpoints
+github.com/supabase-community/gotrue-go/types
+# github.com/supabase-community/postgrest-go v0.0.11
+## explicit; go 1.21.1
+github.com/supabase-community/postgrest-go
+# github.com/supabase-community/storage-go v0.7.0
+## explicit; go 1.17
+github.com/supabase-community/storage-go
+# github.com/supabase-community/supabase-go v0.0.4
+## explicit; go 1.21.1
+github.com/supabase-community/supabase-go
+# github.com/tomnomnom/linkheader v0.0.0-20180905144013-02ca5825eb80
+## explicit
+github.com/tomnomnom/linkheader

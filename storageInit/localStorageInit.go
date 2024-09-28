@@ -1,9 +1,10 @@
 package storageInits
 
 import (
-	"Go_servers/db"
-	"Go_servers/models"
 	"fmt"
+
+	"github.com/Antoniofdjs/Go_htmx_page/db"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
 )
 
 /* Initialize local storage Gallery Map with database data. Paths contain the urls for each gallery item */ 

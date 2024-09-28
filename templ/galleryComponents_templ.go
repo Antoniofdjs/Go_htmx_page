@@ -9,8 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"Go_servers/models"
 	"fmt"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
 )
 
 /* Gallery view for a specific work */

@@ -1,14 +1,15 @@
 package user
 
 import (
-	"Go_servers/db"
-	templates "Go_servers/templ"
 	"embed"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/Antoniofdjs/Go_htmx_page/db"
+	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
 
 	"github.com/joho/godotenv"
 )

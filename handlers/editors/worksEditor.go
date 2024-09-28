@@ -1,10 +1,6 @@
 package editor
 
 import (
-	"Go_servers/db"
-	"Go_servers/models"
-	storageInits "Go_servers/storageInit"
-	templates "Go_servers/templ"
 	"embed"
 	"fmt"
 	"io"
@@ -14,6 +10,11 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/Antoniofdjs/Go_htmx_page/db"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
+	storageInits "github.com/Antoniofdjs/Go_htmx_page/storageInit"
+	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
 )
 
 //  Currently being used for the json data received from the fecth of '/editor/component'

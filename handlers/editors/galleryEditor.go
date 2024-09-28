@@ -1,10 +1,6 @@
 package editor
 
 import (
-	"Go_servers/db"
-	"Go_servers/models"
-	storageInits "Go_servers/storageInit"
-	templates "Go_servers/templ"
 	"embed"
 	"fmt"
 	"io"
@@ -12,6 +8,11 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/Antoniofdjs/Go_htmx_page/db"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
+	storageInits "github.com/Antoniofdjs/Go_htmx_page/storageInit"
+	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
 )
 
 

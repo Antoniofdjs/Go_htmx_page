@@ -9,8 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"Go_servers/models"
 	"fmt"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
 )
 
 func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd) templ.Component {

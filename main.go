@@ -1,21 +1,22 @@
 package main
 
 import (
-	"Go_servers/db"
-	"Go_servers/handlers/about"
-	contacts "Go_servers/handlers/contact"
-	editor "Go_servers/handlers/editors"
-	"Go_servers/handlers/galleries"
-	"Go_servers/handlers/user"
-	"Go_servers/handlers/work"
-	"Go_servers/models"
-	storageInits "Go_servers/storageInit"
 	"embed"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/Antoniofdjs/Go_htmx_page/db"
+	"github.com/Antoniofdjs/Go_htmx_page/handlers/about"
+	contacts "github.com/Antoniofdjs/Go_htmx_page/handlers/contact"
+	editor "github.com/Antoniofdjs/Go_htmx_page/handlers/editors"
+	"github.com/Antoniofdjs/Go_htmx_page/handlers/galleries"
+	"github.com/Antoniofdjs/Go_htmx_page/handlers/user"
+	"github.com/Antoniofdjs/Go_htmx_page/handlers/work"
+	"github.com/Antoniofdjs/Go_htmx_page/models"
+	storageInits "github.com/Antoniofdjs/Go_htmx_page/storageInit"
 
 	"github.com/joho/godotenv"
 )

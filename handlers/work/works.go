@@ -6,11 +6,12 @@ package work
 //  WORKING WAAAAY BELOWW GO CHECK
 
 import (
-	"Go_servers/models"
-	templates "Go_servers/templ"
 	"embed"
 	"net/http"
 	"strconv"
+
+	"github.com/Antoniofdjs/Go_htmx_page/models"
+	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
 )
 
 type Picture struct{
