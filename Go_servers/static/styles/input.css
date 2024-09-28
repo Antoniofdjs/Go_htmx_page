@@ -10,3 +10,14 @@
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none; /* IE and Edge */
 }
+
+/* Allow htmx to trigger spinners */
+.spinner {
+  display: none;
+}
+.htmx-request .spinner {
+  display: inline;
+}
+.htmx-request.spinner {
+  display: inline;
+}

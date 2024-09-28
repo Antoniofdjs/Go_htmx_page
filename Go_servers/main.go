@@ -135,5 +135,5 @@ func main() {
 
 
 	// Start server
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
 }

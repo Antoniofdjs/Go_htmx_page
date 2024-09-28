@@ -33,7 +33,7 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 1)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"px-0 dark:bg-gray-800 dark:text-gray-900 justify-center w-screen h-auto items-center flex flex-col\" id=\"gallery-section\"><!-- Work Container --><div class=\"flex flex-col dark:bg-gray-50 dark:text-gray-800 justify-center items-center w-full h-600 text-left\"><!-- Cover Picture Container  --><div class=\"h-full w-full flex\" id=\"cover-image-container\"><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -46,7 +46,7 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 2)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" class=\"object-cover h-full w-full rounded-sm dark:bg-gray-500 aspect-video\" id=\"cover-image\" loading=\"lazy\"></div></div><!-- / Work Container  --><!-- Work Info Container --><div id=\"work-info-container\" class=\"w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12\"><h2 id=\"work-title\" class=\"text-xl md:text-3xl font-semibold text-center\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -59,7 +59,7 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-sm dark:text-gray-600 font-thin text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full font-serif text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 font-serif text-lg h-auto md:text-center text-left\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -72,12 +72,12 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 4)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></div><!-- / Work Info Container --><!-- Gallery Container --><div class=\"px-0 dark:bg-gray-800 dark:text-gray-900 justify-center items-start flex pb-4 w-full h-auto\" id=\"gallery-container\"><!-- Gallery Grid --><div class=\" flex h-auto grid md:grid-cols-3 auto-cols-max grid-cols-2 w-11/12 md:gap-3 gap-1\" id=\"gallery-grid\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, item := range galleryItems {
-			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 5)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full md:h-96 h-80 flex\"><img class=\"w-full h-full object-cover cursor-zoom-in\" id=\"modal-trigger\" src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -90,7 +90,7 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 6)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" loading=\"lazy\" hx-target=\"#gallery-section\" hx-swap=\"afterend\" hx-get=\"/image\" hx-vals=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -103,12 +103,12 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 7)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on=\"click:document.body.style.overflow=&#39;hidden&#39;\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 8)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><!-- /Gallery Grid --></div><!-- /Gallery Container --></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -136,7 +136,7 @@ func ModalImage(picPath string) templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 9)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"fixed w-screen h-screen inset-0 bg-black flex items-center justify-center bg-opacity-80 z-50 p-8 overflow-hidden\" id=\"modal\"><div class=\"flex w-full h-full justify-center items-center\"><button class=\"w-8 h-8 bg-zinc-700 top-2 right-2 absolute text-white hover:bg-zinc-500\" hx-on=\"click:document.getElementById(&#39;modal&#39;).remove(); document.body.style.overflow=(&#39;auto&#39;)\">X</button> <img id=\"modal-image\" class=\"object-contain max-w-full max-h-full\" src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -149,7 +149,7 @@ func ModalImage(picPath string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 10)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Full-size image\"></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
