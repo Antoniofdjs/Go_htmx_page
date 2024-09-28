@@ -33,7 +33,7 @@ func GetLoginTmpl(w http.ResponseWriter, r *http.Request, templateFs embed.FS){
 func Login(w http.ResponseWriter, r *http.Request) {
 	err:= godotenv.Load()
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Println("Error loading .env file, using OS envs")
 	}
 	tokenName:= os.Getenv("SPB_TOKEN_NAME")
 	r.ParseForm()
