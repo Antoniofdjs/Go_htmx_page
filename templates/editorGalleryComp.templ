@@ -24,10 +24,10 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
 
     <!-- Work Info Container -->
         <div id="work-info-container" class="w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12">
-            <h2 id="work-title" class="text-xl md:text-3xl font-semibold text-center">{ work.Title }</h2>
-            <span class="block md:pb-1 md:pt-2 pb-4 text-sm dark:text-gray-600 font-thin text-center">07/26/2024</span>
-            <div class="md:w-3/5 w-full font-serif text-lg h-auto flex justify-center items-center">
-                <p id="work-description" class="md:w-full w-11/12 font-serif text-lg h-auto md:text-center text-left">
+            <h2 id="work-title" class="text-3xl md:text-5xl text-center">{ work.Title }</h2>
+            <span class="block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center">07/26/2024</span>
+            <div class="md:w-3/5 w-full text-lg h-auto flex justify-center items-center">
+                <p id="work-description" class="md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left">
                 { work.Description }
                 </p>
             </div>    
@@ -62,14 +62,14 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
                 </div>
             }
             // Upload more pics div
-            <div class="w-full md:h-96 h-80 rounded-lg flex justify-end items-center flex-col overflow-hidden bg-gradient-to-t from-yellow-50 via-amber-100 to-yellow-50" id="file-upload-container">
+            <div class="w-full md:h-96 h-80 rounded-lg flex justify-start items-center flex-col bg-gradient-to-t from-yellow-50 via-amber-100 to-yellow-50" id="file-upload-container">
                 <form  hx-post="/editor/gallery" 
                 hx-trigger="change from:#upload-pics" 
                 hx-target="#files-list" 
                 hx-swap="innerHTML"
                 hx-include="#upload-pics, #title-input"
                 enctype="multipart/form-data"
-                class="h-1/3 md:h-1/2 w-full flex flex-col justify-center items-center"
+                class="h-1/3 md:h-1/2 w-full flex flex-col justify-center items-center mt-2"
                 id="form"
                 >
                     <input type="hidden" name="Title" value={ work.Title } id="title-input">
@@ -81,7 +81,8 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
                         <input type="file" name="Pictures" id="upload-pics" multiple class="hidden" accept="image/*">
                     </label>
                 </form>
-                <div class="w-full h-1/3 flex flex-col gap-3 items-center text-ellipsis" id="files-list"></div>
+                // Upload container confirm details
+                <div class="w-full h-2/3 flex flex-col mt-1 items-center text-ellipsis" id="files-list"></div>
             </div>
         </div>
     <!-- /Gallery Grid -->
@@ -144,38 +145,28 @@ templ UpdatePicStatus(opacity string, picUrl string, position string, workTitle 
 
 /* List the files seclecte to be uploaded */ 
 templ FilesSelectedContainer(fileNames []string, workTitle string) {
-    <ul class="w-10/12 h-auto overflow-y-auto overflow-x-hidden items-center flex flex-col gap-1 border border border-slate-400 rounded-lg mt-2 text-ellipsis">
+    <ul class="w-full md:w-10/12 h-auto max-h-[75%] overflow-y-auto overflow-x-hidden items-center flex flex-col gap-1 border border border-slate-400 rounded-lg mt-2 text-ellipsis">
         for _,fileName := range fileNames{
-            <li class="w-10/12 px-2 text-gray-600 text-ellipsis">
+            <li class="w-full md:w-10/12 px-2 text-gray-600 text-ellipsis">
             { fileName }
             </li>
         }
     </ul>
-    <div class="w-10/12 h-1/4 flex justify-end items-center  gap-2 pb-2">
+    <div class="w-full md:w-10/12 h-1/4 flex justify-end items-end gap-2 pb-2">
         <button
-        class="w-10 h-10 mr-2 rounded-full flex justify-center items-center border border-1 border-emerald-400 overflow-hidden"
+        class="w-auto h-auto mr-2 rounded-lg flex justify-center gap-1 items-center border border-2 border-emerald-700 bg-emerald-500 text-slate-800 overflow-hidden px-2 py-1 shadow-md shadow-slate-800 hover:bg-emerald-300 hover:border-emerald-700 hover:shadow-none transition duration-150s ease-in-out"
         hx-post={ templ.JoinStringErrs("/editor/" + workTitle) }
         hx-include="#form"
         id="upload-pics"
         hx-indicator="#spinner-upload"
         >
-        <svg  class="w-20 h-20 fill-current text-emerald-500 hover:bg-emerald-300 transition duration-75 hover:ease-out hover:" fill="#247b30" height="90px" width="90px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-115.98 -115.98 606.08 606.08" xml:space="preserve" stroke="#247b49" stroke-width="0.0037411600000000003" transform="matrix(-1, 0, 0, 1, 0, 0)">
-            <g id="SVGRepo_bgCarrier" stroke-width="0">
-            </g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                <g>
-                    <path d="M344.058,207.506c-16.568,0-30,13.432-30,30v76.609h-254v-76.609c0-16.568-13.432-30-30-30c-16.568,0-30,13.432-30,30 v106.609c0,16.568,13.432,30,30,30h314c16.568,0,30-13.432,30-30V237.506C374.058,220.938,360.626,207.506,344.058,207.506z"></path>
-                    <path d="M123.57,135.915l33.488-33.488v111.775c0,16.568,13.432,30,30,30c16.568,0,30-13.432,30-30V102.426l33.488,33.488 c5.857,5.858,13.535,8.787,21.213,8.787c7.678,0,15.355-2.929,21.213-8.787c11.716-11.716,11.716-30.71,0-42.426L208.271,8.788 c-11.715-11.717-30.711-11.717-42.426,0L81.144,93.489c-11.716,11.716-11.716,30.71,0,42.426 C92.859,147.631,111.855,147.631,123.57,135.915z"></path>
-                </g>
-            </g>
-        </svg>
+        Upload
+            <span class="spinner animate-spin h-6 w-6" id="spinner-upload">
+                <svg viewBox="0 0 24 24"
+                fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#bc690d"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z" fill="#fff9d1"></path>
+                <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#fff9d1"></path> </g></svg>
+            </span>
         </button>
-        <span class="spinner animate-spin h-6 w-6" id="spinner-upload">
-            <svg viewBox="0 0 24 24"
-            fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#bc690d"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
-            <path d="M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z" fill="#fff9d1"></path>
-            <path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="#fff9d1"></path> </g></svg>
-        </span>
     </div>
 }

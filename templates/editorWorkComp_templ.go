@@ -154,7 +154,7 @@ func ButtonsContainer(work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"flex justify-center items-center h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"gallery-link flex justify-center items-center h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

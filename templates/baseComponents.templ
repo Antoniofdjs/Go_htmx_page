@@ -7,6 +7,8 @@ templ BaseLayout() {
     <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
     <title>Document</title>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <link href="/static/styles/output.css" rel="stylesheet"/>
@@ -20,6 +22,15 @@ templ BaseLayout() {
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none; /* IE and Edge */
     }
+    body {
+      font-family: 'Cormorant', serif;
+    }
+    button {
+      font-family: 'Roboto', sans-serif;
+  }
+  .gallery-link{
+    font-family: 'Roboto', sans-serif;
+  }
   </style>
   <body class="h-screen element bg-yellow-50">
   { children... }
@@ -33,6 +44,8 @@ templ BaseLayoutLogin() {
     <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
     <title>Document</title>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     <link href="/static/styles/output.css" rel="stylesheet"/>
@@ -46,6 +59,12 @@ templ BaseLayoutLogin() {
       overflow: -moz-scrollbars-none;
       -ms-overflow-style: none; /* IE and Edge */
     }
+    body {
+      font-family: 'Cormorant', serif;
+    }
+    button {
+      font-family: 'Roboto', sans-serif;
+  }
   </style>
   <body class="h-screen element bg-yellow-50 overflow-hidden">
   { children... }

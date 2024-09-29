@@ -56,6 +56,8 @@ func GetEditorGallery(w http.ResponseWriter, r *http.Request, templateFs embed.F
 		}}
 
 	templates.ShowEditorGallery(workFront, galleryItemsFront).Render(r.Context(), w)
+	redirectroute := fmt.Sprintf("/editor/%s", title)
+	w.Header().Set("HX-Redirect", redirectroute)
 }
 
 func UpdateGalleryItems(w http.ResponseWriter, r *http.Request){
