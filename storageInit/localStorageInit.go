@@ -3,8 +3,8 @@ package storageInits
 import (
 	"fmt"
 
-	"github.com/Antoniofdjs/Go_htmx_page/db"
-	"github.com/Antoniofdjs/Go_htmx_page/models"
+	"Go_htmx_page/db"
+	"Go_htmx_page/models"
 )
 
 /* Initialize local storage Gallery Map with database data. Paths contain the urls for each gallery item */ 

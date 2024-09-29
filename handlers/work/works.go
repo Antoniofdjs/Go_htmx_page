@@ -10,8 +10,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Antoniofdjs/Go_htmx_page/models"
-	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
+	"Go_htmx_page/templates"
+
+	"Go_htmx_page/models"
 )
 
 type Picture struct{

@@ -8,8 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/Antoniofdjs/Go_htmx_page/db"
-	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
+	"Go_htmx_page/db"
+
+	templates "Go_htmx_page/templates"
 
 	"github.com/joho/godotenv"
 )

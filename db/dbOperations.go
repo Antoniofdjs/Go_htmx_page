@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Antoniofdjs/Go_htmx_page/models"
+	"Go_htmx_page/models"
 
 	"github.com/joho/godotenv"
 	"github.com/supabase-community/postgrest-go"

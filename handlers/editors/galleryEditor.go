@@ -9,10 +9,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Antoniofdjs/Go_htmx_page/db"
-	"github.com/Antoniofdjs/Go_htmx_page/models"
-	storageInits "github.com/Antoniofdjs/Go_htmx_page/storageInit"
-	templates "github.com/Antoniofdjs/Go_htmx_page/templ"
+	"Go_htmx_page/db"
+	"Go_htmx_page/models"
+	storageInits "Go_htmx_page/storageInit"
+	templates "Go_htmx_page/templates"
 )
 
 
