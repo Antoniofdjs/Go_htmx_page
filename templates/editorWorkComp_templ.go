@@ -538,7 +538,7 @@ func TextAreaContent(operation string, description string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if operation == "Edit" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 focus:ring-btnAccent focus:border-btnAccent border-transparent hover:border-btnAccent\" name=\"Description\" required=\"true\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border border-slate-800 focus:ring-btnAccent focus:border-btnAccent hover:border-btnAccent\" name=\"Description\" required=\"true\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -557,7 +557,7 @@ func TextAreaContent(operation string, description string) templ.Component {
 			}
 		}
 		if operation == "InsertAbove" || operation == "InsertBelow" {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 focus:ring-btnAccent focus:border-btnAccent border-transparent hover:border-btnAccent\" name=\"Description\" placeholder=\"Enter work description here...\" required=\"true\"></textarea> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<textarea class=\"rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border border-slate-800 focus:ring-btnAccent focus:border-btnAccent hover:border-btnAccent\" name=\"Description\" placeholder=\"Enter work description here...\" required=\"true\"></textarea> ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -703,7 +703,7 @@ func ButtonView(operation string, work models.WorkFrontEnd) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"rounded-md md:w-full  border border-slate-800 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 hover:bg-slate-800\"><!-- Generate <text area> or <p> with message depending on operation-->")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"rounded-md md:w-full border-slate-800 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 hover:bg-slate-800\"><!-- Generate <text area> or <p> with message depending on operation-->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -313,7 +313,7 @@ templ GetInputsOrMessage(operation string, title string) {
 templ TextAreaContent(operation string, description string) {
   if operation == "Edit"{
       <textarea
-        class="rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 focus:ring-btnAccent focus:border-btnAccent border-transparent hover:border-btnAccent"
+        class="rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border border-slate-800 focus:ring-btnAccent focus:border-btnAccent hover:border-btnAccent"
         name="Description"
         required="true">
         { description }
@@ -321,7 +321,7 @@ templ TextAreaContent(operation string, description string) {
       }
       if operation == "InsertAbove" || operation == "InsertBelow"{
       <textarea
-        class="rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 focus:ring-btnAccent focus:border-btnAccent border-transparent hover:border-btnAccent"
+        class="rounded-md md:w-full w-full h-full align-text-top items-start justify-start bg-primary text-secondary resize-none pl-1 shadow shadow-md shadow-slate-800 hover:bg-slate-800 border border-slate-800 focus:ring-btnAccent focus:border-btnAccent hover:border-btnAccent"
         name="Description"
         placeholder="Enter work description here..."
         required="true">
@@ -400,7 +400,7 @@ templ ButtonView(operation string, work models.WorkFrontEnd) {
           @GetInputsOrMessage(operation, work.Title)
         </div>
 
-        <div class="rounded-md md:w-full  border border-slate-800 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 hover:bg-slate-800">
+        <div class="rounded-md md:w-full border-slate-800 w-full h-5/6 md:h-4/5 align-text-top items-start justify-start bg-primary text-black flex-1 resize-none shadow-sm shadow-slate-800 hover:bg-slate-800">
           <!-- Generate <text area> or <p> with message depending on operation-->
           @TextAreaContent(operation, work.Description)
           if work.PositionBelow != ""{
