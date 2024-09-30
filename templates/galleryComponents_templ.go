@@ -49,20 +49,20 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" class=\"object-cover h-full w-full rounded-sm dark:bg-gray-500 aspect-video\" id=\"cover-image\" loading=\"lazy\"></div></div><!-- / Work Container  --><!-- Work Info Container --><div id=\"work-info-container\" class=\"w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12\"><h2 id=\"work-title\" class=\"text-3xl md:text-5xl text-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" class=\"object-cover h-full w-full rounded-sm dark:bg-gray-500 aspect-video\" id=\"cover-image\" loading=\"lazy\"></div></div><!-- / Work Container  --><!-- Work Info Container --><div id=\"work-info-container\" class=\"w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12\"><h2 id=\"work-title\" class=\"text-3xl md:text-5xl text-center dark:text-white\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 28, Col: 85}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 28, Col: 101}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-md dark:text-white text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-2xl text-bold h-auto md:text-center text-left\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-md dark:text-white text-center dark:text-white\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-2xl text-bold h-auto md:text-center text-left dark:text-white\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -80,14 +80,14 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 			return templ_7745c5c3_Err
 		}
 		for _, item := range galleryItems {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full md:h-96 h-80 flex\"><img class=\"w-full h-full object-cover cursor-zoom-in\" id=\"modal-trigger\" src=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full md:h-96 h-80 flex relative\"><div class=\"image-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse z-10\"></div><img class=\"w-full h-full object-cover cursor-zoom-in\" id=\"modal-trigger\" src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(item.Path)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 48, Col: 43}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 49, Col: 43}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -100,13 +100,13 @@ func Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEnd
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Path": "%s"}`, item.Path))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 54, Col: 78}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 55, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on=\"click:document.body.style.overflow=&#39;hidden&#39;\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on=\"click:document.body.style.overflow=&#39;hidden&#39;\r\n                            load: this.closest(&#39;div&#39;).querySelector(&#39;.image-skeleton&#39;).style.display = &#39;none&#39;\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -149,7 +149,7 @@ func ModalImage(picPath string) templ.Component {
 		var templ_7745c5c3_Var8 string
 		templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(picPath)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 77, Col: 29}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/galleryComponents.templ`, Line: 79, Col: 29}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 		if templ_7745c5c3_Err != nil {

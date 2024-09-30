@@ -163,6 +163,7 @@ func PutHandGalleryEditor(w http.ResponseWriter, r *http.Request){ // Working as
 	deletePositions, exists := models.DeleteGalleryItemTempStorage[workTitle] // get items marked for delete from temporary delete storage
 	if !exists || len(models.DeleteGalleryItemTempStorage[workTitle]) == 0{
 		fmt.Println("No changes detected (Testing case: No pictures marked for delete)")
+		templates.FileListMessage().Render(r.Context(), w)
 		return
 	}
 	sort.Ints(deletePositions)

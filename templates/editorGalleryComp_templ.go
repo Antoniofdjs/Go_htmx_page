@@ -47,20 +47,20 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" class=\"object-cover h-full w-full rounded-sm dark:bg-gray-500 aspect-video\" id=\"cover-image\" loading=\"lazy\"></div></div><!-- / Work Container --><!-- Work Info Container --><div id=\"work-info-container\" class=\"w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12\"><h2 id=\"work-title\" class=\"text-3xl md:text-5xl text-center\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" class=\"object-cover h-full w-full rounded-sm dark:bg-gray-500 aspect-video\" id=\"cover-image\" loading=\"lazy\"></div></div><!-- / Work Container --><!-- Work Info Container --><div id=\"work-info-container\" class=\"w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12\"><h2 id=\"work-title\" class=\"text-3xl md:text-5xl text-center dark:text-white\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 27, Col: 85}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 27, Col: 101}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left dark:text-white\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -91,27 +91,27 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><img class=\"w-full h-full object-cover\" src=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"image-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse z-10\"></div><img class=\"w-full h-full object-cover\" src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Path)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 46, Col: 39}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 47, Col: 39}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" loading=\"lazy\" id=\"my-pic\"> <button type=\"button\" id=\"delete-pic\" class=\"absolute bottom-2 right-2 h-10 w-10 bg-stone-200 text-black px-1 py-1 justify-center items-center flex rounded-md shadow  shadow-md shadow-slate-900 hover:bg-red-400 hover:shadow-none transition duration-150 ease-in-out\" hx-get=\"/editor/update\" hx-target=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"\" loading=\"lazy\" id=\"my-pic\" hx-on=\"load: this.closest(&#39;div&#39;).querySelector(&#39;.image-skeleton&#39;).style.display = &#39;none&#39;\"> <button type=\"button\" id=\"delete-pic\" class=\"absolute bottom-2 right-2 h-10 w-10 bg-stone-200 text-black px-1 py-1 justify-center items-center flex rounded-md shadow  shadow-md shadow-slate-900 hover:bg-red-400 hover:shadow-none transition duration-150 ease-in-out\" hx-get=\"/editor/update\" hx-target=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#image-container-" + item.Position))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 56, Col: 89}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 58, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -124,7 +124,7 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Opacity": "true", "PicUrl": "%s", "Position": "%s", "WorkTitle": "%s"}`, item.Path, item.Position, work.Title))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 58, Col: 155}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 60, Col: 155}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -142,20 +142,20 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 75, Col: 72}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 77, Col: 72}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"title-input\"> <label for=\"upload-pics\" class=\"flex hover:opacity-70 hover:cursor-pointer\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 31\" class=\"w-20 w-20 md:h-28 md:w-28 fill-current text-amber-500 bg-gradient-to-t bg-yellow-50 hover:from-amber-200 hover:to-amber-100 rounded-lg shadow shadow-lg shadow-amber-800 hover:text-amber-500 hover:shadow-none transition duration-150 ease-in-out\" style=\"fill-rule: evenodd;\"><path d=\"m30 19.59-4.29-4.29a1 1 0 0 0-1.41 0L19 20.59l-6.29-6.29a1 1 0 0 0-1.41 0L2 23.59V3a1 1 0 0 1 1-1h18V0H3a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V12h-2z\"></path> <path d=\"M10 8a4 4 0 1 0 4-4 4 4 0 0 0-4 4zm6 0a2 2 0 1 1-2-2 2 2 0 0 1 2 2zM28 4V0h-2v4h-4v2h4v4h2V6h4V4h-4z\"></path></svg> <input type=\"file\" name=\"Pictures\" id=\"upload-pics\" multiple class=\"hidden\" accept=\"image/*\"></label></form><div class=\"w-full h-2/3 flex flex-col mt-1 items-center text-ellipsis\" id=\"files-list\"></div></div></div><!-- /Gallery Grid --></div><!-- /Gallery Container --><div class=\"flex w-auto h-auto sticky bottom-0 left-0 justify-center items-center py-2\"><button class=\"flex flex-row w-auto h-auto bg-btnPrimary gap-2 hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out\" id=\"save-button\" type=\"submit\" hx-target=\"#files-list\" hx-swap=\"innerHTML\" hx-put=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" id=\"title-input\"> <label for=\"upload-pics\" class=\"flex hover:opacity-70 hover:cursor-pointer\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 32 31\" class=\"w-20 w-20 md:h-28 md:w-28 fill-current text-amber-500 bg-gradient-to-t bg-yellow-50 hover:from-amber-200 hover:to-amber-100 rounded-lg shadow shadow-lg shadow-amber-800 hover:text-amber-500 hover:shadow-none transition duration-150 ease-in-out\" style=\"fill-rule: evenodd;\"><path d=\"m30 19.59-4.29-4.29a1 1 0 0 0-1.41 0L19 20.59l-6.29-6.29a1 1 0 0 0-1.41 0L2 23.59V3a1 1 0 0 1 1-1h18V0H3a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V12h-2z\"></path> <path d=\"M10 8a4 4 0 1 0 4-4 4 4 0 0 0-4 4zm6 0a2 2 0 1 1-2-2 2 2 0 0 1 2 2zM28 4V0h-2v4h-4v2h4v4h2V6h4V4h-4z\"></path></svg> <input type=\"file\" name=\"Pictures\" id=\"upload-pics\" multiple class=\"hidden\" accept=\"image/*\"></label></form><div class=\"w-full h-2/3 flex flex-col mt-1 items-center text-ellipsis\" id=\"files-list\"><p id=\"files-message\" class=\"flex w-full h-full justify-center items-center text-center text-gray-600\">No Files Selected</p></div></div></div><!-- /Gallery Grid --></div><!-- /Gallery Container --><div class=\"flex w-auto h-auto sticky bottom-0 left-0 justify-center items-center py-2\"><button class=\"flex flex-row w-auto h-auto bg-btnPrimary gap-2 hover:bg-hoverBtnPrimary text-btnPrimaryText border border-2 border-gray-800 px-2 py-1 mr-2 rounded-lg shadow shadow-slate-700 shadow-md hover:shadow-none transition duration-150 ease-in-out\" id=\"save-button\" type=\"submit\" hx-target=\"#files-list\" hx-swap=\"innerHTML\" hx-put=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("/editor/" + work.Title))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 98, Col: 62}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 105, Col: 62}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
@@ -199,7 +199,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(picUrl)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 114, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 121, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -238,7 +238,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("#image-container-" + position))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 129, Col: 67}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 136, Col: 67}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -256,7 +256,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 			var templ_7745c5c3_Var14 string
 			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Opacity": "false", "PicUrl": "%s", "Position": "%s", "WorkTitle": "%s"}`, picUrl, position, workTitle))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 131, Col: 130}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 138, Col: 130}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var14))
 			if templ_7745c5c3_Err != nil {
@@ -275,7 +275,7 @@ func UpdatePicStatus(opacity string, picUrl string, position string, workTitle s
 			var templ_7745c5c3_Var15 string
 			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf(`{"Opacity": "true", "PicUrl": "%s", "Position": "%s", "WorkTitle": "%s"}`, picUrl, position, workTitle))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 134, Col: 129}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 141, Col: 129}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 			if templ_7745c5c3_Err != nil {
@@ -345,7 +345,7 @@ func FilesSelectedContainer(fileNames []string, workTitle string) templ.Componen
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(fileName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 151, Col: 22}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 158, Col: 22}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
@@ -356,20 +356,49 @@ func FilesSelectedContainer(fileNames []string, workTitle string) templ.Componen
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><div class=\"w-full md:w-10/12 h-1/4 flex justify-end items-end gap-2 pb-2\"><button class=\"w-auto h-auto mr-2 rounded-lg flex justify-center gap-1 items-center border border-2 border-emerald-700 bg-emerald-500 text-slate-800 overflow-hidden px-2 py-1 shadow-md shadow-slate-800 hover:bg-emerald-300 hover:border-emerald-700 hover:shadow-none transition duration-150s ease-in-out\" hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul><div class=\"w-full md:w-10/12 h-1/4 flex justify-end items-end gap-2 pb-2\"><button class=\"w-auto h-auto mr-2 text-sm md:text-md rounded-lg flex justify-center gap-1 items-center border border-2 border-amber-600 bg-amber-500 hover:bg-amber-300 text-slate-800 overflow-hidden px-2 py-1 shadow-md shadow-slate-800 hover:border-amber-500 hover:shadow-none transition duration-150s ease-in-out\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(templ.JoinStringErrs("/editor/" + workTitle))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 158, Col: 62}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorGalleryComp.templ`, Line: 165, Col: 62}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-include=\"#form\" id=\"upload-pics\" hx-indicator=\"#spinner-upload\">Upload <span class=\"spinner animate-spin h-6 w-6\" id=\"spinner-upload\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-include=\"#form\" id=\"upload-pics\" hx-indicator=\"#spinner-upload\"><span class=\"w-1 h-1 md:w-2 md:h-2 rounded-full bg-gray-100 animate-ping\"></span> Upload <span class=\"spinner animate-spin h-6 w-6\" id=\"spinner-upload\"><svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" stroke=\"#bc690d\"><g id=\"SVGRepo_bgCarrier\" stroke-width=\"0\"></g><g id=\"SVGRepo_tracerCarrier\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></g><g id=\"SVGRepo_iconCarrier\"><path d=\"M12 22C17.5228 22 22 17.5228 22 12H19C19 15.866 15.866 19 12 19V22Z\" fill=\"#fff9d1\"></path> <path d=\"M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z\" fill=\"#fff9d1\"></path></g></svg></span></button></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func FileListMessage() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
+			return templ_7745c5c3_CtxErr
+		}
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var19 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var19 == nil {
+			templ_7745c5c3_Var19 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p id=\"files-message\" class=\"flex w-full h-full justify-center items-center text-center text-gray-600\">No Files Selected</p>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

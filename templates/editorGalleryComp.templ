@@ -24,10 +24,10 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
 
     <!-- Work Info Container -->
         <div id="work-info-container" class="w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12">
-            <h2 id="work-title" class="text-3xl md:text-5xl text-center">{ work.Title }</h2>
+            <h2 id="work-title" class="text-3xl md:text-5xl text-center dark:text-white">{ work.Title }</h2>
             <span class="block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center">07/26/2024</span>
             <div class="md:w-3/5 w-full text-lg h-auto flex justify-center items-center">
-                <p id="work-description" class="md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left">
+                <p id="work-description" class="md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left dark:text-white">
                 { work.Description }
                 </p>
             </div>    
@@ -41,12 +41,14 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
         <div class=" flex h-auto grid md:grid-cols-3 auto-cols-max grid-cols-2 w-11/12 md:gap-3 gap-1" id="gallery-grid">
             for _, item := range galleryItems{
                 <div class="w-full md:h-96 h-80 flex relative" id={templ.JoinStringErrs("image-container-"+ item.Position)}>
+                <div class="image-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse z-10"></div>
                     <img
                         class="w-full h-full object-cover"
                         src={ item.Path }
                         alt=""
                         loading="lazy"
                         id="my-pic"
+                        hx-on="load: this.closest('div').querySelector('.image-skeleton').style.display = 'none'"
                     />
                     <button
                     type="button"
@@ -82,7 +84,12 @@ templ GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemF
                     </label>
                 </form>
                 // Upload container confirm details
-                <div class="w-full h-2/3 flex flex-col mt-1 items-center text-ellipsis" id="files-list"></div>
+                <div class="w-full h-2/3 flex flex-col mt-1 items-center text-ellipsis" id="files-list">
+                <p 
+                    id="files-message"
+                    class="flex w-full h-full justify-center items-center text-center text-gray-600">No Files Selected
+                </p>
+                </div>
             </div>
         </div>
     <!-- /Gallery Grid -->
@@ -154,12 +161,13 @@ templ FilesSelectedContainer(fileNames []string, workTitle string) {
     </ul>
     <div class="w-full md:w-10/12 h-1/4 flex justify-end items-end gap-2 pb-2">
         <button
-        class="w-auto h-auto mr-2 rounded-lg flex justify-center gap-1 items-center border border-2 border-emerald-700 bg-emerald-500 text-slate-800 overflow-hidden px-2 py-1 shadow-md shadow-slate-800 hover:bg-emerald-300 hover:border-emerald-700 hover:shadow-none transition duration-150s ease-in-out"
+        class="w-auto h-auto mr-2 text-sm md:text-md rounded-lg flex justify-center gap-1 items-center border border-2 border-amber-600 bg-amber-500 hover:bg-amber-300 text-slate-800 overflow-hidden px-2 py-1 shadow-md shadow-slate-800 hover:border-amber-500 hover:shadow-none transition duration-150s ease-in-out"
         hx-post={ templ.JoinStringErrs("/editor/" + workTitle) }
         hx-include="#form"
         id="upload-pics"
         hx-indicator="#spinner-upload"
         >
+        <span class="w-1 h-1 md:w-2 md:h-2 rounded-full bg-gray-100 animate-ping"></span>
         Upload
             <span class="spinner animate-spin h-6 w-6" id="spinner-upload">
                 <svg viewBox="0 0 24 24"
@@ -169,4 +177,11 @@ templ FilesSelectedContainer(fileNames []string, workTitle string) {
             </span>
         </button>
     </div>
+}
+
+templ FileListMessage() {
+      <p 
+        id="files-message"
+        class="flex w-full h-full justify-center items-center text-center text-gray-600">No Files Selected
+    </p>
 }

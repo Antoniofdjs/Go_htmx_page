@@ -25,10 +25,10 @@ templ Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEn
 
         <!-- Work Info Container -->
         <div id="work-info-container" class="w-full h-1/4 md:justify-center justify-center flex flex-col text-left md:text-center md:items-center py-12">
-            <h2 id="work-title" class="text-3xl md:text-5xl text-center">{ work.Title }</h2>
-            <span class="block md:pb-1 md:pt-2 pb-4 text-md dark:text-white text-center">07/26/2024</span>
+            <h2 id="work-title" class="text-3xl md:text-5xl text-center dark:text-white">{ work.Title }</h2>
+            <span class="block md:pb-1 md:pt-2 pb-4 text-md dark:text-white text-center dark:text-white">07/26/2024</span>
             <div class="md:w-3/5 w-full text-lg h-auto flex justify-center items-center">
-                <p id="work-description" class="md:w-full w-11/12 text-2xl text-bold h-auto md:text-center text-left">
+                <p id="work-description" class="md:w-full w-11/12 text-2xl text-bold h-auto md:text-center text-left dark:text-white">
                 { work.Description }
                 </p>
             </div>    
@@ -41,7 +41,8 @@ templ Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEn
             <!-- Gallery Grid -->
             <div class=" flex h-auto grid md:grid-cols-3 auto-cols-max grid-cols-2 w-11/12 md:gap-3 gap-1" id="gallery-grid">
                 for _, item := range galleryItems{
-                    <div class="w-full md:h-96 h-80 flex">
+                    <div class="w-full md:h-96 h-80 flex relative">
+                        <div class="image-skeleton absolute top-0 left-0 w-full h-full bg-gray-300 animate-pulse z-10"></div>
                         <img
                             class="w-full h-full object-cover cursor-zoom-in"
                             id="modal-trigger"
@@ -52,7 +53,8 @@ templ Gallery(work models.WorkFrontEnd, galleryItems []models.GalleryItemFrontEn
                             hx-swap="afterend"
                             hx-get="/image"
                             hx-vals={ fmt.Sprintf(`{"Path": "%s"}`, item.Path) }
-                            hx-on="click:document.body.style.overflow='hidden'"
+                            hx-on="click:document.body.style.overflow='hidden'
+                            load: this.closest('div').querySelector('.image-skeleton').style.display = 'none'"
                         />
                     </div>
                 }
