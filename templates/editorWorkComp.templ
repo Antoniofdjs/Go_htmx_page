@@ -138,7 +138,7 @@ templ ButtonsContainer(work models.WorkFrontEnd) {
         @EditorButton("InsertBelow", work)
         @EditorButton("Delete", work)
         <a
-        class="gallery-link flex justify-center items-center h-14 dark:bg-btnPrimary bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out"
+        class="gallery-link flex justify-center items-center h-14 bg-btnPrimary dark:bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out"
         href={ templ.SafeURL("/editor/" + work.Title) }
         >
         Gallery
