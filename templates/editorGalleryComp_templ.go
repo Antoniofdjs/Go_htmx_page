@@ -60,7 +60,7 @@ func GalleryEditor(work models.WorkFrontEnd, galleryItems []models.GalleryItemFr
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-2xl  text-bold h-auto md:text-center text-left dark:text-white\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h2><span class=\"block md:pb-1 md:pt-2 pb-4 text-lg text-md dark:text-white text-center\">07/26/2024</span><div class=\"md:w-3/5 w-full text-lg h-auto flex justify-center items-center\"><p id=\"work-description\" class=\"md:w-full w-11/12 text-md md:text-2xl text-bold h-auto md:text-center text-left dark:text-white\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
