@@ -198,7 +198,7 @@ func EditorButton(component string, work models.WorkFrontEnd) templ.Component {
 			templ_7745c5c3_Var7 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" class=\"h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" hx-get=\"/editor/components\" hx-target=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" class=\"h-14 bg-btnPrimary dark:bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out\" hx-get=\"/editor/components\" hx-target=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

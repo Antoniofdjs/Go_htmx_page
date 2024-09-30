@@ -155,7 +155,7 @@ The button will have the correct redirects and hx-vals and methods to call in ba
 templ EditorButton(component string, work models.WorkFrontEnd) {
     <button
         type="button"
-        class="h-14 bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out"
+        class="h-14 bg-btnPrimary dark:bg-btnPrimary hover:text-btnAccent hover:border-btnAccent text-btnPrimaryText rounded-lg font-bold py-2 px-4 shadow-md shadow-slate-800 hover:shadow-none border border-2 border-gray-800 transition duration-150 ease-in-out"
         hx-get="/editor/components"
         hx-target={ templ.JoinStringErrs("#buttons-container-" + work.Position) }
         hx-swap="outerHTML"
