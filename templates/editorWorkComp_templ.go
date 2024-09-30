@@ -54,14 +54,14 @@ func EditorSection(works []models.WorkFrontEnd) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Image text container --><div class=\"w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center\"><div class=\"bg-black bg-opacity-50 w-full h-full flex flex-col items-baseline\"><h2 class=\"text-white md:pl-2 w-10/12 text-left mt-2 font-serif text-xl break-all\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><!-- Image text container --><div class=\"w-full h-full hover:opacity-100 absolute top-0 left-0 flex items-center\"><div class=\"bg-black bg-opacity-50 w-full h-full flex flex-col items-baseline\"><h2 class=\"text-white md:pl-2 w-10/12 text-left mt-2 font-serif text-xl break-words wrap\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(work.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorWorkComp.templ`, Line: 25, Col: 111}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/editorWorkComp.templ`, Line: 25, Col: 118}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {

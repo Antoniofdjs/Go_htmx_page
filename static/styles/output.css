@@ -1120,6 +1120,10 @@ video {
   word-break: normal;
 }
 
+.break-words {
+  overflow-wrap: break-word;
+}
+
 .break-all {
   word-break: break-all;
 }
